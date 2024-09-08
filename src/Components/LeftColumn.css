@@ -50,7 +50,7 @@
 }
 
 .subMenuItem {
-  margin-bottom: 10px;
+  margin-bottom: 10px; /* Added margin between teams */
 }
 
 .subMenuItem a {
@@ -63,28 +63,45 @@
   color: #1DA1F2;
 }
 
-/* Submenu Titles */
-.subMenuTitle {
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  margin: 15px 0 10px;
-}
-
-/* Separator */
 .menuSeparator {
   height: 1px;
   background-color: rgba(136, 153, 166, 0.5);
-  margin: 15px 0;
+  margin: 20px 0;
 }
 
-/* Chevron Icons */
-.chevron-icon {
-  margin-left: 5px;
-  color: #8899A6;
+/* Players Section */
+.playersSection {
+  margin-top: 20px;
 }
 
-/* Hover Effect */
-.menuItem:hover .chevron-icon {
+.playersList {
+  margin-bottom: 15px;
+}
+
+.sectionTitle {
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.playerItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.playerItem a {
+  font-size: 16px;
+  color: #fff;
+  text-decoration: none;
+  padding-left: 10px;
+}
+
+.playerItem a:hover {
+  color: #1DA1F2;
+}
+
+.playerIcon {
+  font-size: 18px;
   color: #1DA1F2;
 }
