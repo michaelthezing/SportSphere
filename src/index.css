@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Scrollbar */
+/* This applies to all scrollable elements */
+::-webkit-scrollbar {
+  width: 12px; /* Adjusted scrollbar width */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #303030; /* Color of the tracking area (scrollbar background) */
+}
+
+/* Handle (scroll thumb) */
+::-webkit-scrollbar-thumb {
+  background: #1682B0; /* Blue color for the scrollbar thumb */
+  border-radius: 10px; /* Rounded scrollbar thumb */
+  border: 3px solid #303030; /* Add a border to give a gap around the thumb */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1a8ecf; /* Lighter blue color on hover */
+  border-radius: 10px;
+}
+
+/* Smooth scrolling behavior */
+html {
+  scroll-behavior: smooth;
+}

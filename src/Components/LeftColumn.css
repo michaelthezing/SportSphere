@@ -1,0 +1,90 @@
+/* Profile Section */
+.profileSection {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-username {
+  color: #fff;
+  font-size: 22px;
+  margin: 10px 0;
+}
+
+.profile-name {
+  color: #8899A6;
+  font-size: 14px;
+}
+
+/* Menu Section */
+.menuSection {
+  margin-top: 30px;
+}
+
+.menuList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menuItem {
+  margin: 15px 0;
+}
+
+.menuItem a {
+  text-decoration: none;
+  font-size: 18px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.menuItem a:hover {
+  transform: translateY(-4px);
+  color: #1DA1F2;
+}
+
+.subMenuList {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+.subMenuItem {
+  margin-bottom: 10px;
+}
+
+.subMenuItem a {
+  font-size: 16px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.subMenuItem a:hover {
+  color: #1DA1F2;
+}
+
+/* Submenu Titles */
+.subMenuTitle {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  margin: 15px 0 10px;
+}
+
+/* Separator */
+.menuSeparator {
+  height: 1px;
+  background-color: rgba(136, 153, 166, 0.5);
+  margin: 15px 0;
+}
+
+/* Chevron Icons */
+.chevron-icon {
+  margin-left: 5px;
+  color: #8899A6;
+}
+
+/* Hover Effect */
+.menuItem:hover .chevron-icon {
+  color: #1DA1F2;
+}

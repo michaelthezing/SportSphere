@@ -1,0 +1,290 @@
+/* Grid layout for three columns */
+.profile-page-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; /* Left column, Middle column, Right column */
+    gap: 20px;
+    margin: 0 auto;
+    background-color: rgb(24, 28, 28); /* Background color */
+  }
+  
+  /* Left column */
+  .left-column {
+    margin-left: 40px;
+    padding: 20px;
+    max-width: 2300px;
+    height: 95vh;
+    position: sticky;
+    top: 0; /* Stick to the top of the viewport */
+    overflow: hidden; /* Remove scroll from left column */
+    color: white;
+   
+  }
+  .uneditable-username {
+    color: gray;
+    font-size: 14px;
+    margin-top: 15px;
+  }
+  
+/* "Make a Post" Button */
+/* "Make a Post" Button */
+.make-post-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #1682B0;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .make-post-button:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Post Modal */
+  .post-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .post-modal-content {
+    background-color: #282c34;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .post-input {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: #3a3f47;
+    color: white;
+  }
+  
+  .submit-post-button, .cancel-post-button {
+    background-color: #1682B0;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cancel-post-button {
+    background-color: #e0245e;
+    margin-left: 10px;
+  }
+  
+  .submit-post-button:hover, .cancel-post-button:hover {
+    background-color: #28628f;
+  }
+  
+  
+  /* Middle column (Profile content) */
+ 
+  
+  .profile-header {
+    position: relative;
+  }
+  
+ 
+  .profile-info {
+    color: white;
+    padding-left: 10px;
+    margin-top: 20px;
+  }
+  
+  .profile-info h2 {
+    font-size: 24px;
+    margin: 0;
+    color: white;
+  }
+  
+  .username {
+    color: #657786;
+  }
+  
+  .bio, .joined {
+    margin: 5px 0;
+    color: #657786;
+    color: white;
+  }
+  
+  .stats {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+  }
+  
+  .profile-posts {
+    margin-top: 30px;
+    color: white;
+  }
+  
+  .post {
+   
+    padding: 10px 0;
+  }
+  
+  .post p {
+    margin: 0;
+  }
+  
+  .post small {
+    color: #657786;
+  }
+  
+  /* Right column */
+  .right-column {
+   
+    max-width: 350px;
+    height: 100vh;
+    overflow-y: auto; /* Allow scrolling only on the right column */
+    position: sticky;
+    top: 0; /* Stick to the top of the viewport */
+    color: white;
+
+  }
+  
+  .trendingSection {
+    margin-bottom: 20px;
+  }
+  
+  .trendingTitle {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .trendingList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .trendingItem {
+    margin-bottom: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .trendingItem:hover {
+    transform: translateY(-4px);
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  }
+  
+  .bio-edit {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .bio-input {
+    display: flex;
+    align-items: center;
+    background-color: transparent; /* Fully transparent background */
+    border: 2px solid #1682B0;
+    border-radius: 25px;
+    padding:7px;
+    margin-top: 8px;
+    width: 250px; /* Adjust the width to fit the bio section */
+    transition: width 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 1px rgba(22, 130, 176, 0.6); /* Optional shadow effect */
+    color: #fff; /* White text */
+  }
+  
+  .bio-input:focus {
+    width: 300px; /* Slightly expand when focused */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Larger shadow when focused */
+  }
+  
+  .bio-input:hover {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow effect on hover */
+  }
+  
+  .bio-input input {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    font-size: 11px;
+    background-color: transparent; /* Transparent background for input */
+    color: #fff; /* White text for visibility */
+  }
+  
+  .bio-input input::placeholder {
+    color: rgba(255, 255, 255, 0.8); /* White placeholder text with slight opacity */
+    font-size: 11px;
+  }
+  
+  .bio-input input:focus::placeholder {
+    color: rgba(255, 255, 255, 0.5); /* Slightly dim the placeholder on focus */
+  }
+  
+  .save-button, .cancel-button {
+
+    background-color: #1682B0;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+  }
+  
+  .cancel-button {
+    background-color: #e0245e;
+  }
+  
+  .name-button{
+    margin-left: 10px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid #1682B0;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 4px;
+   
+  }
+  .edit-button {
+    margin-top: 5px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid #1682B0;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 4px;
+    
+  }
+  
+  .name-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .name-edit {
+    display: flex;
+    gap: 10px;
+
+  }
