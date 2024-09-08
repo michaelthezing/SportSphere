@@ -8,7 +8,7 @@ import { firebaseConfig } from './firebaseConfig'; // Import the config
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize Firebase services
+
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const auth = getAuth(app);
