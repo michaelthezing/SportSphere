@@ -1,0 +1,43 @@
+/* Right Column Styling */
+.RightColumn {
+  padding: 20px;
+  max-width: 350px;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  position: sticky;
+  top: 100px;
+  background-color: #192734;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+/* Trending Section */
+.trendingSection {
+  margin-bottom: 20px;
+}
+
+.trendingTitle {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.trendingList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.trendingItem {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #8899A6;
+  cursor: pointer;
+}
+
+.trendingItem:hover {
+  transform: translateY(-4px);
+  color: #1DA1F2;
+}

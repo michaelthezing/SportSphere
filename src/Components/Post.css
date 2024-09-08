@@ -1,0 +1,224 @@
+/* Post Styling - Modernized */
+.post {
+  width: 100%;
+ border-radius: 10px;
+  background-color: transparent; /* Fully transparent background */
+  border: 2px solid #1682B0; /* Add border color */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3); /* Larger shadow when focused */
+  margin: 30px 0;
+  transition: box-shadow 0.3s ease;
+}
+
+.post:hover {
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3); /* Larger shadow when focused */
+}
+.repostCount{
+  color: white;
+  padding: 2px;
+  margin-left: 3px;
+}
+.postWrapper {
+  padding: 10px;
+  background-color: transparent; /* Transparent background inside wrapper */
+  border-radius: 10px; /* Keep rounded corners */
+}
+
+.deleteIcon, .deleteCommentIcon {
+  color: white; /* Ensure it's visible */
+  font-size: 15px; /* Adjust the size of the trash can icon */
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.deleteIcon:hover, .deleteCommentIcon:hover {
+  color: red; /* Change the color to red when hovered over */
+  transition: color 0.3s ease; /* Smooth transition when hovering */
+  
+}
+
+.repostIcon {
+  color: white; /* White color for visibility */
+  font-size: 20px; /* Adjust the size of the repost icon */
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+.repostIcon:hover {
+  color: #1682B0; /* Change color on hover to indicate interaction */
+  transition: color 0.3s ease; /* Smooth transition on hover */
+}
+.postTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.postTopLeft {
+  display: flex;
+  align-items: center;
+}
+
+.commentUsername {
+  font-size: 14px;
+  font-weight: 600;
+  margin-right: 10px;
+  color: #fff; /* White text for the username */
+}
+
+
+
+/* Comment top section to align username and delete button */
+.commentTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+
+
+.postUsername {
+  font-size: 16px;
+  font-weight: 600;
+  margin-right: 5px;
+  color: #fff; /* Ensure username is white */
+}
+
+.postDate {
+  font-size: 12px;
+  color: #fff; /* White date text */
+}
+
+.postTopRight {
+  font-size: 24px;
+  cursor: pointer;
+  color: #fff; /* Ensure right-side action is white */
+}
+
+.postCenter {
+  margin: 20px 0;
+}
+
+.postText {
+  font-size: 15px;
+  color: #fff; /* Ensure post text is white */
+}
+
+.postBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.postBottomLeft {
+  display: flex;
+  align-items: center;
+}
+
+.likeText, .dislikeText {
+  font-size: 14px;
+  color: #606770;
+  cursor: pointer;
+  margin-right: 15px;
+}
+.repostButton {
+  background-color: transparent;
+  color: white;
+  border: 1px solid #1682B0;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 4px 10px;
+  margin-left: 10px;
+}
+
+.repostButton:hover {
+  background-color: #1682B0;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.likeText:hover, .dislikeText:hover {
+  color: #0073b1; /* LinkedIn blue hover */
+}
+
+.postLikeCounter {
+  font-size: 15px;
+  color: #fff; /* Ensure like counter is white */
+}
+
+.postCommentText {
+  cursor: pointer;
+
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.9); /* White text for comments */
+}
+
+.postCommentText:hover {
+  color: #fff; /* Full white on hover */
+  
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1); /* Animation smoothing */
+}
+  
+
+/* Comments Section */
+.commentsSection {
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #e0e0e0; /* Light gray border for separation */
+}
+
+.commentsList {
+  margin-bottom: 15px;
+}
+
+
+
+
+
+.commentText {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #fff; /* Ensure comment text is white */
+}
+
+.commentActions {
+  margin-top: 10px;
+  display: flex;
+  color: white;
+}
+
+/* Comment Input */
+.commentInput {
+  width: 95%;
+  padding: 10px;
+  border: 2px solid #1682B0; /* Border color for input */
+  border-radius: 20px;
+  outline: none;
+  font-size: 14px;
+  background-color: transparent; /* Fully transparent input background */
+  color: #fff; /* White text for input */
+  transition: box-shadow 0.3s ease;
+  
+}
+
+.commentInput::placeholder {
+  color: rgba(255, 255, 255, 0.8); /* White placeholder text with slight opacity */
+}
+
+.commentInput:focus {
+  box-shadow: 0 0 6px rgba(22, 130, 176, 0.6); /* Optional shadow effect */
+}
+.sendIcon {
+  cursor: pointer;
+  font-size: 20px;
+  color: #1682B0;
+}
+
+.sendIcon:hover {
+  color: #28628f;
+}
+.commentInputWrapper {
+  display: flex;
+  align-items: center;
+}
+

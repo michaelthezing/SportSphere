@@ -1,0 +1,72 @@
+/* MiddleColumn Styling */
+
+/* Transparent and Modern Share Box */
+.shareBox {
+  display: flex;
+  align-items: center;
+  background-color: transparent; /* Fully transparent background */
+  border: 2px solid #1682B0;
+  border-radius: 25px;
+  padding: 5px;
+  width: 99%;
+  height: 31px;
+  
+  transition: box-shadow 0.3s ease;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3); /* Larger shadow when focused */
+  transition: all 0.3s ease; /* Smooth transition for all properties */
+}
+
+.shareBox.focused {
+  outline: none; /* Remove default outline */
+  border-color: #1682B0; /* Maintain the blue border on focus */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Larger shadow when focused */
+  width: 99.5%;
+  height: 35px;
+
+}
+.shareBox i {
+  margin-left: 5px;
+  color: #1682B0;
+ 
+}
+
+.shareBox:hover {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow effect on hover */
+}
+
+/* Share Input Styling */
+.shareInput {
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  font-size: 13px;
+  padding: 6px;
+  background-color: transparent; /* Transparent input background */
+  color: #fff; /* White text color to ensure visibility */
+}
+
+.shareInput::placeholder {
+  color: rgba(255, 255, 255, 0.8); /* White placeholder with slight opacity */
+  font-size: 13px;
+  padding-left: 10px;
+}
+
+.shareInput:focus::placeholder {
+  color: transparent; /* Hide placeholder when focused */
+}
+
+.sendIcon {
+  cursor: pointer;
+  font-size: 20px;
+  color: #1682B0;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.sendIcon:hover {
+  color: #28628f;
+}
+/* Post List */
+.postList {
+  margin-top: 20px;
+}

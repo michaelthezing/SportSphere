@@ -1,0 +1,132 @@
+/* NavBar.css */
+
+/* NavBar Container */
+.navbar {
+  border-bottom: 2px solid #1682B0;
+  
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(24, 28, 28); /* Matches the background */
+}
+
+/* Logo Styling */
+.navbar-logo a {
+  color: #fff; /* Ensure visibility on dark background */
+  font-size: 24px;
+  text-decoration: none;
+}
+
+/* Completely Transparent Search Bar */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: transparent; /* Fully transparent background */
+  border: 2px solid #1682B0;
+  border-radius: 25px;
+  padding: 10px;
+  width: 400px;
+  transition: width 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 5px rgba(22, 130, 176, 0.6); /* Optional shadow effect */
+}
+
+.search-bar.focused {
+  width: 500px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Larger shadow when focused */
+}
+
+.search-bar:hover {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow effect on hover */
+}
+
+.search-bar i {
+  color: #1682B0;
+  margin-right: 10px;
+}
+
+.search-bar input {
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  font-size: 14px;
+  background-color: transparent; /* Transparent background for input */
+  color: #fff; /* White text to ensure visibility on dark background */
+}
+
+.search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.8); /* White placeholder text with slight opacity */
+  font-size: 13px;
+}
+
+.search-bar input:focus::placeholder {
+  color: rgba(255, 255, 255, 0.5); /* Slightly dim the placeholder on focus */
+}
+
+/* Navbar Links */
+.navbar-links {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-links li {
+  display: inline-block;
+  margin: 0 20px 0 0;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1); /* Animation smoothing */
+}
+
+.navbar-links li a {
+  color: #fff; /* Ensure links are visible on dark background */
+  text-align: center;
+  text-decoration: none;
+  padding: 10px;
+  font-size: 20px; /* Icon size */
+}
+
+.navbar-links li:hover {
+  transform: translateY(-4px); /* Hover effect with animation */
+}
+
+.navbar-links li:active {
+  transform: translateY(0);
+}
+
+/* Responsive Adjustments */
+@media only screen and (max-width: 1200px) {
+  .navbar-links li {
+    margin: 0 2px 0 0;
+  }
+
+  .search-bar {
+    width: 300px;
+  }
+
+  .search-bar.focused {
+    width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-links {
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+  }
+
+  .search-bar {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .search-bar.focused {
+    width: 100%;
+  }
+}

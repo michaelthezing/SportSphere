@@ -1,0 +1,97 @@
+/* Signup Page styles */
+
+.mainContainer {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: rgb(24, 28, 28);
+    color: white;
+  }
+  
+  .titleContainer {
+    display: flex;
+    flex-direction: column;
+    font-size: 64px;
+    font-weight: bolder;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .inputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  
+  .inputBox {
+    margin-top: 10px;
+    height: 48px;
+    width: 400px;
+    font-size: large;
+    border-radius: 8px;
+    background-color: transparent; /* Fully transparent background */
+    border: 2px solid #1682B0;
+    padding-left: 8px;
+    color: white;
+    transition: all 0.3s ease; /* Smooth transition for all properties */
+  }
+  
+  .inputBox:focus {
+    outline: none; /* Remove default outline */
+    border-color: #1682B0; /* Maintain the blue border on focus */
+    color: white; /* Keep text white when focused */
+    width: 410px; /* Slightly increase the width */
+    height: 52px; /* Slightly increase the height */
+    box-shadow: 0 0 10px rgba(22, 130, 176, 0.6); /* Optional shadow effect */
+  }
+  
+  .buttonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+  }
+  
+  .signupButton {
+    width: 400px;
+    height: 48px;
+    font-size: large;
+    border-radius: 8px;
+    background-color: #1682B0;
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(22, 130, 176, 0.6); /* Optional shadow effect */
+  }
+  
+  .signupButton:hover {
+    background-color: #28628f;
+  }
+  
+  .errorLabel {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  
+  .loginLink {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: white;
+  }
+  
+  .loginLink a {
+    color: #1682B0;
+    text-decoration: none;
+  }
+  
+  .loginLink a:hover {
+    text-decoration: underline;
+  }
+  

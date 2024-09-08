@@ -1,0 +1,40 @@
+.homeContainer {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgb(24, 28, 28); /* White background for the entire page */
+  }
+  
+  .LeftColumn, .MiddleColumn, .RightColumn {
+    padding: 20px;
+    background-color: transparent; /* Make the columns blend with the background */
+    margin: 0 10px;
+    box-shadow: none; /* Remove any shadow */
+  }
+  
+  .LeftColumn {
+   flex: 2;
+    max-width: 280px;
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+    position: sticky;
+    top: 100px;
+  }
+  
+  .MiddleColumn {
+    flex: 5;
+    max-width: 1000px;
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+  }
+  
+  .RightColumn {
+    flex: 3;
+    max-width: 350px;
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+    position: sticky;
+    top: 100px;
+  }
+  
+  /* Custom scrollbar styling for LeftColumn and RightColumn */
