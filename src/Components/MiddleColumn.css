@@ -1,5 +1,9 @@
 /* MiddleColumn Styling */
-
+.MiddleColumn {
+  width: 100%;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  box-sizing: border-box;
+}
 /* Transparent and Modern Share Box */
 .shareBox {
   display: flex;
@@ -69,4 +73,25 @@
 /* Post List */
 .postList {
   margin-top: 20px;
+}
+
+/* Tab styling */
+.tabSelector {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.tabButton {
+  background-color: #f1f1f1;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 25px;
+  margin-right: 10px;
+}
+
+.tabButton.active {
+  background-color: #1682B0;
+  color: white;
 }

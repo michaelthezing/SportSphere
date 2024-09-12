@@ -21,6 +21,7 @@ function App() {
         <Route path="/user/:userId" element={<UserProfilePage />} /> {/* Dynamic User Profile Route */}
         <Route path="/user/:userId/followers" element={<FollowersPage />} /> {/* Route for followers */}
         <Route path="/user/:userId/following" element={<FollowingPage />} /> {/* Route for following */}
+        <Route path="/user/:id" element={<ProfilePage />} />
       </Routes>
     </Router>
   );

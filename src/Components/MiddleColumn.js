@@ -2,16 +2,18 @@ import React, { useState, useEffect } from 'react';
 import './MiddleColumn.css';
 import Post from './Post';
 import { db, auth } from '../firebase'; // Firebase Firestore and Auth
-import { collection, addDoc, query, onSnapshot, doc, getDoc, orderBy } from 'firebase/firestore'; // Removed "where"
+import { collection, addDoc, query, onSnapshot, doc, getDoc, orderBy, where } from 'firebase/firestore'; // Added "where"
 import { onAuthStateChanged } from 'firebase/auth'; // Import listener for auth state changes
 
 export default function MiddleColumn() {
   const [isFocused, setIsFocused] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [followingPosts, setFollowingPosts] = useState([]); // Add state for following posts
   const [inputValue, setInputValue] = useState('');
   const [username, setUsername] = useState(''); // Fetch and store dynamic username
   const [loading, setLoading] = useState(true); // Add a loading state
   const [currentUser, setCurrentUser] = useState(null); // Use state for current user
+  const [tab, setTab] = useState('all'); // State to track which tab is active (all or following)
 
   // Listen to authentication state changes
   useEffect(() => {
@@ -19,6 +21,7 @@ export default function MiddleColumn() {
       if (user) {
         setCurrentUser(user); // Set the authenticated user
         await fetchUsername(user.uid); // Fetch the username when user is logged in
+        await fetchFollowingPosts(user.uid); // Fetch posts from followed users
       } else {
         setCurrentUser(null); // Handle user logout
         setUsername(''); // Clear username when logged out
@@ -42,8 +45,8 @@ export default function MiddleColumn() {
     }
   };
 
+  // Function to fetch all posts
   useEffect(() => {
-    // Fetch all posts from the Firestore database
     const fetchPosts = () => {
       const postsQuery = query(
         collection(db, 'posts'),
@@ -67,6 +70,39 @@ export default function MiddleColumn() {
 
     return () => unsubscribePosts(); // Cleanup the posts listener
   }, []);
+
+  // Function to fetch posts from followed users
+  const fetchFollowingPosts = async (uid) => {
+    try {
+      const userDoc = await getDoc(doc(db, 'users', uid));
+      if (userDoc.exists()) {
+        const followingList = userDoc.data().following || []; // Get the list of followed users
+
+        if (followingList.length > 0) {
+          const followingPostsQuery = query(
+            collection(db, 'posts'),
+            where('userid', 'in', followingList), // Filter posts by followed users
+            orderBy('date', 'desc')
+          );
+
+          const unsubscribe = onSnapshot(followingPostsQuery, (snapshot) => {
+            const followingPosts = snapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }));
+
+            setFollowingPosts(followingPosts); // Set the fetched posts into state
+          });
+
+          return unsubscribe;
+        } else {
+          setFollowingPosts([]); // If no users are followed, set an empty array
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching following posts: ', error);
+    }
+  };
 
   const handlePostSubmit = async () => {
     if (inputValue.trim() !== '' && currentUser && username) {
@@ -96,12 +132,41 @@ export default function MiddleColumn() {
     }
   };
 
+  // Function to render posts based on active tab
+  const renderPosts = () => {
+    if (tab === 'all') {
+      return posts.map((post) => <Post key={post.id} post={post} />);
+    } else if (tab === 'following') {
+      return followingPosts.length > 0 ? (
+        followingPosts.map((post) => <Post key={post.id} post={post} />)
+      ) : (
+        <p>No posts from followed users</p>
+      );
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>; // Show a loading message while fetching posts
   }
 
   return (
     <div className="MiddleColumn">
+      {/* Tab Selector */}
+      <div className="tabSelector">
+        <button
+          className={`tabButton ${tab === 'all' ? 'active' : ''}`}
+          onClick={() => setTab('all')}
+        >
+          All
+        </button>
+        <button
+          className={`tabButton ${tab === 'following' ? 'active' : ''}`}
+          onClick={() => setTab('following')}
+        >
+          Following
+        </button>
+      </div>
+
       <div className={`shareBox ${isFocused ? 'focused' : ''}`}>
         <input
           type="text"
@@ -119,10 +184,9 @@ export default function MiddleColumn() {
         ></i>
       </div>
 
+      {/* Post List */}
       <div className="postList">
-        {posts.map((post) => (
-          <Post key={post.id} post={post} />
-        ))}
+        {renderPosts()}
       </div>
     </div>
   );

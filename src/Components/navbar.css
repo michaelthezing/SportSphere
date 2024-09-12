@@ -1,43 +1,42 @@
-/* NavBar.css */
-
 /* NavBar Container */
 .navbar {
   border-bottom: 2px solid #1682B0;
-  
   padding: 20px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(24, 28, 28); /* Matches the background */
+  background-color: rgb(24, 28, 28);
 }
 
 /* Logo Styling */
 .navbar-logo a {
-  color: #fff; /* Ensure visibility on dark background */
+  color: #fff;
   font-size: 24px;
   text-decoration: none;
 }
 
-/* Completely Transparent Search Bar */
+/* Transparent Search Bar */
 .search-bar {
   display: flex;
   align-items: center;
-  background-color: transparent; /* Fully transparent background */
+  background-color: transparent;
   border: 2px solid #1682B0;
   border-radius: 25px;
   padding: 10px;
   width: 400px;
   transition: width 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 0 5px rgba(22, 130, 176, 0.6); /* Optional shadow effect */
+  box-shadow: 0 0 5px rgba(22, 130, 176, 0.6);
+  position: relative; /* Ensure suggestions list appears below it */
 }
 
+/* Search Bar Focus Effect */
 .search-bar.focused {
   width: 500px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Larger shadow when focused */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .search-bar:hover {
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow effect on hover */
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
 .search-bar i {
@@ -50,17 +49,44 @@
   outline: none;
   flex-grow: 1;
   font-size: 14px;
-  background-color: transparent; /* Transparent background for input */
-  color: #fff; /* White text to ensure visibility on dark background */
+  background-color: transparent;
+  color: #fff;
 }
 
 .search-bar input::placeholder {
-  color: rgba(255, 255, 255, 0.8); /* White placeholder text with slight opacity */
+  color: rgba(255, 255, 255, 0.8);
   font-size: 13px;
 }
 
 .search-bar input:focus::placeholder {
-  color: rgba(255, 255, 255, 0.5); /* Slightly dim the placeholder on focus */
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Styling for the suggestions dropdown */
+.suggestions-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  color: white;
+  position: absolute;
+  top: 45px; /* Position directly below the search bar */
+  width: 97%; /* Match the width of the search bar */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  border-radius: 5px;
+  background-color: #1682B0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.suggestions-list li {
+  padding: 10px;
+  cursor: pointer;
+  color: white; /* Ensure text color is black for readability */
+}
+
+.suggestions-list:hover {
+  background-color: #0a5278; /* Darker shade on hover */
 }
 
 /* Navbar Links */
@@ -75,19 +101,19 @@
 .navbar-links li {
   display: inline-block;
   margin: 0 20px 0 0;
-  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1); /* Animation smoothing */
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
 }
 
 .navbar-links li a {
-  color: #fff; /* Ensure links are visible on dark background */
+  color: #fff;
   text-align: center;
   text-decoration: none;
   padding: 10px;
-  font-size: 20px; /* Icon size */
+  font-size: 20px;
 }
 
 .navbar-links li:hover {
-  transform: translateY(-4px); /* Hover effect with animation */
+  transform: translateY(-4px);
 }
 
 .navbar-links li:active {

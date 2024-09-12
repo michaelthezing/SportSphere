@@ -231,8 +231,9 @@ const fetchFollowing = async () => {
                   ) : (
                     <>
                       {user?.name || 'Anonymous User'}
+                      {/* Pencil-square-o icon for Edit Name */}
                       <button onClick={() => setIsEditingName(true)} className="name-button">
-                        Edit Name
+                        <i className="fas fa-pencil"></i>
                       </button>
                     </>
                   )}
@@ -259,8 +260,9 @@ const fetchFollowing = async () => {
               ) : (
                 <div className="bio-section">
                   <p className="bio">{user?.bio || 'This user has no bio'}</p>
+                  {/* Pencil icon for Edit Bio */}
                   <button onClick={() => setIsEditingBio(true)} className="edit-button">
-                    Edit Bio
+                    <i className="fas fa-pencil"></i>
                   </button>
                 </div>
               )}
@@ -366,6 +368,7 @@ const fetchFollowing = async () => {
       </div>
     </>
   );
+  
   
 
 };
