@@ -84,6 +84,10 @@
   color: #fff; /* Ensure username is white */
 }
 
+.postUsername:hover{
+  cursor: pointer;
+}
+
 .postDate {
   font-size: 12px;
   color: #fff; /* White date text */

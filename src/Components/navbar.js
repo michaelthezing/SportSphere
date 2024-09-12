@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './navbar.css';
 
-function NavBar() {
+export default function NavBar() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isFocused, setIsFocused] = useState(false);
 
@@ -18,7 +18,7 @@ function NavBar() {
     <header>
       <nav className="navbar">
         <div className="navbar-logo">
-          <a href="/">Hot Takes</a>
+          <a href="/">SportSphere</a>
         </div>
         <div className={`search-bar ${isFocused ? 'focused' : ''}`}>
           <i className="fas fa-search"></i>
@@ -53,5 +53,3 @@ function NavBar() {
     </header>
   );
 }
-
-export default NavBar;

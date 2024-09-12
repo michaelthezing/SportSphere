@@ -105,7 +105,7 @@ export default function MiddleColumn() {
       <div className={`shareBox ${isFocused ? 'focused' : ''}`}>
         <input
           type="text"
-          placeholder="What's your NBA take?"
+          placeholder="What's your sport take?"
           className="shareInput"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}

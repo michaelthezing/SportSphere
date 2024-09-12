@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { doc, updateDoc, deleteDoc, arrayUnion, addDoc, collection, getDoc} from 'firebase/firestore'; // Import Firestore methods
 import { db, auth } from '../firebase'; // Import Firebase config and auth
 import './Post.css';
+import { Link,useNavigate } from 'react-router-dom';
+
 
 export default function Post({ post, onDelete }) { // onDelete is a callback to dynamically remove the post from the UI
   const [like, setLike] = useState(post.like || 0);
@@ -17,6 +19,8 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
   const postRef = doc(db, 'posts', post.id); // Get a reference to the post in Firestore
 
   const currentUser = auth.currentUser; // Get the current authenticated user
+  const navigate = useNavigate();
+
 
   // Handle liking a post and update Firestore
   const likeHandler = async () => {
@@ -209,6 +213,15 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
       console.error('Error reposting post:', error);
     }
   };
+  const handleProfileClick = () => {
+    if (post.userid === currentUser?.uid) {
+      // If the post is by the current user, navigate to their own profile page
+      navigate('/profile');
+    } else {
+      // Otherwise, navigate to the clicked user's profile
+      navigate(`/user/${post.userid}`);
+    }
+  };
 
   const formattedDate = new Date(post.date).toLocaleString('en-US', {
     timeZone: 'America/Los_Angeles', // Adjust for desired timezone
@@ -220,26 +233,27 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
   });
 
   return (
-    <div className="post">
+     <div className="post">
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            {/* Display the original author's name if it's a repost */}
-            <span className="postUsername">
+            <span className="postUsername" onClick={handleProfileClick}>
               {post.isRepost ? `Reposted from ${post.originalUsername}` : post.username || 'Anonymous User'}
             </span>
             <span className="postDate">{formattedDate}</span>
           </div>
           <div className="postTopRight">
-            {/* Show the trash can icon only if the current user is the post owner and it’s not a repost */}
+            {/* Show delete icon only if the current user is the post owner */}
             {!post.isRepost && currentUser?.uid === post.userid && (
               <i className="fas fa-trash-alt deleteIcon" onClick={deletePost}></i>
             )}
           </div>
         </div>
+  
         <div className="postCenter">
           <span className="postText">{post?.desc || post.content}</span>
         </div>
+  
         <div className="postBottom">
           <div className="postBottomLeft">
             <span className="likeText" onClick={likeHandler}>
@@ -253,12 +267,11 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
             <span className="postCommentText" onClick={() => setShowComments(!showComments)}>
               {comments.length} comments
             </span>
-            {/* Add the retweet icon for reposting */}
             <i className={`fas fa-retweet repostIcon ${hasReposted ? 'disabled' : ''}`} onClick={repostHandler}></i>
-            <span className="repostCount">{repostCount}</span> {/* Display the repost count */}
+            <span className="repostCount">{repostCount}</span>
           </div>
         </div>
-
+  
         {showComments && (
           <div className="commentsSection">
             <div className="commentsList">
@@ -298,4 +311,5 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
       </div>
     </div>
   );
+  
 }

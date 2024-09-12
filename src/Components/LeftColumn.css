@@ -48,6 +48,9 @@
   list-style-type: none;
   padding-left: 20px;
 }
+.subMenuTitle{
+  color: #1DA1F2
+}
 
 .subMenuItem {
   margin-bottom: 10px; /* Added margin between teams */
