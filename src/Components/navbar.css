@@ -1,16 +1,16 @@
 /* NavBar Container */
 .navbar {
-  border-bottom: 2px solid rgb(150, 150, 150);
+  border-bottom: 2px solid #D1D1D1; /* Subtle gray border */
   padding: 20px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(24, 28, 28);
+  background-color: #1D4E89; /* Primary dark blue for the navbar background */
 }
 
 /* Logo Styling */
 .navbar-logo a {
-  color: #fff;
+  color: #FFFFFF; /* White for logo text */
   font-size: 24px;
   text-decoration: none;
 }
@@ -20,27 +20,27 @@
   display: flex;
   align-items: center;
   background-color: transparent;
-  border: 2px solid rgb(150, 150, 150);
+  border: 2px solid #D1D1D1; /* Subtle gray border */
   border-radius: 25px;
   padding: 10px;
   width: 400px;
   transition: width 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 0 5px rgba(22, 130, 176, 0.6);
+  box-shadow: 0 0 5px rgba(22, 130, 176, 0.6); /* Slight blue shadow */
   position: relative; /* Ensure suggestions list appears below it */
 }
 
 /* Search Bar Focus Effect */
 .search-bar.focused {
   width: 500px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Slightly larger shadow on focus */
 }
 
 .search-bar:hover {
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Slight shadow on hover */
 }
 
 .search-bar i {
-  color: rgb(150, 150, 150);
+  color: #ffffff; /* Dark gray for search icon */
   margin-right: 10px;
 }
 
@@ -48,18 +48,18 @@
   border: none;
   outline: none;
   flex-grow: 1;
-  font-size: 14px;
+  font-size: 15px;
   background-color: transparent;
-  color: #fff;
+  color: #FFFFFF; /* White text for the input field */
 }
 
 .search-bar input::placeholder {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8); /* Light white placeholder */
+  font-size: 15px;
 }
 
 .search-bar input:focus::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.5); /* Dimmed placeholder on focus */
 }
 
 /* Styling for the suggestions dropdown */
@@ -67,14 +67,14 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  color: white;
+  color: #FFFFFF; /* White text for suggestions */
   position: absolute;
-  top: 45px; /* Position directly below the search bar */
+  top: 45px; /* Positioned directly below the search bar */
   width: 97%; /* Match the width of the search bar */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 10;
   border-radius: 5px;
-  background-color: #1682B0;
+  background-color: #1D4E89; /* Accent blue for suggestion background */
   max-height: 200px;
   overflow-y: auto;
 }
@@ -82,11 +82,11 @@
 .suggestions-list li {
   padding: 10px;
   cursor: pointer;
-  color: white; /* Ensure text color is black for readability */
+  color: #FFFFFF; /* Ensure text color is white for readability */
 }
 
 .suggestions-list:hover {
-  background-color: #0a5278; /* Darker shade on hover */
+  background-color: rgb(8, 64, 94); /* Darker shade of blue on hover */
 }
 
 /* Navbar Links */
@@ -105,7 +105,7 @@
 }
 
 .navbar-links li a {
-  color: #fff;
+  color: #FFFFFF; /* White text for navbar links */
   text-align: center;
   text-decoration: none;
   padding: 10px;
@@ -114,6 +114,7 @@
 
 .navbar-links li:hover {
   transform: translateY(-4px);
+  color: #F89D35; /* Accent orange on hover */
 }
 
 .navbar-links li:active {

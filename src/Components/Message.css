@@ -1,145 +1,178 @@
+/* Messages Page Layout */
 .messages-page {
     display: flex;
     height: 92vh; /* Use the full viewport height */
-    background-color: rgb(24, 28, 28); /* Dark background */
+ 
     overflow: hidden; /* Remove scroll on the MessagesPage */
-}
-
-.users-list {
-    width: 20%;
+  }
+  .messages-page-body {
+    overflow: hidden; /* Hide the main scrollbar */
+  }
+  
+  /* Users List Styling */
+  .users-list {
+    width: 25%; /* Increased width for better balance */
     margin-right: 10px;
-    border-right: 1px solid #444;
+    border-right: 1px solid #D1D1D1; /* Subtle gray border */
     padding: 1rem;
-    color: white;
-}
-.messages-page-body {
-    height: 100%;
-    margin: 0;
-    overflow: hidden; /* Prevent scrolling for this specific page */
-}
-.users-list h3 {
+    color: #3C3C3C; /* Dark gray text */
+  }
+  
+  .users-list h3 {
     margin-bottom: 1.5rem;
-    color: white;
+    color: #1D4E89; /* Primary dark blue */
     font-size: 22px;
     font-weight: 600;
-}
-
-.users-list ul {
+  }
+  
+  .users-list ul {
     list-style: none;
     padding: 0;
     margin: 0;
-}
-
-.users-list ul li {
+  }
+  
+  .users-list ul li {
     display: flex;
     align-items: center;
-    padding: 0.75rem;
+    padding: 1rem; /* Increased padding for a larger touch area */
     cursor: pointer;
-  
     border-radius: 8px;
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.users-list ul li:hover {
-    background-color: rgb(36, 40, 44);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .users-list ul li:hover {
+    background-color: #E9ECEF; /* Lighter hover effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     transform: translateY(-2px);
-}
-
-.user-icon {
-    color: #1682B0;
-    font-size: 28px;
-    margin-right: 10px;
-}
-
-.username {
-    font-size: 18px;
+  }
+  
+  .user-icon {
+    color: #1D4E89; /* Primary dark blue */
+    font-size: 35px; /* Slightly increased icon size */
+    margin-right: 15px;
+  }
+  
+  .username {
+    font-size: 24px;
     font-weight: 500;
-    color: white;
-}
-
-/* Chat section styling */
-.chat-box {
-    width: 80%;
+    color: #3C3C3C; /* Dark gray for username */
+  }
+  
+  /* Chat Section Styling */
+  .chat-box {
+    width: 75%; /* Increased width to fit with the user list */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    color: #3C3C3C; /* Dark gray text */
+  }
   
-    color: white;
-}
-
-.chat-box h3 {
+  .chat-box h3 {
     padding: 1rem;
-    border-bottom: 1px solid #444;
-   
-}
-
-.messages-list {
+    border-bottom: 1px solid #D1D1D1; /* Subtle gray border */
+    color: #1D4E89; /* Primary dark blue */
+    font-size: 30px;
+    font-weight: 600;
+  }
+  
+  /* Messages List Styling */
+  .messages-list {
     flex-grow: 1;
     padding: 1rem;
     overflow-y: auto;
-    background-color: rgb(24, 28, 28);
+
     display: flex;
     flex-direction: column;
-}
-
-.message {
-    max-width: 60%;
-    padding: 7px;
-    margin-bottom: 4px;
-    border-radius: 15px;
-    position: relative;
-    font-size: 15px;
-    margin-right: 3px;
-
+  }
+  
+  /* Message Styling */
+  .message {
+    max-width: 70%; /* Increased width for speech bubbles */
+    padding: 20px 25px; /* Larger padding for bigger speech bubbles */
+    margin-bottom: 10px; /* Larger margin for better spacing */
+    border-radius: 20px; /* Rounder corners for speech bubble effect */
+    font-size: 16px; /* Increased font size for better readability */
+    font-weight: bold;
+    line-height: 1.5; /* Better line spacing */
     word-wrap: break-word;
-}
-
-.message.sent {
+  }
+  
+  .message.sent {
     align-self: flex-end; /* Align sender messages to the right */
-    background-color: #1682B0;
+    background-color: #1D4E89; /* Primary dark blue for sent messages */
     color: white;
-    border-bottom-right-radius: 0;
-    text-align: right; /* Align text to the right */
-}
-
-.message.received {
+    border-bottom-right-radius: 0; /* Tail effect */
+    text-align: right;
+  }
+  
+  .message.received {
     align-self: flex-start; /* Align receiver messages to the left */
-    background-color: #444;
-    color: white;
-    border-bottom-left-radius: 0;
-    text-align: left; /* Align text to the left */
-}
-
+    background-color: #E9ECEF; /* Light gray for received messages */
+    color: #3C3C3C; /* Dark gray for text */
+    border-bottom-left-radius: 0; /* Tail effect */
+    text-align: left;
+  }
+  
+  /* Message Input Section */
 .message-input {
     display: flex;
-    padding: 1rem;
-    border-top: 1px solid #444;
+    align-items: center;
+    background-color: #F5F6F7; /* Light gray background to match design */
+    border: 2px solid #D1D1D1; /* Subtle gray border */
    
-}
-
-.message-input input {
+    padding: 5px;
+    width: 98%; /* Takes up most of the width */
+    height: 50px; /* Increased height for a more substantial input box */
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1); /* Subtle shadow for better focus */
+  }
+  
+  .message-input:hover {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); /* Slight hover effect */
+  }
+  
+  /* Focused State for Message Input */
+  .message-input:focus-within {
+    border-color: #1D4E89; /* Blue border when input is focused */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Enhanced shadow when focused */
+  }
+  
+  /* Message Input Field */
+  .message-input input {
     flex-grow: 1;
-    padding: 0.75rem;
+    padding: 12px;
     border: none;
     border-radius: 25px;
-    background-color: #3a3f47;
-    color: white;
+    background-color: transparent; /* Keep background transparent */
+    color: #3C3C3C; /* Dark gray text color for readability */
     outline: none;
-}
-
-.message-input button {
+    font-size: 16px;
+  }
+  
+  .message-input input::placeholder {
+    color: rgba(60, 60, 60, 0.8); /* Dark gray for placeholder */
+    font-size: 16px; /* Consistent with text size */
+  }
+  
+  .message-input input:focus::placeholder {
+    color: transparent; /* Hide placeholder when input is focused */
+  }
+  
+  /* Message Send Button */
+  .message-input button {
     margin-left: 1rem;
-    background-color: #1682B0;
+    background-color: #1D4E89; /* Primary dark blue */
     color: white;
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 25px;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.message-input button:hover {
-    background-color: #1ba0db;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
+  }
+  
+  .message-input button:hover {
+    background-color: #28628F; /* Slightly lighter blue on hover */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+  }
+  
+  

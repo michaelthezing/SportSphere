@@ -185,7 +185,7 @@ const UserProfilePage = () => {
 
         {/* Right column */}
         <div className="right-column">
-          <RightColumn />
+         
         </div>
       </div>
     </>

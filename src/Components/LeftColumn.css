@@ -5,14 +5,14 @@
 }
 
 .profile-username {
-  color: #fff;
+  color: #333; /* Dark color for better readability */
   font-size: 22px;
   margin: 10px 0;
 }
 
 .profile-name {
-  color: #8899A6;
-  font-size: 14px;
+  color: #888; /* Light grey for subtle appearance */
+  font-size: 16px;
 }
 
 /* Menu Section */
@@ -32,7 +32,7 @@
 .menuItem a {
   text-decoration: none;
   font-size: 18px;
-  color: #fff;
+  color: #333; /* Darker for improved contrast */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -41,34 +41,36 @@
 
 .menuItem a:hover {
   transform: translateY(-4px);
-  color: #1DA1F2;
+  color: #0073b1; /* LinkedIn blue for hover effect */
 }
 
 .subMenuList {
   list-style-type: none;
   padding-left: 20px;
 }
-.subMenuTitle{
-  color: #1DA1F2
+
+.subMenuTitle {
+  color: #0073b1; /* Primary blue accent for submenu titles */
+  font-size: 19px;
 }
 
 .subMenuItem {
-  margin-bottom: 10px; /* Added margin between teams */
+  margin-bottom: 10px; /* Added margin between items for spacing */
 }
 
 .subMenuItem a {
-  font-size: 16px;
-  color: #fff;
+  font-size: 18px;
+  color: #333; /* Darker text for better readability */
   text-decoration: none;
 }
 
 .subMenuItem a:hover {
-  color: #1DA1F2;
+  color: #0073b1; /* Hover effect with primary blue */
 }
 
 .menuSeparator {
   height: 1px;
-  background-color: rgba(136, 153, 166, 0.5);
+  background-color: rgba(136, 153, 166, 0.5); /* Subtle grey separator */
   margin: 20px 0;
 }
 
@@ -82,8 +84,8 @@
 }
 
 .sectionTitle {
-  font-size: 16px;
-  color: #fff;
+  font-size: 18px;
+  color: #333; /* Dark text for better readability */
   margin-bottom: 10px;
 }
 
@@ -94,17 +96,17 @@
 }
 
 .playerItem a {
-  font-size: 16px;
-  color: #fff;
+  font-size: 18px;
+  color: #333; /* Dark text for player names */
   text-decoration: none;
   padding-left: 10px;
 }
 
 .playerItem a:hover {
-  color: #1DA1F2;
+  color: #0073b1; /* Blue hover effect */
 }
 
 .playerIcon {
   font-size: 18px;
-  color: #1DA1F2;
+  color: #0073b1; /* Blue icon color for consistency */
 }

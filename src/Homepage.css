@@ -1,40 +1,66 @@
+/* Home Container */
 .homeContainer {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    background-color: rgb(24, 28, 28); /* White background for the entire page */
-  }
-  
-  .LeftColumn, .MiddleColumn, .RightColumn {
-    padding: 20px;
-    background-color: transparent; /* Make the columns blend with the background */
-    margin: 0 10px;
-    box-shadow: none; /* Remove any shadow */
-  }
-  
-  .LeftColumn {
-   flex: 2;
-    max-width: 280px;
-    height: calc(100vh - 100px);
-    overflow-y: auto;
-    position: sticky;
-    top: 100px;
-  }
-  
-  .MiddleColumn {
-    flex: 5;
-    max-width: 1000px;
-    height: calc(100vh - 100px);
-    overflow-y: auto;
-  }
-  
-  .RightColumn {
-    flex: 3;
-    max-width: 350px;
-    height: calc(100vh - 100px);
-    overflow-y: auto;
-    position: sticky;
-    top: 100px;
-  }
-  
-  /* Custom scrollbar styling for LeftColumn and RightColumn */
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: #F5F6F7; /* Light gray background for the page */
+}
+
+/* Left, Middle, and Right Columns */
+.LeftColumn, .MiddleColumn, .RightColumn {
+  padding: 20px;
+  background-color: transparent; /* Transparent background to blend with the container */
+  margin: 0 10px;
+  box-shadow: none; /* No shadow for a clean, flat design */
+}
+
+/* Left Column Styling */
+.LeftColumn {
+  flex: 2;
+  max-width: 280px;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  position: sticky;
+  top: 100px;
+  background-color: #FFFFFF; /* White background for clarity and contrast */
+  border: 1px solid #D1D1D1; /* Subtle gray border for separation */
+  border-radius: 10px; /* Rounded corners for a modern feel */
+}
+
+/* Middle Column Styling */
+.MiddleColumn {
+  flex: 5;
+  max-width: 1000px;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  background-color: #FFFFFF; /* White background for clarity and focus */
+  border: 1px solid #D1D1D1; /* Subtle gray border */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Right Column Styling */
+.RightColumn {
+  flex: 3;
+  max-width: 350px;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  position: sticky;
+  top: 100px;
+  background-color: #FFFFFF; /* White background */
+  border: 1px solid #D1D1D1; /* Subtle gray border */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Custom Scrollbar for Left and Right Columns */
+.LeftColumn::-webkit-scrollbar,.MiddleColumn::-webkit-scrollbar-thumb, .RightColumn::-webkit-scrollbar {
+  width: 8px;
+}
+
+.LeftColumn::-webkit-scrollbar-thumb, .MiddleColumn::-webkit-scrollbar-thumb, .RightColumn::-webkit-scrollbar-thumb {
+  background-color: #1D4E89; /* Primary dark blue scrollbar thumb */
+  border-radius: 10px; /* Rounded scrollbar thumb */
+}
+
+.LeftColumn::-webkit-scrollbar-track,.MiddleColumn::-webkit-scrollbar-track, .RightColumn::-webkit-scrollbar-track {
+  background-color: #F5F6F7; /* Light gray background for the scrollbar track */
+}

@@ -1,61 +1,87 @@
+/* Modal Backdrop */
 .modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Darker backdrop for more focus on modal */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensures the modal stays on top */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #181C1C; /* Slightly darker tone for modal background */
+  width: 400px;
+  padding: 25px; /* Slightly larger padding for a more spacious feel */
+  border-radius: 12px; /* Smoother corner radius */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Softer and more defined shadow */
+  position: relative;
+  max-height: 80vh; /* Prevent modal from being too large */
+  overflow-y: auto; /* Allow scrolling if content exceeds view height */
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px; /* Added margin for better spacing between header and body */
+}
+
+/* Close Button */
+.close-button {
+  background: none;
+  border: none;
+  font-size: 18px; /* Slightly larger for better accessibility */
+  cursor: pointer;
+  color: #FFFFFF; /* Keep consistent with dark theme */
+  transition: color 0.3s ease; /* Smooth transition on hover */
+}
+
+.close-button:hover {
+  color: #1682B0; /* Blue on hover for visual feedback */
+}
+
+/* Modal Body */
+.modal-body {
+  margin-top: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 10px; /* Added padding to avoid text touching the edge */
+}
+
+/* Styled List for Modal Body */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* List Items */
+li {
+  margin-bottom: 10px; /* Added space between list items */
+}
+
+/* Links within List Items */
+li a {
+  text-decoration: none;
+  color: #1682B0; /* Primary blue for links */
+  font-weight: 500; /* Slightly bolder for better readability */
+  transition: color 0.3s ease; /* Smooth transition effect */
+}
+
+li a:hover {
+  color: #1FA1D8; /* Lighter blue for hover effect */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 500px) {
   .modal-content {
-    background-color: rgb(24, 28, 28);
-    width: 400px;
+    width: 90%; /* Make modal responsive on smaller screens */
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    position: relative;
   }
-  
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .close-button {
-    background: none;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    color: white;
-  }
-  .close-button:hover{
-    color: #1682B0;
-  }
-  
-  .modal-body {
-    margin-top: 10px;
-    max-height: 300px;
-    overflow-y: auto;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  li {
-
-
-  }
-  
-  li a {
-    text-decoration: none;
-    color: #1682B0;
-  }
-  
-
-  
+}

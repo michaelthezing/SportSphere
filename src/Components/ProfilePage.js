@@ -338,7 +338,7 @@ const fetchFollowing = async () => {
   
         {/* Right column */}
         <div className="right-column">
-          <RightColumn />
+      
         </div>
   
         {/* "Make a Post" button fixed to the bottom right */}
