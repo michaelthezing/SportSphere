@@ -8,6 +8,7 @@ import ProfilePage from './Components/ProfilePage';
 import UserProfilePage from './Components/UserProfilePage';
 import FollowingPage from './Components/FollowingPage';
 import FollowersPage from './Components/FollowersPage';
+import Message from './Components/Messaage';
 
 function App() {
   const [filterQuery, setFilterQuery] = useState('');
@@ -30,6 +31,7 @@ function App() {
         />
         <Route path="/user/:userId/followers" element={<FollowersPage />} />
         <Route path="/user/:userId/following" element={<FollowingPage />} />
+        <Route path="/message" element={<Message />} />
       </Routes>
     </>
   );

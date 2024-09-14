@@ -15,6 +15,7 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
   const [showComments, setShowComments] = useState(false);
   const [repostCount, setRepostCount] = useState(post.repostCount || 0);
   const [hasReposted, setHasReposted] = useState(false);
+  
 
   const postRef = doc(db, 'posts', post.id); // Get a reference to the post in Firestore
 

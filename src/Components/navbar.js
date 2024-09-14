@@ -113,7 +113,7 @@ export default function NavBar({ setFilterQuery }) {
             </a>
           </li>
           <li>
-            <a href="/contact">
+            <a href="/message">
               <i className="fas fa-envelope"></i>
             </a>
           </li>

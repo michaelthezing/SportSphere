@@ -212,6 +212,60 @@
 .commentInput:focus {
   box-shadow: 0 0 6px rgba(22, 130, 176, 0.6); /* Optional shadow effect */
 }
+/* Modal styles */
+.shareModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.shareModal h3 {
+  margin-bottom: 10px;
+}
+
+.shareModal ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.shareModal ul li {
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.shareModal ul li:hover {
+  background-color: #f0f0f0;
+}
+
+.shareModal button {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #1682B0;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.shareIcon {
+  margin-left: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #1682B0;
+}
+
+.shareIcon:hover {
+  color: #1ba0db;
+}
+
 .sendIcon {
   cursor: pointer;
   font-size: 20px;
