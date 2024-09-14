@@ -2,55 +2,53 @@ import React, { useState, useEffect } from 'react';
 import './MiddleColumn.css';
 import Post from './Post';
 import { db, auth } from '../firebase'; // Firebase Firestore and Auth
-import { collection, addDoc, query, onSnapshot, doc, getDoc, orderBy, where } from 'firebase/firestore'; // Added "where"
-import { onAuthStateChanged } from 'firebase/auth'; // Import listener for auth state changes
+import { collection, addDoc, query, onSnapshot, doc, getDoc, orderBy, where } from 'firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
 
-export default function MiddleColumn() {
+export default function MiddleColumn({ filterQuery }) {
   const [isFocused, setIsFocused] = useState(false);
   const [posts, setPosts] = useState([]);
-  const [followingPosts, setFollowingPosts] = useState([]); // Add state for following posts
+  const [followingPosts, setFollowingPosts] = useState([]);
   const [inputValue, setInputValue] = useState('');
-  const [username, setUsername] = useState(''); // Fetch and store dynamic username
-  const [loading, setLoading] = useState(true); // Add a loading state
-  const [currentUser, setCurrentUser] = useState(null); // Use state for current user
-  const [tab, setTab] = useState('all'); // State to track which tab is active (all or following)
+  const [username, setUsername] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [tab, setTab] = useState('all');
+  const [currentThread, setCurrentThread] = useState('main'); // State to track the active thread
 
-  // Listen to authentication state changes
   useEffect(() => {
     const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        setCurrentUser(user); // Set the authenticated user
-        await fetchUsername(user.uid); // Fetch the username when user is logged in
-        await fetchFollowingPosts(user.uid); // Fetch posts from followed users
+        setCurrentUser(user);
+        await fetchUsername(user.uid);
+        await fetchFollowingPosts(user.uid);
       } else {
-        setCurrentUser(null); // Handle user logout
-        setUsername(''); // Clear username when logged out
+        setCurrentUser(null);
+        setUsername('');
       }
     });
 
-    return () => unsubscribeAuth(); // Cleanup the listener on unmount
+    return () => unsubscribeAuth();
   }, []);
 
-  // Function to fetch the logged-in user's username
   const fetchUsername = async (uid) => {
     try {
       const userDoc = await getDoc(doc(db, 'users', uid));
       if (userDoc.exists()) {
-        setUsername(userDoc.data().username); // Set the fetched username
+        setUsername(userDoc.data().username);
       } else {
-        console.error("No such document!"); // Handle case when user doesn't exist
+        console.error("No such document!");
       }
     } catch (error) {
       console.error("Error fetching username: ", error);
     }
   };
 
-  // Function to fetch all posts
   useEffect(() => {
     const fetchPosts = () => {
       const postsQuery = query(
         collection(db, 'posts'),
-        orderBy('date', 'desc') // Sort by date (newest posts first)
+        orderBy('date', 'desc')
       );
 
       const unsubscribe = onSnapshot(postsQuery, (snapshot) => {
@@ -59,8 +57,8 @@ export default function MiddleColumn() {
           ...doc.data(),
         }));
 
-        setPosts(allPosts); // Set the fetched posts into state
-        setLoading(false); // Stop loading when posts are fetched
+        setPosts(allPosts);
+        setLoading(false);
       });
 
       return unsubscribe;
@@ -68,20 +66,19 @@ export default function MiddleColumn() {
 
     const unsubscribePosts = fetchPosts();
 
-    return () => unsubscribePosts(); // Cleanup the posts listener
+    return () => unsubscribePosts();
   }, []);
 
-  // Function to fetch posts from followed users
   const fetchFollowingPosts = async (uid) => {
     try {
       const userDoc = await getDoc(doc(db, 'users', uid));
       if (userDoc.exists()) {
-        const followingList = userDoc.data().following || []; // Get the list of followed users
+        const followingList = userDoc.data().following || [];
 
         if (followingList.length > 0) {
           const followingPostsQuery = query(
             collection(db, 'posts'),
-            where('userid', 'in', followingList), // Filter posts by followed users
+            where('userid', 'in', followingList),
             orderBy('date', 'desc')
           );
 
@@ -91,12 +88,12 @@ export default function MiddleColumn() {
               ...doc.data(),
             }));
 
-            setFollowingPosts(followingPosts); // Set the fetched posts into state
+            setFollowingPosts(followingPosts);
           });
 
           return unsubscribe;
         } else {
-          setFollowingPosts([]); // If no users are followed, set an empty array
+          setFollowingPosts([]);
         }
       }
     } catch (error) {
@@ -104,20 +101,20 @@ export default function MiddleColumn() {
     }
   };
 
-  const handlePostSubmit = async () => {
+  const handlePostSubmit = async (thread = 'main') => {
     if (inputValue.trim() !== '' && currentUser && username) {
       try {
-        // Add the new post to Firestore
         await addDoc(collection(db, 'posts'), {
           userid: currentUser.uid,
           content: inputValue,
-          username: username, // Use the dynamically fetched username
+          username: username,
           date: new Date().toISOString(),
           like: 0,
           dislike: 0,
+          thread: thread,
         });
-        setInputValue(''); // Clear the input field
-        setIsFocused(false); // Unfocus the input field
+        setInputValue('');
+        setIsFocused(false);
       } catch (error) {
         console.error('Error adding post: ', error);
       }
@@ -132,36 +129,51 @@ export default function MiddleColumn() {
     }
   };
 
-  // Function to render posts based on active tab
   const renderPosts = () => {
+    let filteredPosts = posts;
+
+    if (filterQuery || currentThread !== 'main') {
+      const searchTerms = filterQuery ? filterQuery.toLowerCase().split(' ') : [];
+      filteredPosts = filteredPosts.filter((post) => {
+        const postContent = post.content.toLowerCase();
+        const isInThread = post.thread === currentThread;
+        const matchesQuery = searchTerms.length === 0|| searchTerms.some((term) => postContent.includes(term));
+        return isInThread && matchesQuery;
+      });
+    }
+
     if (tab === 'all') {
-      return posts.map((post) => <Post key={post.id} post={post} />);
+      return filteredPosts.map((post) => <Post key={post.id} post={post} />);
     } else if (tab === 'following') {
-      return followingPosts.length > 0 ? (
-        followingPosts.map((post) => <Post key={post.id} post={post} />)
-      ) : (
-        <p>No posts from followed users</p>
-      );
+      return followingPosts.length > 0
+        ? followingPosts.map((post) => <Post key={post.id} post={post} />)
+        : <p>No posts from followed users</p>;
+    }
+  };
+
+  const handleTabSwitch = (selectedTab) => {
+    setTab(selectedTab);
+    if (selectedTab === 'all') {
+      setCurrentThread('main'); // Reset thread when switching to "All"
     }
   };
 
   if (loading) {
-    return <div>Loading...</div>; // Show a loading message while fetching posts
+    return <div>Loading...</div>;
   }
 
   return (
     <div className="MiddleColumn">
-      {/* Tab Selector */}
       <div className="tabSelector">
         <button
           className={`tabButton ${tab === 'all' ? 'active' : ''}`}
-          onClick={() => setTab('all')}
+          onClick={() => handleTabSwitch('all')}
         >
           All
         </button>
         <button
           className={`tabButton ${tab === 'following' ? 'active' : ''}`}
-          onClick={() => setTab('following')}
+          onClick={() => handleTabSwitch('following')}
         >
           Following
         </button>
@@ -178,13 +190,9 @@ export default function MiddleColumn() {
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
         />
-        <i
-          className="fas fa-paper-plane sendIcon"
-          onClick={handlePostSubmit}
-        ></i>
+        <i className="fas fa-paper-plane sendIcon" onClick={handlePostSubmit}></i>
       </div>
 
-      {/* Post List */}
       <div className="postList">
         {renderPosts()}
       </div>

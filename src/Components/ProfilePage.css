@@ -1,24 +1,14 @@
 /* Grid layout for three columns */
 .profile-page-layout {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr; /* Left column, Middle column, Right column */
+    grid-template-columns: 1fr 4fr 1fr; /* Left column, Middle column, Right column */
     gap: 20px;
     margin: 0 auto;
     background-color: rgb(24, 28, 28); /* Background color */
   }
   
-  /* Left column */
-  .left-column {
-    margin-left: 40px;
-    padding: 20px;
-    max-width: 2300px;
-    height: 95vh;
-    position: sticky;
-    top: 0; /* Stick to the top of the viewport */
-    overflow: hidden; /* Remove scroll from left column */
-    color: white;
-   
-  }
+
+
   .uneditable-username {
     color: gray;
     font-size: 14px;

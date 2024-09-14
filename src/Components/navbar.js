@@ -1,31 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { collection, query, where, getDocs, startAt, endAt } from 'firebase/firestore';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase'; // Import Firestore configuration
 import './navbar.css';
 import { debounce } from 'lodash'; // Import debounce from lodash
 
-export default function NavBar() {
+export default function NavBar({ setFilterQuery }) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [suggestions, setSuggestions] = useState([]); // State to hold suggested users
+  const [suggestions, setSuggestions] = useState([]); // State to hold suggested users and posts suggestion
   const [isFocused, setIsFocused] = useState(false);
   const navigate = useNavigate();
 
   // Function to handle searching users
   const handleSearch = async (event) => {
-    if (event.key === 'Enter') {
-      if (suggestions.length > 0) {
-        // If suggestions exist, navigate to the first one
-        navigate(`/user/${suggestions[0].id}`);
-      }
-      setSearchQuery('');
-      setSuggestions([]); // Clear suggestions after search
+    if (event.key === 'Enter' && searchQuery.trim()) {
+      // Navigate to home page with filter query set
+      setFilterQuery(searchQuery);  // Set the filter query
+      navigate('/home');            // Navigate to the home page
+      setSearchQuery('');           // Clear search query after
+      setSuggestions([]);           // Clear suggestions after search
     }
   };
 
   // Function to handle input changes and search suggestions
   const fetchSuggestions = async (queryText) => {
     try {
+      const users = [];
       if (queryText.trim() !== '') {
         const usersRef = collection(db, 'users');
         const q = query(
@@ -34,13 +34,14 @@ export default function NavBar() {
           where('username', '<=', queryText + '\uf8ff') // Search for usernames starting with queryText
         );
         const querySnapshot = await getDocs(q);
-        const users = [];
         querySnapshot.forEach((doc) => {
           users.push({ id: doc.id, ...doc.data() }); // Collect matching users
         });
-        setSuggestions(users); // Set suggestions for dropdown
+
+        // Add "View [Name] Posts" suggestion at the top of the list
+        setSuggestions([`View ${queryText} Posts`, ...users]);
       } else {
-        setSuggestions([]); // Clear suggestions if searchQuery is empty
+        setSuggestions([]);
       }
     } catch (error) {
       console.error('Error fetching suggestions:', error);
@@ -57,6 +58,22 @@ export default function NavBar() {
     debouncedFetchSuggestions(queryText); // Fetch suggestions with debounce
   };
 
+  // Handle suggestion click to either navigate to user or filter posts
+  const handleSuggestionClick = (suggestion) => {
+    if (typeof suggestion === 'string' && suggestion.includes('View')) {
+      // Handle the post filtering suggestion
+      const searchTerm = suggestion.replace('View ', '').replace(' Posts', '');
+      setFilterQuery(searchTerm);      // Set the filter query
+      navigate('/home');              // Ensure navigation to home page for filtering
+    } else if (suggestion.id) {
+      // Handle user profile navigation
+      navigate(`/user/${suggestion.id}`);
+    }
+
+    setSearchQuery('');
+    setSuggestions([]); // Clear suggestions
+  };
+
   return (
     <header>
       <nav className="navbar">
@@ -70,15 +87,15 @@ export default function NavBar() {
             placeholder="Search hot takes"
             value={searchQuery}
             onChange={handleInputChange} // Update search query and fetch suggestions
-            onKeyDown={handleSearch} // Handle "Enter" key search
+            onKeyDown={handleSearch} // Handle "Enter" key search and navigate to home
             onFocus={() => setIsFocused(true)}
             onBlur={() => setTimeout(() => setIsFocused(false), 100)} // Delay closing the suggestions
           />
           {isFocused && suggestions.length > 0 && (
             <ul className="suggestions-list">
-              {suggestions.map((user) => (
-                <li key={user.id} onClick={() => navigate(`/user/${user.id}`)}>
-                  {user.username || 'Unknown User'}
+              {suggestions.map((suggestion, index) => (
+                <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
+                  {typeof suggestion === 'string' ? suggestion : suggestion.username || 'Unknown User'}
                 </li>
               ))}
             </ul>

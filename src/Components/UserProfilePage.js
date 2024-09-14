@@ -135,11 +135,11 @@ const UserProfilePage = () => {
 
   return (
     <>
-      <NavBar /> {/* Include the NavBar at the top */}
+    
       <div className="profile-page-layout">
         {/* Left column */}
         <div className="left-column">
-          <LeftColumn />
+      
         </div>
 
         {/* Middle column: Profile content */}

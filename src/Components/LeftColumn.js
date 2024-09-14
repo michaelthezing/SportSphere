@@ -5,7 +5,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBasketballBall, faFootballBall, faBaseballBall, faHockeyPuck, faChevronDown, faChevronRight, faUser, faBolt } from '@fortawesome/free-solid-svg-icons';
 
-export default function LeftColumn() {
+export default function LeftColumn({setFilterQuery}) {
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
   const [expandNBA, setExpandNBA] = useState(false);
@@ -14,7 +14,9 @@ export default function LeftColumn() {
   const [expandNHL, setExpandNHL] = useState(false);
   const [expandFunTopics, setExpandFunTopics] = useState(false);
   const currentUser = auth.currentUser;
-
+  const handleNameClick = (name) => {
+    setFilterQuery(name); // Update the filter query in the MiddleColumn
+  };
   useEffect(() => {
     if (currentUser) {
       const fetchUserProfile = async () => {
@@ -99,41 +101,6 @@ export default function LeftColumn() {
     'Sidney Crosby', 'Alex Ovechkin', 'Connor McDavid', 'Patrick Kane', 
     'Nathan MacKinnon', 'Auston Matthews', 'Leon Draisaitl', 'Carey Price'
   ];
-  const funNBATopics = [
-    'MVP of the Year',            // Most Valuable Player of the season
-    'Dunk of the Year',           // Best dunk of the year
-    'Game-Winning Buzzer-Beater', // Most dramatic buzzer-beater win
-    'Cross-Over of the Year',     // Most ankle-breaking cross-over
-    'Posterized Dunk of the Year',// Best dunk over a defender
-    'Breakout Star of the Year'   // Best breakout performance by a young player
-  ];
-  
-  const funNFLTopics = [
-    'MVP of the Year',             // Most Valuable Player of the season
-    'One-Handed Catch of the Year',// Best one-handed catch
-    'Hail Mary Play of the Year',  // Best long pass to win the game
-    'Sack Master of the Year',     // Best sack or defensive play
-    'Pick-Six of the Year',        // Best interception returned for a touchdown
-    'Best Trick Play of the Year'  // Most creative trick play of the year
-  ];
-  
-  const funMLBTopics = [
-    'Grand Slam of the Year',      // Best grand slam of the year
-    'Home Run Derby Champion',     // Most home runs hit during the All-Star event
-    'Pitching Gem of the Year',    // Best pitching performance
-    'Walk-Off Home Run',           // Best game-winning home run
-    'Outfield Cannon of the Year', // Best long throw from the outfield to home plate
-    'Bat Flip of the Year'         // Best celebratory bat flip after a home run
-  ];
-  
-  const funNHLTopics = [
-    'Hat Trick Hero of the Year',    // Best hat trick performance
-    'Game-Winning Goal in OT',       // Most clutch goal in overtime
-    'Goalie Save of the Year',       // Most epic save of the year
-    'Best Power Play Goal',          // Best goal during a power play
-    'Breakaway Speedster',           // Best breakaway play leading to a goal
-    'Biggest Hit of the Year'        // Hardest check or hit of the season
-  ];
   
 
   return (
@@ -156,7 +123,9 @@ export default function LeftColumn() {
             <ul className="subMenuList">
               <li className="subMenuTitle">Teams</li>
               {nbaTeams.map((team, index) => (
-                <li key={index} className="subMenuItem"><a href={`/teams/nba/${team.toLowerCase().replace(/\s+/g, '-')}`}>{team}</a></li>
+                <li key={index} className="subMenuItem">
+                  <a href="#" onClick={() => handleNameClick(team)}>{team}</a>
+                </li>
               ))}
             </ul>
           )}
@@ -172,7 +141,9 @@ export default function LeftColumn() {
             <ul className="subMenuList">
               <li className="subMenuTitle">Teams</li>
               {nflTeams.map((team, index) => (
-                <li key={index} className="subMenuItem"><a href={`/teams/nfl/${team.toLowerCase().replace(/\s+/g, '-')}`}>{team}</a></li>
+                <li key={index} className="subMenuItem">
+                  <a href="#" onClick={() => handleNameClick(team)}>{team}</a>
+                </li>
               ))}
             </ul>
           )}
@@ -188,7 +159,9 @@ export default function LeftColumn() {
             <ul className="subMenuList">
               <li className="subMenuTitle">Teams</li>
               {mlbTeams.map((team, index) => (
-                <li key={index} className="subMenuItem"><a href={`/teams/mlb/${team.toLowerCase().replace(/\s+/g, '-')}`}>{team}</a></li>
+                <li key={index} className="subMenuItem">
+                  <a href="#" onClick={() => handleNameClick(team)}>{team}</a>
+                </li>
               ))}
             </ul>
           )}
@@ -204,100 +177,70 @@ export default function LeftColumn() {
             <ul className="subMenuList">
               <li className="subMenuTitle">Teams</li>
               {nhlTeams.map((team, index) => (
-                <li key={index} className="subMenuItem"><a href={`/teams/nhl/${team.toLowerCase().replace(/\s+/g, '-')}`}>{team}</a></li>
+                <li key={index} className="subMenuItem">
+                  <a href="#" onClick={() => handleNameClick(team)}>{team}</a>
+                </li>
               ))}
             </ul>
           )}
-    
-          {/* Fun Sport Topics */}
-          <li className="menuItem" onClick={() => setExpandFunTopics(!expandFunTopics)}>
-            <a href="#">
-              <FontAwesomeIcon icon={faBolt}/> Fun Sport Topics
-              <FontAwesomeIcon icon={expandFunTopics ? faChevronDown : faChevronRight} className="chevron-icon" />
-            </a>
-          </li>
-          {expandFunTopics && (
-            <ul className="subMenuList">
-              {/* NBA Fun Topics */}
-              <li className="subMenuTitle">NBA Topics</li>
-              {funNBATopics.map((topic, index) => (
-                <li key={index} className="subMenuItem"><a href={`/fun/nba/${topic.toLowerCase().replace(/\s+/g, '-')}`}>{topic}</a></li>
-              ))}
-              <div className="menuSeparator"></div>
   
-              {/* NFL Fun Topics */}
-              <li className="subMenuTitle">NFL Topics</li>
-              {funNFLTopics.map((topic, index) => (
-                <li key={index} className="subMenuItem"><a href={`/fun/nfl/${topic.toLowerCase().replace(/\s+/g, '-')}`}>{topic}</a></li>
-              ))}
-              <div className="menuSeparator"></div>
+         
+         
+             
   
-              {/* MLB Fun Topics */}
-              <li className="subMenuTitle">MLB Topics</li>
-              {funMLBTopics.map((topic, index) => (
-                <li key={index} className="subMenuItem"><a href={`/fun/mlb/${topic.toLowerCase().replace(/\s+/g, '-')}`}>{topic}</a></li>
-              ))}
-              <div className="menuSeparator"></div>
-  
-              {/* NHL Fun Topics */}
-              <li className="subMenuTitle">NHL Topics</li>
-              {funNHLTopics.map((topic, index) => (
-                <li key={index} className="subMenuItem"><a href={`/fun/nhl/${topic.toLowerCase().replace(/\s+/g, '-')}`}>{topic}</a></li>
-              ))}
-            </ul>
-          )}
+             
         </ul>
-                 {/* Notable Players Section */}
-      <div className="playersSection">
-        {/* NBA Players */}
-        <div className="playersList">
-          <h4 className="sectionTitle">Notable NBA Players Takes</h4>
-          {nbaPlayers.map((player, index) => (
-            <div key={index} className="playerItem">
-              <FontAwesomeIcon icon={faUser} className="playerIcon" />
-              <a href={`/players/nba/${player.toLowerCase().replace(/\s+/g, '-')}`}>{player}</a>
-            </div>
-          ))}
-        </div>
-        <div className="menuSeparator"></div>
-
-        {/* NFL Players */}
-        <div className="playersList">
-          <h4 className="sectionTitle">Most Notable NFL Players Takes</h4>
-          {nflPlayers.map((player, index) => (
-            <div key={index} className="playerItem">
-              <FontAwesomeIcon icon={faUser} className="playerIcon" />
-              <a href={`/players/nfl/${player.toLowerCase().replace(/\s+/g, '-')}`}>{player}</a>
-            </div>
-          ))}
-        </div>
-        <div className="menuSeparator"></div>
-
-        {/* MLB Players */}
-        <div className="playersList">
-          <h4 className="sectionTitle">Notable MLB Players Takes</h4>
-          {mlbPlayers.map((player, index) => (
-            <div key={index} className="playerItem">
-              <FontAwesomeIcon icon={faUser} className="playerIcon" />
-              <a href={`/players/mlb/${player.toLowerCase().replace(/\s+/g, '-')}`}>{player}</a>
-            </div>
-          ))}
-        </div>
-        <div className="menuSeparator"></div>
-
-        {/* NHL Players */}
-        <div className="playersList">
-          <h4 className="sectionTitle">Notable NHL Players Takes</h4>
-          {nhlPlayers.map((player, index) => (
-            <div key={index} className="playerItem">
-              <FontAwesomeIcon icon={faUser} className="playerIcon" />
-              <a href={`/players/nhl/${player.toLowerCase().replace(/\s+/g, '-')}`}>{player}</a>
-            </div>
-          ))}
-        </div>
+  
+        {/* Notable Players Section */}
+        <div className="playersSection">
+          {/* NBA Players */}
+          <div className="playersList">
+            <h4 className="sectionTitle">Notable NBA Players Takes</h4>
+            {nbaPlayers.map((player, index) => (
+              <div key={index} className="playerItem">
+                <FontAwesomeIcon icon={faUser} className="playerIcon" />
+                <a href="#" onClick={() => handleNameClick(player)}>{player}</a>
+              </div>
+            ))}
+          </div>
+          <div className="menuSeparator"></div>
+  
+          {/* NFL Players */}
+          <div className="playersList">
+            <h4 className="sectionTitle">Most Notable NFL Players Takes</h4>
+            {nflPlayers.map((player, index) => (
+              <div key={index} className="playerItem">
+                <FontAwesomeIcon icon={faUser} className="playerIcon" />
+                <a href="#" onClick={() => handleNameClick(player)}>{player}</a>
+              </div>
+            ))}
+          </div>
+          <div className="menuSeparator"></div>
+  
+          {/* MLB Players */}
+          <div className="playersList">
+            <h4 className="sectionTitle">Notable MLB Players Takes</h4>
+            {mlbPlayers.map((player, index) => (
+              <div key={index} className="playerItem">
+                <FontAwesomeIcon icon={faUser} className="playerIcon" />
+                <a href="#" onClick={() => handleNameClick(player)}>{player}</a>
+              </div>
+            ))}
+          </div>
+          <div className="menuSeparator"></div>
+  
+          {/* NHL Players */}
+          <div className="playersList">
+            <h4 className="sectionTitle">Notable NHL Players Takes</h4>
+            {nhlPlayers.map((player, index) => (
+              <div key={index} className="playerItem">
+                <FontAwesomeIcon icon={faUser} className="playerIcon" />
+                <a href="#" onClick={() => handleNameClick(player)}>{player}</a>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
   );
-  
-}
+}  

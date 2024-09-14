@@ -200,14 +200,14 @@ const fetchFollowing = async () => {
   
   return (
     <>
-      <NavBar /> {/* Include the NavBar at the top */}
       <div className="profile-page-layout">
         {/* Left column */}
         <div className="left-column">
-          <LeftColumn />
+     
         </div>
   
         {/* Middle column: Profile content */}
+        
         <div className="middle-column">
           <div className="profile-page">
             <div className="profile-info">

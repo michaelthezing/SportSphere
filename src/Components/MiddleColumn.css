@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   background-color: transparent; /* Fully transparent background */
-  border: 2px solid #1682B0;
+  border: 2px solid rgb(150, 150, 150);
   border-radius: 25px;
   padding: 5px;
   width: 99%;
@@ -22,7 +22,7 @@
 
 .shareBox.focused {
   outline: none; /* Remove default outline */
-  border-color: #1682B0; /* Maintain the blue border on focus */
+  border-color: rgb(150, 150, 150); /* Maintain the blue border on focus */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Larger shadow when focused */
   width: 99.5%;
   height: 35px;
@@ -30,7 +30,7 @@
 }
 .shareBox i {
   margin-left: 5px;
-  color: #1682B0;
+  color: rgb(150, 150, 150);
  
 }
 

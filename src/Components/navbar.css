@@ -1,6 +1,6 @@
 /* NavBar Container */
 .navbar {
-  border-bottom: 2px solid #1682B0;
+  border-bottom: 2px solid rgb(150, 150, 150);
   padding: 20px 30px;
   display: flex;
   justify-content: space-between;
@@ -20,7 +20,7 @@
   display: flex;
   align-items: center;
   background-color: transparent;
-  border: 2px solid #1682B0;
+  border: 2px solid rgb(150, 150, 150);
   border-radius: 25px;
   padding: 10px;
   width: 400px;
@@ -40,7 +40,7 @@
 }
 
 .search-bar i {
-  color: #1682B0;
+  color: rgb(150, 150, 150);
   margin-right: 10px;
 }
 
