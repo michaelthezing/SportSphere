@@ -1,23 +1,30 @@
 /* Profile Section */
 .profileSection {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .profile-username {
-  color: #333; /* Dark color for better readability */
-  font-size: 22px;
-  margin: 10px 0;
+  color: #2C3E50; /* Stronger, darker color for username */
+  font-size: 24px; /* Increased size for prominence */
+  font-weight: 700; /* Bold for emphasis */
+  margin: 12px 0;
+  transition: color 0.3s ease;
+}
+
+.profile-username:hover {
+  color: #1682B0; /* Accent color on hover */
 }
 
 .profile-name {
-  color: #888; /* Light grey for subtle appearance */
-  font-size: 16px;
+  color: #7F8C8D; /* Softer grey for subtle, modern look */
+  font-size: 18px; /* Slightly larger for readability */
+  margin-bottom: 15px; /* Space below for breathing room */
 }
 
 /* Menu Section */
 .menuSection {
-  margin-top: 30px;
+  margin-top: 35px;
 }
 
 .menuList {
@@ -26,87 +33,103 @@
 }
 
 .menuItem {
-  margin: 15px 0;
+  margin: 18px 0; /* Spaced out for a cleaner layout */
 }
 
 .menuItem a {
   text-decoration: none;
-  font-size: 18px;
-  color: #333; /* Darker for improved contrast */
+  font-size: 20px; /* Slightly larger for better readability */
+  color: #2C3E50; /* Darker text for stronger contrast */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: all 0.3s ease;
+  padding: 10px 15px; /* Added padding for a button-like feel */
+  border-radius: 10px; /* Rounded corners for smoother feel */
+  background-color: #F7F8FA; /* Light background for modern look */
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .menuItem a:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px); /* Subtle upward motion on hover */
+  background-color: #EBEEF0; /* Slightly darker background on hover */
   color: #0073b1; /* LinkedIn blue for hover effect */
 }
 
 .subMenuList {
   list-style-type: none;
-  padding-left: 20px;
+  padding-left: 25px; /* Indented for better visual hierarchy */
 }
 
 .subMenuTitle {
-  color: #0073b1; /* Primary blue accent for submenu titles */
-  font-size: 19px;
+  color: #1682B0; /* Primary blue accent for submenu titles */
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
 }
 
 .subMenuItem {
-  margin-bottom: 10px; /* Added margin between items for spacing */
+  margin-bottom: 12px; /* Added margin between items for spacing */
 }
 
 .subMenuItem a {
   font-size: 18px;
-  color: #333; /* Darker text for better readability */
+  color: #34495E; /* Darker shade for better readability */
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .subMenuItem a:hover {
-  color: #0073b1; /* Hover effect with primary blue */
+  color: #1ba0db; /* Lighter blue hover effect */
 }
 
 .menuSeparator {
   height: 1px;
-  background-color: rgba(136, 153, 166, 0.5); /* Subtle grey separator */
-  margin: 20px 0;
+  background-color: rgba(136, 153, 166, 0.3); /* Softer grey separator */
+  margin: 25px 0; /* More space above and below for separation */
 }
 
 /* Players Section */
 .playersSection {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .playersList {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .sectionTitle {
-  font-size: 18px;
-  color: #333; /* Dark text for better readability */
-  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #2C3E50; /* Stronger color for section title */
+  margin-bottom: 12px;
 }
 
 .playerItem {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.playerItem:hover {
+  background-color: #F2F4F7; /* Light hover effect for player items */
 }
 
 .playerItem a {
   font-size: 18px;
-  color: #333; /* Dark text for player names */
+  color: #2C3E50; /* Dark text for player names */
   text-decoration: none;
-  padding-left: 10px;
+  padding-left: 12px;
+  transition: color 0.3s ease;
 }
 
 .playerItem a:hover {
-  color: #0073b1; /* Blue hover effect */
+  color: #0073b1; /* Blue hover effect for player names */
 }
 
 .playerIcon {
-  font-size: 18px;
-  color: #0073b1; /* Blue icon color for consistency */
+  font-size: 22px; /* Increased size for more prominence */
+  color: #1682B0; /* Primary blue color for consistency */
 }

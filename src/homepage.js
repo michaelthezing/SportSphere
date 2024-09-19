@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import NavBar from './Components/navbar';
 import LeftColumn from './Components/LeftColumn';
 import MiddleColumn from './Components/MiddleColumn';
-import RightColumn from './Components/RightColumn';
 
 
 
@@ -16,7 +15,7 @@ export default function HomePage({ filterQuery, setFilterQuery }) {
       <div className="homeContainer">
       <LeftColumn setFilterQuery={setFilterQuery} setCurrentThread={setCurrentThread} />
       <MiddleColumn filterQuery={filterQuery} currentThread={currentThread} />
-        <RightColumn />
+      
       </div>
     </>
   );

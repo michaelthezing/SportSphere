@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { doc, updateDoc, deleteDoc, arrayUnion, addDoc, collection, getDoc} from 'firebase/firestore'; // Import Firestore methods
+import React, { useState, useEffect } from 'react';
+import { doc, updateDoc, deleteDoc, arrayUnion, addDoc, collection, getDoc, arrayRemove, setDoc} from 'firebase/firestore'; // Import Firestore methods
 import { db, auth } from '../firebase'; // Import Firebase config and auth
 import './Post.css';
 import { Link,useNavigate } from 'react-router-dom';
@@ -13,8 +13,8 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
   const [comments, setComments] = useState(post.comments || []);
   const [commentInput, setCommentInput] = useState('');
   const [showComments, setShowComments] = useState(false);
-  const [repostCount, setRepostCount] = useState(post.repostCount || 0);
   const [hasReposted, setHasReposted] = useState(false);
+  const [repostedPostId, setRepostedPostId] = useState(null); // Store reposted post ID
   
 
   const postRef = doc(db, 'posts', post.id); // Get a reference to the post in Firestore
@@ -185,35 +185,73 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
   };
   const repostHandler = async () => {
     try {
-      const repostedPost = {
-        content: post?.desc || post.content,
-        username: post.username, // Keep the original post author's name
-        originalAuthor: post.username, // Store the original author separately for display
-        date: new Date().toISOString(),
-        userid: currentUser.uid, // Logged-in user's ID
-        like: 0,
-        dislike: 0,
-        comments: [],
-        isRepost: true, // Flag to indicate it's a repost
-        originalPostId: post.id, // Reference to the original post
-        originalUsername: post.username, // Original post's username
-      };
-  
-      // Add reposted post to the user's profile in Firestore
-      await addDoc(collection(db, 'posts'), repostedPost);
-  
-      await updateDoc(postRef, {
-        repostCount: repostCount + 1, // Increment repost count
-        repostedBy: arrayUnion(currentUser.uid), // Track who reposted
-      });
+      const repostedPostRef = doc(db, 'posts', `${currentUser.uid}_${post.id}_repost`); // Reference to the reposted post
+      const repostedPostDoc = await getDoc(repostedPostRef);
 
-      setRepostCount(repostCount + 1);
-      setHasReposted(true);
-      console.log('Post successfully reposted!');
+      if (repostedPostDoc.exists()) {
+        // If the user has already reposted, remove the repost
+        await deleteDoc(repostedPostRef); // Delete the reposted post from Firestore
+        await updateDoc(postRef, {
+          repostedBy: arrayRemove(currentUser.uid), // Remove user from repostedBy array
+        });
+
+        setHasReposted(false); // Update state to reflect that repost has been removed
+        setRepostedPostId(null); // Reset repostedPostId
+        console.log('Repost successfully removed!');
+      } else {
+        // If the user hasn't reposted yet, add the repost
+        const repostedPost = {
+          content: post?.desc || post.content,
+          username: currentUser.displayName || currentUser.email, // Keep the reposted by user's name
+          originalAuthor: post.username, // Store the original author separately for display
+          userid: currentUser.uid, // Logged-in user's ID
+          like: 0,
+          dislike: 0,
+          comments: [],
+          isRepost: true, // Flag to indicate it's a repost
+          originalPostId: post.id, // Reference to the original post
+          originalUsername: post.username, // Original post's username
+          date: new Date().toISOString(), // Timestamp for the repost
+        };
+
+        // Add reposted post to Firestore with a unique ID for the repost
+        await setDoc(repostedPostRef, repostedPost); // Use setDoc to specify the repost document ID
+
+        // Update the original post to track who reposted
+        await updateDoc(postRef, {
+          repostedBy: arrayUnion(currentUser.uid), // Add user to repostedBy array
+        });
+
+        setHasReposted(true); // Update state to reflect that repost has been added
+        setRepostedPostId(repostedPostRef.id); // Store reposted post ID
+        console.log('Post successfully reposted!');
+      }
     } catch (error) {
-      console.error('Error reposting post:', error);
+      console.error('Error handling repost:', error);
     }
   };
+  useEffect(() => {
+    const checkReposted = async () => {
+      try {
+        const repostRef = doc(db, 'posts', `${currentUser.uid}_${post.id}_repost`);
+        const repostDoc = await getDoc(repostRef);
+        if (repostDoc.exists()) {
+          setHasReposted(true); // User has reposted this post
+          setRepostedPostId(repostRef.id); // Store the reposted post ID
+        } else {
+          setHasReposted(false); // User hasn't reposted this post
+          setRepostedPostId(null);
+        }
+      } catch (error) {
+        console.error('Error checking repost status:', error);
+      }
+    };
+
+    if (currentUser) {
+      checkReposted();
+    }
+  }, [currentUser, post.id]);
+  
   const handleProfileClick = () => {
     if (post.userid === currentUser?.uid) {
       // If the post is by the current user, navigate to their own profile page
@@ -265,13 +303,24 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
             </span>
           </div>
           <div className="postBottomRight">
-            <span className="postCommentText" onClick={() => setShowComments(!showComments)}>
-              {comments.length} comments
-            </span>
-            <i className={`fas fa-retweet repostIcon ${hasReposted ? 'disabled' : ''}`} onClick={repostHandler}></i>
-            <span className="repostCount">{repostCount}</span>
+  <span className="postCommentText" onClick={() => setShowComments(!showComments)}>
+    {comments.length} comments
+  </span>
+  <i 
+    className={`fas fa-retweet repostIcon ${hasReposted ? 'reposted' : ''}`} 
+    onClick={repostHandler}
+  ></i>
+  {/* Add undo repost icon if the post was reposted */}
+  {hasReposted && (
+    <i 
+      className="fas fa-undo-alt undoRepostIcon" 
+      onClick={repostHandler}
+      title="Undo Repost"
+    ></i>
+  )}
+</div>
+
           </div>
-        </div>
   
         {showComments && (
           <div className="commentsSection">
