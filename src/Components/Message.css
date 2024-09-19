@@ -119,7 +119,7 @@
     align-items: center;
     background-color: #F5F6F7; /* Light gray background to match design */
     border: 2px solid #D1D1D1; /* Subtle gray border */
-   
+    border-radius: 10px;
     padding: 5px;
     width: 98%; /* Takes up most of the width */
     height: 50px; /* Increased height for a more substantial input box */

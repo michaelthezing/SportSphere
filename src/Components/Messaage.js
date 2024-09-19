@@ -122,6 +122,12 @@ export default function MessagesPage() {
     };
   }, [selectedUser, currentUser]);
 
+  const handleKeyDown = async (events) =>{
+    if(events.key === 'Enter')
+    {
+      handleSendMessage();
+    }
+  }
   // Handle sending messages
   const handleSendMessage = async () => {
     if (newMessage.trim() === '' || !currentUser || !selectedUser) return;
@@ -209,6 +215,8 @@ export default function MessagesPage() {
                 placeholder="Type a message..."
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
+
+                onKeyDown={handleKeyDown}
               />
               <button onClick={handleSendMessage}>
                 <FontAwesomeIcon icon={faPaperPlane} /> {/* Send button icon */}
