@@ -21,7 +21,7 @@
   .users-list h3 {
     margin-bottom: 1.5rem;
     color: #1D4E89; /* Primary dark blue */
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 600;
   }
   
@@ -48,12 +48,12 @@
   
   .user-icon {
     color: #1D4E89; /* Primary dark blue */
-    font-size: 35px; /* Slightly increased icon size */
+    font-size: 30px; /* Slightly increased icon size */
     margin-right: 15px;
   }
   
   .username {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 500;
     color: #3C3C3C; /* Dark gray for username */
   }
@@ -117,12 +117,13 @@
 .message-input {
     display: flex;
     align-items: center;
+    border-radius: 15px;
     background-color: #F5F6F7; /* Light gray background to match design */
     border: 2px solid #D1D1D1; /* Subtle gray border */
-   
-    padding: 5px;
-    width: 98%; /* Takes up most of the width */
+    padding: 3px;
+    width: 99%; /* Takes up most of the width */
     height: 50px; /* Increased height for a more substantial input box */
+    margin-bottom: 10px;
     transition: box-shadow 0.3s ease;
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1); /* Subtle shadow for better focus */
   }

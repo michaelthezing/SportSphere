@@ -190,6 +190,12 @@ const fetchFollowing = async () => {
         console.error('Error creating post:', error);
       }
     }
+ 
+  };
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handlePostSubmit();
+    }
   };
 
   if (loading) {
@@ -355,6 +361,7 @@ const fetchFollowing = async () => {
                 placeholder="What's on your mind?"
                 value={postContent}
                 onChange={(e) => setPostContent(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
               <button className="submit-post-button" onClick={handlePostSubmit}>
                 Post

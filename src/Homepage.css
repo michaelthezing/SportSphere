@@ -30,7 +30,7 @@
 /* Middle Column Styling */
 .MiddleColumn {
   flex: 5;
-  max-width: 1000px;
+  max-width: 1300px;
   height: calc(100vh - 100px);
   overflow-y: auto;
   background-color: #FFFFFF; /* White background for clarity and focus */
@@ -52,13 +52,13 @@
 }
 
 /* Custom Scrollbar for Left and Right Columns */
-.LeftColumn::-webkit-scrollbar,.MiddleColumn::-webkit-scrollbar-thumb, .RightColumn::-webkit-scrollbar {
-  width: 8px;
+.LeftColumn::-webkit-scrollbar,.MiddleColumn::-webkit-scrollbar, .RightColumn::-webkit-scrollbar {
+  width: 3px;
 }
 
 .LeftColumn::-webkit-scrollbar-thumb, .MiddleColumn::-webkit-scrollbar-thumb, .RightColumn::-webkit-scrollbar-thumb {
-  background-color: #1D4E89; /* Primary dark blue scrollbar thumb */
-  border-radius: 10px; /* Rounded scrollbar thumb */
+ 
+  border-radius: 5px; /* Rounded scrollbar thumb */
 }
 
 .LeftColumn::-webkit-scrollbar-track,.MiddleColumn::-webkit-scrollbar-track, .RightColumn::-webkit-scrollbar-track {

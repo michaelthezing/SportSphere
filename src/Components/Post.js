@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { doc, updateDoc, deleteDoc, arrayUnion, addDoc, collection, getDoc} from 'firebase/firestore'; // Import Firestore methods
+import { doc, updateDoc, deleteDoc, arrayUnion, arrayRemove, addDoc, collection, getDocs, query, where} from 'firebase/firestore'; // Import Firestore methods
 import { db, auth } from '../firebase'; // Import Firebase config and auth
 import './Post.css';
 import { Link,useNavigate } from 'react-router-dom';
@@ -15,6 +15,7 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
   const [showComments, setShowComments] = useState(false);
   const [repostCount, setRepostCount] = useState(post.repostCount || 0);
   const [hasReposted, setHasReposted] = useState(false);
+  const [repostedPostId, setRepostedPostId] = useState(null); // Define repostedPostId and setter
   
 
   const postRef = doc(db, 'posts', post.id); // Get a reference to the post in Firestore
@@ -184,7 +185,10 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
     }
   };
   const repostHandler = async () => {
+    if (hasReposted) return; // Prevent reposting again
+
     try {
+      // Create the reposted post
       const repostedPost = {
         content: post?.desc || post.content,
         username: post.username, // Keep the original post author's name
@@ -197,16 +201,21 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
         isRepost: true, // Flag to indicate it's a repost
         originalPostId: post.id, // Reference to the original post
         originalUsername: post.username, // Original post's username
+        repostCount: 0, // New repost starts with 0 repost count
+        repostedBy: [], // Empty array for repostedBy initially
       };
-  
-      // Add reposted post to the user's profile in Firestore
-      await addDoc(collection(db, 'posts'), repostedPost);
-  
-      await updateDoc(postRef, {
-        repostCount: repostCount + 1, // Increment repost count
+
+      // Add the reposted post to Firestore
+      const newRepostRef = await addDoc(collection(db, 'posts'), repostedPost);
+
+      // Update the original post's repost count and repostedBy array
+      await updateDoc(doc(db, 'posts', post.id), {
+        repostCount: (post.repostCount || 0) + 1, // Increment the original post's repost count
         repostedBy: arrayUnion(currentUser.uid), // Track who reposted
       });
 
+      // Update state with repost info
+      setRepostedPostId(newRepostRef.id); // Save the ID of the reposted post
       setRepostCount(repostCount + 1);
       setHasReposted(true);
       console.log('Post successfully reposted!');
@@ -214,6 +223,7 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
       console.error('Error reposting post:', error);
     }
   };
+  
   const handleProfileClick = () => {
     if (post.userid === currentUser?.uid) {
       // If the post is by the current user, navigate to their own profile page
@@ -221,6 +231,28 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
     } else {
       // Otherwise, navigate to the clicked user's profile
       navigate(`/user/${post.userid}`);
+    }
+  };
+  const unrepostHandler = async () => {
+    if (!hasReposted || !repostedPostId) return;
+
+    try {
+      // Delete the reposted post from Firestore
+      await deleteDoc(doc(db, 'posts', repostedPostId));
+
+      // Update the original post's repost count
+      await updateDoc(doc(db, 'posts', post.id), {
+        repostCount: Math.max((post.repostCount || 0) - 1, 0), // Decrement repost count, ensuring it doesn't go below 0
+        repostedBy: arrayRemove(currentUser.uid), // Remove current user from repostedBy array
+      });
+
+      // Update state after successful unrepost
+      setRepostedPostId(null);
+      setRepostCount(repostCount - 1);
+      setHasReposted(false);
+      console.log('Post successfully unreposted!');
+    } catch (error) {
+      console.error('Error unreposting post:', error);
     }
   };
 
@@ -234,7 +266,7 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
   });
 
   return (
-     <div className="post">
+    <div className="post">
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
@@ -244,17 +276,16 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
             <span className="postDate">{formattedDate}</span>
           </div>
           <div className="postTopRight">
-            {/* Show delete icon only if the current user is the post owner */}
             {!post.isRepost && currentUser?.uid === post.userid && (
               <i className="fas fa-trash-alt deleteIcon" onClick={deletePost}></i>
             )}
           </div>
         </div>
-  
+
         <div className="postCenter">
           <span className="postText">{post?.desc || post.content}</span>
         </div>
-  
+
         <div className="postBottom">
           <div className="postBottomLeft">
             <span className="likeText" onClick={likeHandler}>
@@ -268,11 +299,15 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
             <span className="postCommentText" onClick={() => setShowComments(!showComments)}>
               {comments.length} comments
             </span>
-            <i className={`fas fa-retweet repostIcon ${hasReposted ? 'disabled' : ''}`} onClick={repostHandler}></i>
+            {hasReposted ? (
+              <i className="fas fa-undo unrepostIcon" onClick={unrepostHandler}></i>
+            ) : (
+              <i className="fas fa-retweet repostIcon" onClick={repostHandler}></i>
+            )}
             <span className="repostCount">{repostCount}</span>
           </div>
         </div>
-  
+
         {showComments && (
           <div className="commentsSection">
             <div className="commentsList">
@@ -312,5 +347,4 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
       </div>
     </div>
   );
-  
 }

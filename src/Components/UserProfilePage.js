@@ -5,7 +5,7 @@ import RightColumn from './RightColumn';
 import Post from './Post'; // Assuming you have a Post component for displaying posts
 import { db, auth } from '../firebase'; // Firebase Firestore and Auth
 import { doc, getDoc, query, where, collection, onSnapshot, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // Use useNavigate for navigation in React Router v6
 import NavBar from './navbar'; // Import NavBar
 
 const UserProfilePage = () => {
@@ -15,6 +15,8 @@ const UserProfilePage = () => {
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
   const [isFollowing, setIsFollowing] = useState(false);
+  const [isMutual, setIsMutual] = useState(false); // New state for mutual following
+  const navigate = useNavigate(); // Replace useHistory with useNavigate
 
   // Fetch user data and posts when the component mounts
   useEffect(() => {
@@ -37,7 +39,14 @@ const UserProfilePage = () => {
           if (userDoc.exists()) {
             setUser(userDoc.data());
             // Check if the current user is already following the profile user
-            setIsFollowing(userDoc.data().followers?.includes(currentUser.uid) || false);
+            const userFollowers = userDoc.data().followers || [];
+            setIsFollowing(userFollowers.includes(currentUser.uid));
+            // Check if both users are mutual followers
+            const currentUserDoc = await getDoc(doc(db, 'users', currentUser.uid));
+            const currentUserData = currentUserDoc.data();
+            const currentUserFollowing = currentUserData.following || [];
+            const isMutualFollower = userFollowers.includes(currentUser.uid) && currentUserFollowing.includes(userId);
+            setIsMutual(isMutualFollower); // Set mutual follower state
           } else {
             console.error('User not found');
           }
@@ -96,6 +105,9 @@ const UserProfilePage = () => {
         ...prevUser,
         followers: [...(prevUser.followers || []), currentUser.uid], // Update followers array in local state
       }));
+
+      // Check if mutual following is now established
+      setIsMutual(true);
     } catch (error) {
       console.error('Error following user:', error);
     }
@@ -124,9 +136,20 @@ const UserProfilePage = () => {
         ...prevUser,
         followers: prevUser.followers.filter((followerId) => followerId !== currentUser.uid), // Remove follower locally
       }));
+
+      // Check if mutual following is no longer valid
+      setIsMutual(false);
     } catch (error) {
       console.error('Error unfollowing user:', error);
     }
+  };
+
+  // Handle messaging a user
+  const messageUser = () => {
+    if (!currentUser || !user) return;
+
+    // Navigate to the messaging page, assuming it's located at /messages/:userId
+    navigate(`/message`);
   };
 
   if (loading) {
@@ -135,11 +158,11 @@ const UserProfilePage = () => {
 
   return (
     <>
-    
+    {/* Assuming you have a NavBar component */}
       <div className="profile-page-layout">
         {/* Left column */}
         <div className="left-column">
-      
+         
         </div>
 
         {/* Middle column: Profile content */}
@@ -147,12 +170,12 @@ const UserProfilePage = () => {
           <div className="profile-page">
             <div className="profile-info">
               <div className="name-section">
-                <h2>{user?.name || "Anonymous User"}</h2>
+                <h2>{user?.name || 'Anonymous User'}</h2>
                 <p className="uneditable-username">@{user?.username || 'nbafan123'}</p>
               </div>
 
               <div className="bio-section">
-                <p className="bio">{user?.bio || "This user has no bio"}</p>
+                <p className="bio">{user?.bio || 'This user has no bio'}</p>
               </div>
 
               <div className="stats">
@@ -167,11 +190,16 @@ const UserProfilePage = () => {
                 ) : (
                   <button onClick={followUser} className="follow-button">Follow</button>
                 )}
+
+                {/* Message button - only appears if mutual */}
+                {isMutual && (
+                  <button onClick={messageUser} className="following-button">Message</button>
+                )}
               </div>
             </div>
 
             <div className="profile-posts">
-              <h3>{user?.name || "User"}'s Hot Takes</h3>
+              <h3>{user?.name || 'User'}'s Hot Takes</h3>
               {posts.length > 0 ? (
                 posts.map(post => (
                   <Post key={post.id} post={post} /> // Reuse the Post component, without edit/delete options
@@ -185,7 +213,7 @@ const UserProfilePage = () => {
 
         {/* Right column */}
         <div className="right-column">
-         
+        
         </div>
       </div>
     </>
