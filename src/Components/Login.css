@@ -1,114 +1,135 @@
+/* Main Container Styling */
 .mainContainer {
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: rgb(24, 28, 28);
-    color: white;
-  }
-  
-  .titleContainer {
-    display: flex;
-    flex-direction: column;
-    font-size: 64px;
-    font-weight: bolder;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    
-  }
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #181C1C; /* Dark, smooth background for contrast */
+  color: white;
+  padding: 20px;
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5); /* Subtle inset shadow for depth */
+}
 
-  
-  
-  .inputContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    margin-bottom: 10px;
-    
-  }
-  
-  .inputBox {
-    margin-top: 10px;
-    height: 48px;
-    width: 400px;
-    font-size: large;
-    border-radius: 8px;
-    background-color: transparent; /* Fully transparent background */
-    border: 2px solid #1682B0;
-    padding-left: 8px;
-    color: white;
-    transition: all 0.3s ease; /* Smooth transition for all properties */
-  }
-  .inputBox:focus {
-    outline: none; /* Remove default outline */
-    border-color: #1682B0; /* Maintain the blue border on focus */
-    color: white; /* Keep text white when focused */
-    width: 410px; /* Slightly increase the width */
-    height: 52px; /* Slightly increase the height */
-    box-shadow: 0 0 10px rgba(22, 130, 176, 0.6); /* Optional shadow effect */
-  }
-  
-  .buttonContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 60px;
-  }
-  
-  .loginButton {
-    width: 400px;
-    height: 48px;
-    font-size: large;
-    border-radius: 8px;
-    background-color: #1682B0;
-    color: white;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(22, 130, 176, 0.6); /* Optional shadow effect */
-  }
-  
-  .loginButton:hover {
-    background-color: #28628f;
-  }
-  
-  .errorLabel {
-    color: red;
-    font-size: 12px;
-    margin-bottom: 10px;
-  }
-  
-  .signupLink {
-    margin-bottom: 20px;
-    font-size: 14px;
-    color: white;
-  }
-  
-  .signupLink a {
-    color: #1682B0;
-    text-decoration: none;
-  }
-  
-  .signupLink a:hover {
-    text-decoration: underline;
-  }
-  .forgotPassword {
-    margin-bottom: 20px;
-    font-size: 14px;
-    color: #1682B0;
-    cursor: pointer;
-  }
-  
-  .forgotPassword:hover {
-    text-decoration: underline;
-  }
-  
-  .resetLabel {
-    color: green;
-    font-size: 12px;
-    margin-bottom: 10px;
-  }
-  
+/* Title Container */
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  font-size: 72px; /* Larger font for the title */
+  font-weight: 900; /* Bolder font for more emphasis */
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  color: #ffffff;
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow for title */
+}
+
+/* Input Container */
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-bottom: 15px;
+  width: 100%;
+  max-width: 450px; /* Max width to control the input box sizing */
+}
+
+/* Input Box Styling */
+.inputBox {
+  margin-top: 12px;
+  height: 50px;
+  width: 100%; /* Full width for consistency */
+  max-width: 450px; /* Limit max width for large screens */
+  font-size: 18px; /* Larger font for better readability */
+  border-radius: 10px; /* Smoother edges for a modern feel */
+  background-color: rgba(255, 255, 255, 0.05); /* Transparent with slight tint */
+  border: 2px solid #1682B0; /* Primary blue border */
+  padding-left: 12px;
+  color: white;
+  transition: all 0.3s ease; /* Smooth transition for focus effect */
+  backdrop-filter: blur(8px); /* Slight blur effect for a modern glass look */
+}
+
+.inputBox:focus {
+  outline: none; /* Remove default outline */
+  border-color: #1ba0db; /* Brighter blue border on focus */
+  width: 105%; /* Slight width increase for interactivity */
+  height: 55px; /* Slight height increase for focus */
+  box-shadow: 0 0 15px rgba(22, 130, 176, 0.6); /* Glow effect on focus */
+}
+
+/* Button Container */
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+}
+
+/* Login Button Styling */
+.loginButton {
+  width: 100%;
+  max-width: 450px; /* Max width for responsive behavior */
+  height: 50px;
+  font-size: 18px;
+  border-radius: 10px; /* Smooth corners */
+  background-color: #1682B0; /* Primary blue */
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+  box-shadow: 0 8px 16px rgba(22, 130, 176, 0.4); /* Soft glow effect */
+}
+
+.loginButton:hover {
+  background-color: #1ba0db; /* Lighter blue on hover */
+  transform: translateY(-2px); /* Subtle lift on hover */
+  box-shadow: 0 10px 20px rgba(22, 130, 176, 0.6); /* Enhanced shadow on hover */
+}
+
+/* Error and Reset Labels */
+.errorLabel {
+  color: #e74c3c; /* Vivid red for error messages */
+  font-size: 14px; /* Slightly larger for readability */
+  margin-bottom: 12px;
+}
+
+.resetLabel {
+  color: #27ae60; /* Green for success messages */
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+/* Signup Link Styling */
+.signupLink {
+  margin-bottom: 25px;
+  font-size: 16px; /* Larger for better readability */
+  color: white;
+}
+
+.signupLink a {
+  color: #1682B0; /* Blue for signup link */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.signupLink a:hover {
+  color: #1ba0db; /* Lighter blue on hover */
+  text-decoration: underline; /* Underline effect on hover */
+}
+
+/* Forgot Password Styling */
+.forgotPassword {
+  margin-bottom: 25px;
+  font-size: 16px; /* Larger for readability */
+  color: #1682B0;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.forgotPassword:hover {
+  text-decoration: underline;
+  color: #1ba0db; /* Brighter blue on hover */
+}

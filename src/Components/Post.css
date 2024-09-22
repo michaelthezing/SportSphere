@@ -1,52 +1,24 @@
 /* Post Styling - Modernized */
 .post {
   width: 100%;
-  border-radius: 12px;
-  background-color: #f9f9f9; /* Light background for clarity */
-  border: 1px solid #dcdcdc; /* Softer, light border */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
-  margin: 30px 0;
-  transition: box-shadow 0.3s ease;
+  border-radius: 16px; /* Increased radius for smoother edges */
+  background-color: #ffffff; /* Clean white background for modern aesthetic */
+  border: 1px solid #e0e0e0; /* Softer, neutral border for balance */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08); /* Gentle shadow for slight elevation */
+  margin: 25px 0;
+  transition: box-shadow 0.3s ease-in-out, transform 0.2s ease;
+  overflow: hidden; /* Ensures no content overflow */
 }
 
 .post:hover {
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
-}
-
-.repostCount {
-  color: #333; /* Darker text for better readability */
-  padding: 2px;
-  margin-left: 3px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12); /* Enhanced shadow for hover effect */
+  transform: translateY(-4px); /* Subtle upward movement on hover */
 }
 
 .postWrapper {
-  padding: 15px;
-  background-color: #fff; /* Clean white background inside the wrapper */
-  border-radius: 10px;
-}
-
-.deleteIcon, .deleteCommentIcon {
-  color: #888; /* Lighter grey for icons */
-  font-size: 20px;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-.deleteIcon:hover, .deleteCommentIcon:hover {
-  color: #e74c3c; /* Red accent for delete action */
-  transition: color 0.3s ease;
-}
-
-.repostIcon {
-  color: #888; /* Grey for neutral actions */
-  font-size: 20px;
-  cursor: pointer;
-  margin-left: 15px;
-}
-
-.repostIcon:hover {
-  color: #1682B0; /* Primary action color for hover */
-  transition: color 0.3s ease;
+  padding: 20px;
+  background-color: #f8f9fb; /* Softer internal wrapper for contrast */
+  border-radius: 12px;
 }
 
 .postTop {
@@ -60,50 +32,32 @@
   align-items: center;
 }
 
-.commentUsername {
-  font-size: 16px;
-  font-weight: 600;
-  margin-right: 10px;
-  color: #333; /* Dark text for username */
-}
-
-/* Comment top section to align username and delete button */
-.commentTop {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 5px;
-}
-
 .postUsername {
   font-size: 18px;
-  font-weight: 600;
-  margin-right: 10px;
-  color: #1D4E89; /* Dark username color */
+  font-weight: 700;
+  color: #0a3d62; /* Stronger color for username */
+  margin-right: 12px;
+  transition: color 0.3s ease;
 }
 
 .postUsername:hover {
+  color: #1682B0; /* Brighter color on hover */
   cursor: pointer;
 }
 
 .postDate {
-  font-size: 13px;
-  color: #888; /* Subtle grey for dates */
-}
-
-.postTopRight {
-  font-size: 24px;
-  cursor: pointer;
-  color: #333; /* Dark color for right-side action */
+  font-size: 14px;
+  color: #7a7a7a; /* Lighter grey for date */
 }
 
 .postCenter {
-  margin: 20px 0;
+  margin: 25px 0;
 }
 
 .postText {
-  font-size: 20px;
-  color: #444; /* Slightly darker grey for text readability */
+  font-size: 18px;
+  line-height: 1.6; /* Improved readability with line height */
+  color: #4a4a4a;
 }
 
 .postBottom {
@@ -119,156 +73,147 @@
 
 .likeText, .dislikeText {
   font-size: 15px;
-  color: #606770; /* Neutral grey for likes/dislikes */
+  color: #6e7681;
   cursor: pointer;
-  margin-right: 15px;
+  margin-right: 20px;
+  transition: color 0.3s ease;
+}
+
+.likeText:hover, .dislikeText:hover {
+  color: #1682B0;
 }
 
 .repostButton {
-  background-color: transparent;
+  background-color: #ffffff;
   color: #1682B0;
   border: 1px solid #1682B0;
   border-radius: 6px;
   cursor: pointer;
-  padding: 4px 10px;
+  padding: 5px 12px;
   margin-left: 10px;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
 }
 
 .repostButton:hover {
   background-color: #1682B0;
   color: white;
-  transition: background-color 0.3s ease;
-}
-
-.likeText:hover, .dislikeText:hover {
-  color: #0073b1; /* LinkedIn blue for hover */
-}
-
-.postLikeCounter {
-  font-size: 15px;
-  color: #333; /* Dark color for like counter */
 }
 
 .postCommentText {
   cursor: pointer;
   font-size: 15px;
-  color: rgba(50, 50, 50, 0.9); /* Darker grey for comments */
+  color: rgba(50, 50, 50, 0.9);
+  transition: all 0.3s ease-in-out;
+  margin-right: 5px;
 }
 
 .postCommentText:hover {
-  color: #333; /* Darker color on hover */
-  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  color: #1ba0db;
 }
+.undoRepostIcon {
+  color: #1D4E89; /* Use a primary blue color to match the theme */
+  font-size: 20px; /* Adjust the size as needed */
+  cursor: pointer;
+  margin-left: 15px;
+  transition: color 0.3s ease;
+}
+
+.undoRepostIcon:hover {
+  color: #1682B0; /* Slightly lighter blue on hover */
+}
+
 
 /* Comments Section */
 .commentsSection {
-  margin-top: 15px;
-  padding-top: 10px;
-  border-top: 1px solid #e0e0e0; /* Light grey for comment separation */
-}
-
-.commentsList {
-  margin-bottom: 15px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eaeaea;
 }
 
 .commentText {
-  margin-top: 5px;
-  font-size: 18px;
-  color: #333; /* Darker grey for comment text */
-}
-
-.commentActions {
-  margin-top: 10px;
-  display: flex;
-  color: #333; /* Action text color */
-}
-
-/* Comment Input */
-.commentInput {
-  width: 95%;
-  padding: 10px;
-  border: 1px solid #1682B0;
-  border-radius: 20px;
-  outline: none;
-  font-size: 14px;
-  background-color: white;
-  color: #333; /* Dark text for input */
-  transition: box-shadow 0.3s ease;
-}
-
-.commentInput::placeholder {
-  color: rgba(50, 50, 50, 0.8); /* Darker placeholder */
-}
-
-.commentInput:focus {
-  box-shadow: 0 0 4px rgba(22, 130, 176, 0.6);
-}
-
-/* Modal styles */
-.shareModal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-}
-
-.shareModal h3 {
-  margin-bottom: 10px;
-}
-
-.shareModal ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.shareModal ul li {
-  padding: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.shareModal ul li:hover {
-  background-color: #f0f0f0;
-}
-
-.shareModal button {
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #1682B0;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.shareIcon {
-  margin-left: 10px;
-  cursor: pointer;
-  font-size: 18px;
-  color: #1682B0;
-}
-
-.shareIcon:hover {
-  color: #1ba0db;
-}
-
-.sendIcon {
-  cursor: pointer;
-  font-size: 20px;
-  color: #1682B0;
-}
-
-.sendIcon:hover {
-  color: #28628f;
+  font-size: 17px;
+  color: #3e3e3e; /* Softer grey for comment text */
+  margin-top: 8px;
 }
 
 .commentInputWrapper {
   display: flex;
   align-items: center;
+  margin-top: 10px;
+}
+
+.commentInput {
+  width: 90%;
+  padding: 12px 16px;
+  border: 1px solid #1682B0;
+  border-radius: 30px;
+  outline: none;
+  font-size: 15px;
+  background-color: #f9f9f9;
+  color: #333;
+  transition: all 0.3s ease-in-out;
+}
+
+.commentInput::placeholder {
+  color: rgba(50, 50, 50, 0.75);
+}
+
+.commentInput:focus {
+  box-shadow: 0 0 6px rgba(22, 130, 176, 0.5);
+}
+
+/* Share Modal */
+.shareModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+.shareModal h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.shareModal ul li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.shareModal ul li:hover {
+  background-color: #f7f7f7;
+}
+
+.shareModal button {
+  margin-top: 12px;
+  padding: 10px 15px;
+  background-color: #1682B0;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.shareModal button:hover {
+  background-color: #1ba0db;
+}
+
+/* Icon Styling */
+.shareIcon, .sendIcon, .deleteIcon, .deleteCommentIcon, .repostIcon {
+  color: #1682B0;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.shareIcon:hover, .sendIcon:hover, .deleteIcon:hover, .deleteCommentIcon:hover, .repostIcon:hover {
+  color: #1ba0db;
 }

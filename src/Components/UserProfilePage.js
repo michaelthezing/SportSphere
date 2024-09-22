@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ProfilePage.css'; // Same styles as your ProfilePage
 import LeftColumn from './LeftColumn';
-import RightColumn from './RightColumn';
 import Post from './Post'; // Assuming you have a Post component for displaying posts
 import { db, auth } from '../firebase'; // Firebase Firestore and Auth
 import { doc, getDoc, query, where, collection, onSnapshot, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';

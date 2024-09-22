@@ -1,42 +1,33 @@
 /* MiddleColumn Styling */
-.MiddleColumn {
-  width: 100%;
-  overflow-x: hidden; /* Prevent horizontal scroll */
-  box-sizing: border-box;
-  background-color: #FFFFFF; /* White background for clarity and professionalism */
-  border-radius: 10px; /* Rounded corners for modern design */
-  padding: 20px;
-  
-}
 
 /* Transparent and Modern Share Box */
 .shareBox {
   display: flex;
   align-items: center;
-  background-color: #F5F6F7; /* Light gray background to differentiate from the MiddleColumn */
-  border: 2px solid #D1D1D1; /* Subtle gray border */
-  border-radius: 25px;
-  padding: 5px;
-  width: 99%;
-  height: 35px;
-  transition: box-shadow 0.3s ease;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1); /* Subtle shadow for focus */
+  background-color: #F2F3F5; /* Softer light gray for modern touch */
+  border: 1px solid #D3D3D3; /* Light border for minimalistic look */
+  border-radius: 30px; /* Smoother corners for a modern feel */
+  padding: 8px;
+  width: 98%;
+  height: 40px;
+  transition: box-shadow 0.3s ease, height 0.2s ease-in-out;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
 }
 
 .shareBox.focused {
   outline: none; /* Remove default outline */
-  border-color: #1D4E89; /* Primary blue for border when focused */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Slightly larger shadow when focused */
-  height: 38px;
+  border-color: #1D4E89; /* Primary blue for focused border */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12); /* Enhanced shadow when focused */
+  height: 45px; /* Slightly taller when focused */
 }
 
 .shareBox i {
-  margin-left: 5px;
-  color: #606770; /* Dark gray for the icon */
+  margin-left: 10px;
+  color: #6c757d; /* Muted gray for icon */
 }
 
 .shareBox:hover {
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect on hover */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12); /* Enhanced shadow on hover */
 }
 
 /* Share Input Styling */
@@ -44,58 +35,68 @@
   border: none;
   outline: none;
   flex-grow: 1;
-  font-size: 14px;
-  padding: 6px;
-  background-color: transparent; /* Transparent input background */
-  color: #3C3C3C; /* Dark gray text color for readability */
+  font-size: 16px;
+  padding: 6px 10px;
+  background-color: transparent; /* Transparent input background for clean design */
+  color: #4a4a4a; /* Darker gray for improved readability */
 }
 
 .shareInput::placeholder {
-  color: rgba(60, 60, 60, 0.8); /* Dark gray placeholder for better readability */
-  font-size: 14px;
+  color: rgba(74, 74, 74, 0.7); /* Medium gray placeholder */
+  font-size: 15px;
   padding-left: 10px;
 }
 
 .shareInput:focus::placeholder {
-  color: transparent; /* Hide placeholder when focused */
+  color: transparent; /* Hide placeholder when input is focused */
 }
 
 /* Send Icon Styling */
 .sendIcon {
   cursor: pointer;
-  font-size: 20px;
-  color: #1D4E89; /* Primary blue for the send icon */
-  margin-left: 10px;
+  font-size: 22px;
+  color: #1D4E89; /* Consistent primary blue for send icon */
   margin-right: 10px;
+  transition: color 0.3s ease;
 }
 
 .sendIcon:hover {
-  color: #28628F; /* Slightly lighter blue on hover */
+  color: #28628F; /* Slightly lighter blue for hover state */
 }
 
 /* Post List */
 .postList {
-  margin-top: 20px;
+  margin-top: 25px;
+  padding: 0 10px;
 }
 
-/* Tab styling */
+/* Tab Selector Styling */
 .tabSelector {
   display: flex;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  justify-content: space-evenly; /* Equal spacing for tabs */
 }
 
 .tabButton {
-  background-color: #F5F6F7; /* Light gray for the tab buttons */
+  background-color: #E9ECEF; /* Softer gray for inactive tab buttons */
   border: none;
-  padding: 10px 25px;
+  padding: 12px 28px;
   cursor: pointer;
   font-size: 16px;
-  border-radius: 25px;
+  font-weight: 600;
+  border-radius: 30px;
   margin-right: 10px;
-  color: #3C3C3C; /* Dark gray text */
+  color: #495057; /* Darker muted gray for text */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tabButton:hover {
+  background-color: #D3D4D5; /* Lighter gray on hover */
 }
 
 .tabButton.active {
-  background-color: #1D4E89; /* Primary blue for active tabs */
-  color: white;
+  background-color: #1D4E89; /* Bold primary blue for active tab */
+  color: white; /* White text for contrast */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for active tab */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }

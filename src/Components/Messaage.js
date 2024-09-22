@@ -122,6 +122,12 @@ export default function MessagesPage() {
     };
   }, [selectedUser, currentUser]);
 
+  const handleKeyDown = async (events) =>{
+    if(events.key === 'Enter')
+    {
+      handleSendMessage();
+    }
+  }
   // Handle sending messages
   const handleSendMessage = async () => {
     if (newMessage.trim() === '' || !currentUser || !selectedUser) return;
@@ -157,14 +163,8 @@ export default function MessagesPage() {
     }
 
     setNewMessage('');
+    
   };
-
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      handleSendMessage();
-    }
-  };
-
   useEffect(() => {
     // Add the class to the body when the component mounts
     document.body.classList.add('messages-page-body');
@@ -215,7 +215,8 @@ export default function MessagesPage() {
                 placeholder="Type a message..."
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
-                onKeyDown={handleKeyDown} 
+
+                onKeyDown={handleKeyDown}
               />
               <button onClick={handleSendMessage}>
                 <FontAwesomeIcon icon={faPaperPlane} /> {/* Send button icon */}

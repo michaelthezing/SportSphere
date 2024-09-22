@@ -120,8 +120,9 @@
     border-radius: 15px;
     background-color: #F5F6F7; /* Light gray background to match design */
     border: 2px solid #D1D1D1; /* Subtle gray border */
-    padding: 3px;
-    width: 99%; /* Takes up most of the width */
+    border-radius: 10px;
+    padding: 5px;
+    width: 98%; /* Takes up most of the width */
     height: 50px; /* Increased height for a more substantial input box */
     margin-bottom: 10px;
     transition: box-shadow 0.3s ease;
