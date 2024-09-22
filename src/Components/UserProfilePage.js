@@ -36,16 +36,24 @@ const UserProfilePage = () => {
         try {
           const userDoc = await getDoc(doc(db, 'users', userId));
           if (userDoc.exists()) {
-            setUser(userDoc.data());
-            // Check if the current user is already following the profile user
-            const userFollowers = userDoc.data().followers || [];
+            const profileUserData = userDoc.data();
+            setUser(profileUserData);
+  
+            // Check if the current user is following the profile user
+            const userFollowers = profileUserData.followers || [];
             setIsFollowing(userFollowers.includes(currentUser.uid));
-            // Check if both users are mutual followers
+  
+            // Check if both users follow each other (mutual)
             const currentUserDoc = await getDoc(doc(db, 'users', currentUser.uid));
             const currentUserData = currentUserDoc.data();
             const currentUserFollowing = currentUserData.following || [];
-            const isMutualFollower = userFollowers.includes(currentUser.uid) && currentUserFollowing.includes(userId);
-            setIsMutual(isMutualFollower); // Set mutual follower state
+  
+            // Check for mutual followers (both following each other)
+            const isMutualFollower =
+              userFollowers.includes(currentUser.uid) && 
+              currentUserFollowing.includes(userId);
+              
+            setIsMutual(isMutualFollower);
           } else {
             console.error('User not found');
           }
@@ -53,34 +61,33 @@ const UserProfilePage = () => {
           console.error('Error fetching user:', error);
         }
       };
-
+  
       const fetchPosts = () => {
         const postsQuery = query(
           collection(db, 'posts'),
           where('userid', '==', userId)
         );
-
+  
         const unsubscribe = onSnapshot(postsQuery, (snapshot) => {
           const userPosts = snapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
           }));
-
+  
           const sortedPosts = userPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
           setPosts(sortedPosts);
           setLoading(false);
         });
-
+  
         return unsubscribe;
       };
-
+  
       fetchUserData();
       const unsubscribePosts = fetchPosts();
-
+  
       return () => unsubscribePosts();
     }
   }, [userId, currentUser]);
-
   // Handle following a user
   const followUser = async () => {
     if (!currentUser || !user) return;

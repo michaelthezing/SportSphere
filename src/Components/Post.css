@@ -83,22 +83,6 @@
   color: #1682B0;
 }
 
-.repostButton {
-  background-color: #ffffff;
-  color: #1682B0;
-  border: 1px solid #1682B0;
-  border-radius: 6px;
-  cursor: pointer;
-  padding: 5px 12px;
-  margin-left: 10px;
-  font-weight: 600;
-  transition: all 0.3s ease-in-out;
-}
-
-.repostButton:hover {
-  background-color: #1682B0;
-  color: white;
-}
 
 .postCommentText {
   cursor: pointer;
@@ -111,18 +95,6 @@
 .postCommentText:hover {
   color: #1ba0db;
 }
-.undoRepostIcon {
-  color: #1D4E89; /* Use a primary blue color to match the theme */
-  font-size: 20px; /* Adjust the size as needed */
-  cursor: pointer;
-  margin-left: 15px;
-  transition: color 0.3s ease;
-}
-
-.undoRepostIcon:hover {
-  color: #1682B0; /* Slightly lighter blue on hover */
-}
-
 
 /* Comments Section */
 .commentsSection {
@@ -137,15 +109,17 @@
   margin-top: 8px;
 }
 
+/* Input Wrapper */
 .commentInputWrapper {
   display: flex;
   align-items: center;
+  position: relative; /* For absolute positioning of the icon */
   margin-top: 10px;
 }
 
 .commentInput {
-  width: 90%;
-  padding: 12px 16px;
+  width: 100%;
+  padding: 12px 50px 12px 16px; /* Extra padding on the right for the icon */
   border: 1px solid #1682B0;
   border-radius: 30px;
   outline: none;
@@ -163,57 +137,29 @@
   box-shadow: 0 0 6px rgba(22, 130, 176, 0.5);
 }
 
-/* Share Modal */
-.shareModal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #ffffff;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
-}
-
-.shareModal h3 {
-  font-size: 20px;
-  margin-bottom: 12px;
-}
-
-.shareModal ul li {
-  padding: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.shareModal ul li:hover {
-  background-color: #f7f7f7;
-}
-
-.shareModal button {
-  margin-top: 12px;
-  padding: 10px 15px;
-  background-color: #1682B0;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.shareModal button:hover {
-  background-color: #1ba0db;
-}
-
 /* Icon Styling */
-.shareIcon, .sendIcon, .deleteIcon, .deleteCommentIcon, .repostIcon {
+.commentSendIcon {
+  position: absolute;
+  right: 13px; /* Position it inside the input */
+  font-size: 17px;
   color: #1682B0;
-  font-size: 20px;
   cursor: pointer;
   transition: color 0.3s ease;
 }
 
-.shareIcon:hover, .sendIcon:hover, .deleteIcon:hover, .deleteCommentIcon:hover, .repostIcon:hover {
+.commentSendIcon:hover {
   color: #1ba0db;
+}
+
+/* Delete Icon with Red Color */
+.deleteIcon {
+  color: #1ba0db; /* Red color for delete icons */
+  font-size: 15px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+
+.deleteIcon:hover, .deleteCommentIcon:hover {
+  color: #c9302c; /* Darker red on hover */
 }

@@ -15,7 +15,7 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
   const [showComments, setShowComments] = useState(false);
   const [hasReposted, setHasReposted] = useState(false);
   const [repostedPostId, setRepostedPostId] = useState(null); // Store reposted post ID
-  const [repostedPostId, setRepostedPostId] = useState(null); // Define repostedPostId and setter
+
   
 
   const postRef = doc(db, 'posts', post.id); // Get a reference to the post in Firestore
@@ -184,58 +184,54 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
       console.error('Error deleting comment:', error);
     }
   };
-  const repostHandler = async () => {
-    try {
-      const repostedPostRef = doc(db, 'posts', `${currentUser.uid}_${post.id}_repost`); // Reference to the reposted post
-      const repostedPostDoc = await getDoc(repostedPostRef);
-
-      if (repostedPostDoc.exists()) {
-        // If the user has already reposted, remove the repost
-        await deleteDoc(repostedPostRef); // Delete the reposted post from Firestore
-        await updateDoc(postRef, {
-          repostedBy: arrayRemove(currentUser.uid), // Remove user from repostedBy array
-        });
-
-        setHasReposted(false); // Update state to reflect that repost has been removed
-        setRepostedPostId(null); // Reset repostedPostId
-        console.log('Repost successfully removed!');
-      } else {
-        // If the user hasn't reposted yet, add the repost
-        const repostedPost = {
-          content: post?.desc || post.content,
-          username: currentUser.displayName || currentUser.email, // Keep the reposted by user's name
-          originalAuthor: post.username, // Store the original author separately for display
-          userid: currentUser.uid, // Logged-in user's ID
-          like: 0,
-          dislike: 0,
-          comments: [],
-          isRepost: true, // Flag to indicate it's a repost
-          originalPostId: post.id, // Reference to the original post
-          originalUsername: post.username, // Original post's username
-          date: new Date().toISOString(), // Timestamp for the repost
-        };
-
-        // Add reposted post to Firestore with a unique ID for the repost
-        await setDoc(repostedPostRef, repostedPost); // Use setDoc to specify the repost document ID
-
-        // Update the original post to track who reposted
-        await updateDoc(postRef, {
-          repostedBy: arrayUnion(currentUser.uid), // Add user to repostedBy array
-        });
-
-        setHasReposted(true); // Update state to reflect that repost has been added
-        setRepostedPostId(repostedPostRef.id); // Store reposted post ID
-        console.log('Post successfully reposted!');
-      }
-      // Update state with repost info
-      setRepostedPostId(newRepostRef.id); // Save the ID of the reposted post
-      setRepostCount(repostCount + 1);
-      setHasReposted(true);
-      console.log('Post successfully reposted!');
-    } catch (error) {
-      console.error('Error handling repost:', error);
-    }
-  };
+  // const repostHandler = async () => {
+  //   try {
+  //     const repostedPostRef = doc(db, 'posts', `${currentUser.uid}_${post.id}_repost`); // Reference to the reposted post
+  //     const repostedPostDoc = await getDoc(repostedPostRef);
+  
+  //     if (repostedPostDoc.exists()) {
+  //       // If the user has already reposted, remove the repost
+  //       await deleteDoc(repostedPostRef); // Delete the reposted post from Firestore
+  //       await updateDoc(postRef, {
+  //         repostedBy: arrayRemove(currentUser.uid), // Remove user from repostedBy array
+  //       });
+  
+  //       setHasReposted(false); // Update state to reflect that repost has been removed
+  //       setRepostedPostId(null); // Reset repostedPostId
+  //       console.log('Repost successfully removed!');
+  //     } else {
+  //       // If the user hasn't reposted yet, add the repost
+  //       const repostedPost = {
+  //         content: post?.desc || post.content,
+  //         username: currentUser.displayName || currentUser.email, // Keep the reposted by user's name
+  //         originalAuthor: post.username, // Store the original author separately for display
+  //         userid: currentUser.uid, // Logged-in user's ID
+  //         like: 0,
+  //         dislike: 0,
+  //         comments: [],
+  //         isRepost: true, // Flag to indicate it's a repost
+  //         originalPostId: post.id, // Reference to the original post
+  //         originalUsername: post.username, // Original post's username
+  //         date: new Date().toISOString(), // Timestamp for the repost
+  //       };
+  
+  //       // Add reposted post to Firestore with a unique ID for the repost
+  //       await setDoc(repostedPostRef, repostedPost); // Use setDoc to specify the repost document ID
+  
+  //       // Update the original post to track who reposted
+  //       await updateDoc(postRef, {
+  //         repostedBy: arrayUnion(currentUser.uid), // Add user to repostedBy array
+  //       });
+  
+  //       setHasReposted(true); // Update state to reflect that repost has been added
+  //       setRepostedPostId(repostedPostRef.id); // Store reposted post ID
+  //       console.log('Post successfully reposted!');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error handling repost:', error);
+  //   }
+  // };
+  
   useEffect(() => {
     const checkReposted = async () => {
       try {
@@ -252,15 +248,11 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
         console.error('Error checking repost status:', error);
       }
     };
-
-    if (currentUser) {
-      checkReposted();
-    }
-  }, [currentUser, post.id]);
   
-      console.error('Error reposting post:', error);
-    }
-  };
+    // if (currentUser) {
+    //   checkReposted();
+    // }
+  }, [currentUser, post.id]);
   
   const handleProfileClick = () => {
     if (post.userid === currentUser?.uid) {
@@ -271,28 +263,27 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
       navigate(`/user/${post.userid}`);
     }
   };
-  const unrepostHandler = async () => {
-    if (!hasReposted || !repostedPostId) return;
+  // const unrepostHandler = async () => {
+  //   if (!hasReposted || !repostedPostId) return;
 
-    try {
-      // Delete the reposted post from Firestore
-      await deleteDoc(doc(db, 'posts', repostedPostId));
+  //   try {
+  //     // Delete the reposted post from Firestore
+  //     await deleteDoc(doc(db, 'posts', repostedPostId));
 
-      // Update the original post's repost count
-      await updateDoc(doc(db, 'posts', post.id), {
-        repostCount: Math.max((post.repostCount || 0) - 1, 0), // Decrement repost count, ensuring it doesn't go below 0
-        repostedBy: arrayRemove(currentUser.uid), // Remove current user from repostedBy array
-      });
+  //     // Update the original post's repost count
+  //     await updateDoc(doc(db, 'posts', post.id), {
+  //       repostedBy: arrayRemove(currentUser.uid), // Remove current user from repostedBy array
+  //     });
 
-      // Update state after successful unrepost
-      setRepostedPostId(null);
-      setRepostCount(repostCount - 1);
-      setHasReposted(false);
-      console.log('Post successfully unreposted!');
-    } catch (error) {
-      console.error('Error unreposting post:', error);
-    }
-  };
+  //     // Update state after successful unrepost
+  //     setRepostedPostId(null);
+  
+  //     setHasReposted(false);
+  //     console.log('Post successfully unreposted!');
+  //   } catch (error) {
+  //     console.error('Error unreposting post:', error);
+  //   }
+  // };
 
   const formattedDate = new Date(post.date).toLocaleString('en-US', {
     timeZone: 'America/Los_Angeles', // Adjust for desired timezone
@@ -309,21 +300,21 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
         <div className="postTop">
           <div className="postTopLeft">
             <span className="postUsername" onClick={handleProfileClick}>
-              {post.isRepost ? `Reposted from ${post.originalUsername}` : post.username || 'Anonymous User'}
+              {post.username || 'Anonymous User'}
             </span>
             <span className="postDate">{formattedDate}</span>
           </div>
           <div className="postTopRight">
-            {!post.isRepost && currentUser?.uid === post.userid && (
+            {currentUser?.uid === post.userid && (
               <i className="fas fa-trash-alt deleteIcon" onClick={deletePost}></i>
             )}
           </div>
         </div>
-
+  
         <div className="postCenter">
           <span className="postText">{post?.desc || post.content}</span>
         </div>
-
+  
         <div className="postBottom">
           <div className="postBottomLeft">
             <span className="likeText" onClick={likeHandler}>
@@ -334,37 +325,13 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
             </span>
           </div>
           <div className="postBottomRight">
-  <span className="postCommentText" onClick={() => setShowComments(!showComments)}>
-    {comments.length} comments
-  </span>
-  <i 
-    className={`fas fa-retweet repostIcon ${hasReposted ? 'reposted' : ''}`} 
-    onClick={repostHandler}
-  ></i>
-  {/* Add undo repost icon if the post was reposted */}
-  {hasReposted && (
-    <i 
-      className="fas fa-undo-alt undoRepostIcon" 
-      onClick={repostHandler}
-      title="Undo Repost"
-    ></i>
-  )}
-</div>
-
-          </div>
-  
             <span className="postCommentText" onClick={() => setShowComments(!showComments)}>
               {comments.length} comments
             </span>
-            {hasReposted ? (
-              <i className="fas fa-undo unrepostIcon" onClick={unrepostHandler}></i>
-            ) : (
-              <i className="fas fa-retweet repostIcon" onClick={repostHandler}></i>
-            )}
-            <span className="repostCount">{repostCount}</span>
+          
           </div>
         </div>
-
+  
         {showComments && (
           <div className="commentsSection">
             <div className="commentsList">
@@ -397,11 +364,11 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
                 onChange={(e) => setCommentInput(e.target.value)}
                 onKeyDown={handleKeyDown} // Enter key triggers add comment
               />
-              <i className="fas fa-paper-plane sendIcon" onClick={addComment}></i>
+              <i className="fas fa-paper-plane commentSendIcon" onClick={addComment}></i>
             </div>
           </div>
         )}
       </div>
     </div>
   );
-}
+}  
