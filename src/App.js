@@ -13,7 +13,7 @@ import Message from './Components/Messaage';
 //Add Adjustable sizes according to phone
 //no 2 accoutns same name
 // fix message butotn on non mutuals
-// fix comment section (Email to username, delete button top right)
+
 
 function App() {
   const [filterQuery, setFilterQuery] = useState('');

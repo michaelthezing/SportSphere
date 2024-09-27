@@ -13,8 +13,7 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
   const [comments, setComments] = useState(post.comments || []);
   const [commentInput, setCommentInput] = useState('');
   const [showComments, setShowComments] = useState(false);
-  const [hasReposted, setHasReposted] = useState(false);
-  const [repostedPostId, setRepostedPostId] = useState(null); // Store reposted post ID
+  
 
   
 
@@ -81,30 +80,43 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
   // Add a new comment and update Firestore
   const addComment = async () => {
     if (commentInput.trim() !== '') {
-      // Use displayName if it's available, else fall back to email or a default value
-      const username = currentUser?.username || currentUser?.email || 'Unknown User';
-
-      const newComment = {
-        text: commentInput,
-        username: username, // Use the displayName of the logged-in user
-        like: 0,
-        dislike: 0,
-        userId: currentUser.uid,
-      };
-
-      const updatedComments = [...comments, newComment];
-      setComments(updatedComments);
-      setCommentInput(''); // Clear the comment input field
-
       try {
+        // Fetch the current user's username from the 'users' collection in Firestore
+        const userRef = doc(db, 'users', currentUser.uid); // This ensures you are accessing the correct collection 'users'
+        const userDoc = await getDoc(userRef);
+        
+        let displayName;
+        
+        if (userDoc.exists()) {
+          displayName = userDoc.data().username; // Assuming 'username' field is stored in the users collection
+        } else {
+          // Fallback if there's no username set, use email
+          displayName = currentUser.email;
+        }
+  
+        const newComment = {
+          text: commentInput,
+          username: displayName, // Use the fetched username or email
+          like: 0,
+          dislike: 0,
+          userId: currentUser.uid,
+        };
+  
+        const updatedComments = [...comments, newComment];
+        setComments(updatedComments);
+        setCommentInput(''); // Clear the comment input field
+  
+        // Update Firestore with the new comment
         await updateDoc(postRef, {
-          comments: arrayUnion(newComment), // Update Firestore with the new comment
+          comments: arrayUnion(newComment),
         });
+  
       } catch (error) {
         console.error('Error adding comment:', error);
       }
     }
   };
+
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
@@ -184,75 +196,8 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
       console.error('Error deleting comment:', error);
     }
   };
-  // const repostHandler = async () => {
-  //   try {
-  //     const repostedPostRef = doc(db, 'posts', `${currentUser.uid}_${post.id}_repost`); // Reference to the reposted post
-  //     const repostedPostDoc = await getDoc(repostedPostRef);
+
   
-  //     if (repostedPostDoc.exists()) {
-  //       // If the user has already reposted, remove the repost
-  //       await deleteDoc(repostedPostRef); // Delete the reposted post from Firestore
-  //       await updateDoc(postRef, {
-  //         repostedBy: arrayRemove(currentUser.uid), // Remove user from repostedBy array
-  //       });
-  
-  //       setHasReposted(false); // Update state to reflect that repost has been removed
-  //       setRepostedPostId(null); // Reset repostedPostId
-  //       console.log('Repost successfully removed!');
-  //     } else {
-  //       // If the user hasn't reposted yet, add the repost
-  //       const repostedPost = {
-  //         content: post?.desc || post.content,
-  //         username: currentUser.displayName || currentUser.email, // Keep the reposted by user's name
-  //         originalAuthor: post.username, // Store the original author separately for display
-  //         userid: currentUser.uid, // Logged-in user's ID
-  //         like: 0,
-  //         dislike: 0,
-  //         comments: [],
-  //         isRepost: true, // Flag to indicate it's a repost
-  //         originalPostId: post.id, // Reference to the original post
-  //         originalUsername: post.username, // Original post's username
-  //         date: new Date().toISOString(), // Timestamp for the repost
-  //       };
-  
-  //       // Add reposted post to Firestore with a unique ID for the repost
-  //       await setDoc(repostedPostRef, repostedPost); // Use setDoc to specify the repost document ID
-  
-  //       // Update the original post to track who reposted
-  //       await updateDoc(postRef, {
-  //         repostedBy: arrayUnion(currentUser.uid), // Add user to repostedBy array
-  //       });
-  
-  //       setHasReposted(true); // Update state to reflect that repost has been added
-  //       setRepostedPostId(repostedPostRef.id); // Store reposted post ID
-  //       console.log('Post successfully reposted!');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error handling repost:', error);
-  //   }
-  // };
-  
-  useEffect(() => {
-    const checkReposted = async () => {
-      try {
-        const repostRef = doc(db, 'posts', `${currentUser.uid}_${post.id}_repost`);
-        const repostDoc = await getDoc(repostRef);
-        if (repostDoc.exists()) {
-          setHasReposted(true); // User has reposted this post
-          setRepostedPostId(repostRef.id); // Store the reposted post ID
-        } else {
-          setHasReposted(false); // User hasn't reposted this post
-          setRepostedPostId(null);
-        }
-      } catch (error) {
-        console.error('Error checking repost status:', error);
-      }
-    };
-  
-    // if (currentUser) {
-    //   checkReposted();
-    // }
-  }, [currentUser, post.id]);
   
   const handleProfileClick = () => {
     if (post.userid === currentUser?.uid) {
@@ -263,27 +208,7 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
       navigate(`/user/${post.userid}`);
     }
   };
-  // const unrepostHandler = async () => {
-  //   if (!hasReposted || !repostedPostId) return;
 
-  //   try {
-  //     // Delete the reposted post from Firestore
-  //     await deleteDoc(doc(db, 'posts', repostedPostId));
-
-  //     // Update the original post's repost count
-  //     await updateDoc(doc(db, 'posts', post.id), {
-  //       repostedBy: arrayRemove(currentUser.uid), // Remove current user from repostedBy array
-  //     });
-
-  //     // Update state after successful unrepost
-  //     setRepostedPostId(null);
-  
-  //     setHasReposted(false);
-  //     console.log('Post successfully unreposted!');
-  //   } catch (error) {
-  //     console.error('Error unreposting post:', error);
-  //   }
-  // };
 
   const formattedDate = new Date(post.date).toLocaleString('en-US', {
     timeZone: 'America/Los_Angeles', // Adjust for desired timezone
@@ -338,7 +263,9 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
               {comments.map((comment, index) => (
                 <div key={index} className="commentItem">
                   <div className="commentTop">
-                    <span className="commentUsername">{comment.username}</span>
+                  <span className="postUsername" onClick={handleProfileClick}>
+              {comment.username || 'Anonymous User'}
+            </span>
                     {currentUser?.uid === comment.userId && (
                       <i className="fas fa-trash-alt deleteCommentIcon" onClick={() => deleteComment(index)}></i>
                     )}
