@@ -324,3 +324,89 @@
   background-color: #FFFFFF; /* White background on focus */
   color: #333333; /* Text remains dark and visible */
 }
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  /* Adjust grid layout for mobile */
+  .profile-page-layout {
+    grid-template-columns: 1fr; /* Single column layout */
+    padding: 10px; /* Add some padding for mobile */
+  }
+
+  /* Profile header adjustments */
+  .profile-header {
+    text-align: center; /* Center align for smaller screens */
+  }
+
+  /* Profile info for mobile */
+  .profile-info h2 {
+    font-size: 24px; /* Smaller font size for mobile */
+  }
+
+  .username, .bio, .joined {
+    font-size: 12px; /* Adjusted for smaller screens */
+  }
+
+  .bio {
+    font-size: 16px;
+  }
+
+  /* Adjust stats layout */
+  .stats {
+    justify-content: center; /* Center align stats on mobile */
+    gap: 10px; /* Reduce gap between buttons */
+  }
+
+  /* Make the post modal and buttons smaller */
+  .make-post-button {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .post-modal-content {
+    width: 90%; /* Make the modal content more responsive */
+  }
+
+  .post-input {
+    height: 80px; /* Smaller height for post input */
+  }
+
+  /* Follow/Unfollow buttons for mobile */
+  .follow-button, .unfollow-button {
+    font-size: 12px;
+    padding: 8px 15px; /* Smaller padding */
+  }
+
+  /* Modal button adjustments for mobile */
+  .submit-post-button, .cancel-post-button {
+    padding: 8px 15px;
+    font-size: 12px;
+  }
+
+  /* Name and edit button adjustments */
+  .name-button, .edit-button {
+    padding: 5px 10px;
+    font-size: 10px;
+  }
+
+  /* Adjust grid column for mobile */
+  .profile-posts {
+    padding: 10px;
+  }
+
+  /* Bio input size on mobile */
+  .bio-input {
+    width: 90%; /* Full width on mobile */
+  }
+
+  .bio-input:focus {
+    width: 100%; /* Expand to full width */
+  }
+
+  /* Adjust follow button section for mobile */
+  .follow-button, .following-button {
+    padding: 8px 15px;
+    font-size: 12px;
+  }
+}

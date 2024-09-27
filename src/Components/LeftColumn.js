@@ -13,6 +13,7 @@ export default function LeftColumn({setFilterQuery}) {
   const [expandMLB, setExpandMLB] = useState(false);
   const [expandNHL, setExpandNHL] = useState(false);
   const [expandFunTopics, setExpandFunTopics] = useState(false);
+  const [expandMenu, setExpandMenu] = useState(false); // State to handle the expansion of the left column
   const currentUser = auth.currentUser;
   const handleNameClick = (name) => {
     setFilterQuery(name); // Update the filter query in the MiddleColumn
@@ -104,143 +105,145 @@ export default function LeftColumn({setFilterQuery}) {
   
 
   return (
-    <div className="LeftColumn">
-      <div className="profileSection">
-        <h3 className="profile-username">{username}</h3>
-        <p className="profile-name">{name}</p>
+    <>
+      {/* Hamburger Menu */}
+      <div className="hamburger-menu" onClick={() => setExpandMenu(!expandMenu)}>
+        &#9776; {/* Hamburger Icon */}
       </div>
   
-      <div className="menuSection">
-        <ul className="menuList">
-          {/* NBA */}
-          <li className="menuItem" onClick={() => setExpandNBA(!expandNBA)}>
-            <a href="#">
-              <FontAwesomeIcon icon={faBasketballBall} /> NBA
-              <FontAwesomeIcon icon={expandNBA ? faChevronDown : faChevronRight} className="chevron-icon" />
-            </a>
-          </li>
-          {expandNBA && (
-            <ul className="subMenuList">
-              <li className="subMenuTitle">Teams</li>
-              {nbaTeams.map((team, index) => (
-                <li key={index} className="subMenuItem">
-                  <a href="#" onClick={() => handleNameClick(team)}>{team}</a>
-                </li>
+      {/* Left Column */}
+      <div className={`LeftColumn ${expandMenu ? 'active' : ''}`}>
+        <div className="profileSection">
+          <h3 className="profile-username">{username}</h3>
+          <p className="profile-name">{name}</p>
+        </div>
+  
+        <div className="menuSection">
+          <ul className="menuList">
+            {/* NBA */}
+            <li className="menuItem" onClick={() => setExpandNBA(!expandNBA)}>
+              <a href="#">
+                <FontAwesomeIcon icon={faBasketballBall} /> NBA
+                <FontAwesomeIcon icon={expandNBA ? faChevronDown : faChevronRight} className="chevron-icon" />
+              </a>
+            </li>
+            {expandNBA && (
+              <ul className="subMenuList">
+                <li className="subMenuTitle">Teams</li>
+                {nbaTeams.map((team, index) => (
+                  <li key={index} className="subMenuItem">
+                    <a href="#" onClick={() => handleNameClick(team)}>{team}</a>
+                  </li>
+                ))}
+              </ul>
+            )}
+  
+            {/* NFL */}
+            <li className="menuItem" onClick={() => setExpandNFL(!expandNFL)}>
+              <a href="#">
+                <FontAwesomeIcon icon={faFootballBall} /> NFL
+                <FontAwesomeIcon icon={expandNFL ? faChevronDown : faChevronRight} className="chevron-icon" />
+              </a>
+            </li>
+            {expandNFL && (
+              <ul className="subMenuList">
+                <li className="subMenuTitle">Teams</li>
+                {nflTeams.map((team, index) => (
+                  <li key={index} className="subMenuItem">
+                    <a href="#" onClick={() => handleNameClick(team)}>{team}</a>
+                  </li>
+                ))}
+              </ul>
+            )}
+  
+            {/* MLB */}
+            <li className="menuItem" onClick={() => setExpandMLB(!expandMLB)}>
+              <a href="#">
+                <FontAwesomeIcon icon={faBaseballBall} /> MLB
+                <FontAwesomeIcon icon={expandMLB ? faChevronDown : faChevronRight} className="chevron-icon" />
+              </a>
+            </li>
+            {expandMLB && (
+              <ul className="subMenuList">
+                <li className="subMenuTitle">Teams</li>
+                {mlbTeams.map((team, index) => (
+                  <li key={index} className="subMenuItem">
+                    <a href="#" onClick={() => handleNameClick(team)}>{team}</a>
+                  </li>
+                ))}
+              </ul>
+            )}
+  
+            {/* NHL */}
+            <li className="menuItem" onClick={() => setExpandNHL(!expandNHL)}>
+              <a href="#">
+                <FontAwesomeIcon icon={faHockeyPuck} /> NHL
+                <FontAwesomeIcon icon={expandNHL ? faChevronDown : faChevronRight} className="chevron-icon" />
+              </a>
+            </li>
+            {expandNHL && (
+              <ul className="subMenuList">
+                <li className="subMenuTitle">Teams</li>
+                {nhlTeams.map((team, index) => (
+                  <li key={index} className="subMenuItem">
+                    <a href="#" onClick={() => handleNameClick(team)}>{team}</a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </ul>
+  
+          {/* Notable Players Section */}
+          <div className="playersSection">
+            {/* NBA Players */}
+            <div className="playersList">
+              <h4 className="sectionTitle">Notable NBA Players Takes</h4>
+              {nbaPlayers.map((player, index) => (
+                <div key={index} className="playerItem">
+                  <FontAwesomeIcon icon={faUser} className="playerIcon" />
+                  <a href="#" onClick={() => handleNameClick(player)}>{player}</a>
+                </div>
               ))}
-            </ul>
-          )}
+            </div>
+            <div className="menuSeparator"></div>
   
-          {/* NFL */}
-          <li className="menuItem" onClick={() => setExpandNFL(!expandNFL)}>
-            <a href="#">
-              <FontAwesomeIcon icon={faFootballBall} /> NFL
-              <FontAwesomeIcon icon={expandNFL ? faChevronDown : faChevronRight} className="chevron-icon" />
-            </a>
-          </li>
-          {expandNFL && (
-            <ul className="subMenuList">
-              <li className="subMenuTitle">Teams</li>
-              {nflTeams.map((team, index) => (
-                <li key={index} className="subMenuItem">
-                  <a href="#" onClick={() => handleNameClick(team)}>{team}</a>
-                </li>
+            {/* NFL Players */}
+            <div className="playersList">
+              <h4 className="sectionTitle">Most Notable NFL Players Takes</h4>
+              {nflPlayers.map((player, index) => (
+                <div key={index} className="playerItem">
+                  <FontAwesomeIcon icon={faUser} className="playerIcon" />
+                  <a href="#" onClick={() => handleNameClick(player)}>{player}</a>
+                </div>
               ))}
-            </ul>
-          )}
+            </div>
+            <div className="menuSeparator"></div>
   
-          {/* MLB */}
-          <li className="menuItem" onClick={() => setExpandMLB(!expandMLB)}>
-            <a href="#">
-              <FontAwesomeIcon icon={faBaseballBall} /> MLB
-              <FontAwesomeIcon icon={expandMLB ? faChevronDown : faChevronRight} className="chevron-icon" />
-            </a>
-          </li>
-          {expandMLB && (
-            <ul className="subMenuList">
-              <li className="subMenuTitle">Teams</li>
-              {mlbTeams.map((team, index) => (
-                <li key={index} className="subMenuItem">
-                  <a href="#" onClick={() => handleNameClick(team)}>{team}</a>
-                </li>
+            {/* MLB Players */}
+            <div className="playersList">
+              <h4 className="sectionTitle">Notable MLB Players Takes</h4>
+              {mlbPlayers.map((player, index) => (
+                <div key={index} className="playerItem">
+                  <FontAwesomeIcon icon={faUser} className="playerIcon" />
+                  <a href="#" onClick={() => handleNameClick(player)}>{player}</a>
+                </div>
               ))}
-            </ul>
-          )}
+            </div>
+            <div className="menuSeparator"></div>
   
-          {/* NHL */}
-          <li className="menuItem" onClick={() => setExpandNHL(!expandNHL)}>
-            <a href="#">
-              <FontAwesomeIcon icon={faHockeyPuck} /> NHL
-              <FontAwesomeIcon icon={expandNHL ? faChevronDown : faChevronRight} className="chevron-icon" />
-            </a>
-          </li>
-          {expandNHL && (
-            <ul className="subMenuList">
-              <li className="subMenuTitle">Teams</li>
-              {nhlTeams.map((team, index) => (
-                <li key={index} className="subMenuItem">
-                  <a href="#" onClick={() => handleNameClick(team)}>{team}</a>
-                </li>
+            {/* NHL Players */}
+            <div className="playersList">
+              <h4 className="sectionTitle">Notable NHL Players Takes</h4>
+              {nhlPlayers.map((player, index) => (
+                <div key={index} className="playerItem">
+                  <FontAwesomeIcon icon={faUser} className="playerIcon" />
+                  <a href="#" onClick={() => handleNameClick(player)}>{player}</a>
+                </div>
               ))}
-            </ul>
-          )}
-  
-         
-         
-             
-  
-             
-        </ul>
-  
-        {/* Notable Players Section */}
-        <div className="playersSection">
-          {/* NBA Players */}
-          <div className="playersList">
-            <h4 className="sectionTitle">Notable NBA Players Takes</h4>
-            {nbaPlayers.map((player, index) => (
-              <div key={index} className="playerItem">
-                <FontAwesomeIcon icon={faUser} className="playerIcon" />
-                <a href="#" onClick={() => handleNameClick(player)}>{player}</a>
-              </div>
-            ))}
-          </div>
-          <div className="menuSeparator"></div>
-  
-          {/* NFL Players */}
-          <div className="playersList">
-            <h4 className="sectionTitle">Most Notable NFL Players Takes</h4>
-            {nflPlayers.map((player, index) => (
-              <div key={index} className="playerItem">
-                <FontAwesomeIcon icon={faUser} className="playerIcon" />
-                <a href="#" onClick={() => handleNameClick(player)}>{player}</a>
-              </div>
-            ))}
-          </div>
-          <div className="menuSeparator"></div>
-  
-          {/* MLB Players */}
-          <div className="playersList">
-            <h4 className="sectionTitle">Notable MLB Players Takes</h4>
-            {mlbPlayers.map((player, index) => (
-              <div key={index} className="playerItem">
-                <FontAwesomeIcon icon={faUser} className="playerIcon" />
-                <a href="#" onClick={() => handleNameClick(player)}>{player}</a>
-              </div>
-            ))}
-          </div>
-          <div className="menuSeparator"></div>
-  
-          {/* NHL Players */}
-          <div className="playersList">
-            <h4 className="sectionTitle">Notable NHL Players Takes</h4>
-            {nhlPlayers.map((player, index) => (
-              <div key={index} className="playerItem">
-                <FontAwesomeIcon icon={faUser} className="playerIcon" />
-                <a href="#" onClick={() => handleNameClick(player)}>{player}</a>
-              </div>
-            ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }  

@@ -4,6 +4,7 @@
   justify-content: center;
   padding: 20px;
   background-color: #F5F6F7; /* Light gray background for the page */
+  flex-wrap: wrap; /* Allows columns to wrap on smaller screens */
 }
 
 /* Left, Middle, and Right Columns */
@@ -38,18 +39,59 @@
   border-radius: 10px; /* Rounded corners */
 }
 
-/* Right Column Styling */
-
-/* Custom Scrollbar for Left and Right Columns */
-.LeftColumn::-webkit-scrollbar,.MiddleColumn::-webkit-scrollbar-thumb{
+/* Custom Scrollbar for Left and Middle Columns */
+.LeftColumn::-webkit-scrollbar, .MiddleColumn::-webkit-scrollbar {
   width: 8px;
 }
 
-.LeftColumn::-webkit-scrollbar-thumb, .MiddleColumn::-webkit-scrollbar-thumb{
+.LeftColumn::-webkit-scrollbar-thumb, .MiddleColumn::-webkit-scrollbar-thumb {
   background-color: #1D4E89; /* Primary dark blue scrollbar thumb */
   border-radius: 10px; /* Rounded scrollbar thumb */
 }
 
-.LeftColumn::-webkit-scrollbar-track,.MiddleColumn::-webkit-scrollbar-track{
+.LeftColumn::-webkit-scrollbar-track, .MiddleColumn::-webkit-scrollbar-track {
   background-color: #F5F6F7; /* Light gray background for the scrollbar track */
+}
+
+/* Media Query for Tablets and Smaller Laptops */
+@media (max-width: 1200px) {
+  .LeftColumn, .MiddleColumn, .RightColumn {
+    flex: 1;
+    max-width: 100%;
+    margin: 10px 0; /* Stack columns vertically */
+    height: auto; /* Allow flexible height */
+    position: static; /* Remove sticky for smaller devices */
+  }
+
+  .LeftColumn, .MiddleColumn {
+    height: auto; /* Let columns grow naturally */
+  }
+}
+
+/* Media Query for Mobile Phones */
+@media (max-width: 768px) {
+  .homeContainer {
+    flex-direction: column; /* Stack columns vertically on mobile */
+    padding: 10px;
+  }
+
+  .LeftColumn, .MiddleColumn, .RightColumn {
+    margin: 5px 0; /* Reduce margins */
+    padding: 10px; /* Reduce padding */
+    width: 100%; /* Make columns full-width */
+    max-width: 100%; /* Ensure full width on small screens */
+  }
+
+  .LeftColumn, .MiddleColumn {
+    height: auto; /* Allow natural height */
+  }
+
+  /* Adjust scrollbars for mobile */
+  .LeftColumn::-webkit-scrollbar, .MiddleColumn::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .LeftColumn::-webkit-scrollbar-thumb, .MiddleColumn::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+  }
 }

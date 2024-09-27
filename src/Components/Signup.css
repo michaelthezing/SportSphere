@@ -95,3 +95,55 @@
     text-decoration: underline;
   }
   
+
+  /* Mobile Styles */
+@media (max-width: 768px) {
+  .mainContainer {
+    height: auto; /* Adjust height for mobile */
+    padding: 20px; /* Add padding for smaller screens */
+  }
+
+  .titleContainer {
+    font-size: 48px; /* Smaller font size for title on mobile */
+    margin-bottom: 15px; /* Adjust margin */
+  }
+
+  .inputContainer {
+    width: 100%; /* Make input container take full width */
+    align-items: center; /* Center align for mobile */
+  }
+
+  .inputBox {
+    width: 100%; /* Full width input for mobile */
+    max-width: 350px; /* Set a max width for the input */
+    height: 44px; /* Adjust height */
+    font-size: medium; /* Adjust font size for mobile */
+    padding-left: 10px; /* Ensure good padding */
+  }
+
+  .inputBox:focus {
+    width: 100%; /* Maintain full width on focus */
+    max-width: 360px; /* Slight increase on focus */
+    height: 48px; /* Slight increase in height */
+  }
+
+  .buttonContainer {
+    height: auto; /* Adjust height */
+    margin-top: 20px; /* Add margin for spacing */
+  }
+
+  .signupButton {
+    width: 100%; /* Full width button */
+    max-width: 350px; /* Set a max width for button */
+    height: 44px; /* Adjust height for mobile */
+    font-size: medium; /* Adjust font size */
+  }
+
+  .loginLink {
+    font-size: 12px; /* Adjust font size for mobile */
+  }
+
+  .errorLabel {
+    font-size: 10px; /* Smaller font size for mobile */
+  }
+}

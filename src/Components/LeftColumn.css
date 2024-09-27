@@ -1,3 +1,55 @@
+/* General styling for the LeftColumn */
+.LeftColumn {
+  flex: 2;
+  max-width: 500px;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  position: sticky;
+  top: 100px;
+  background-color: #FFFFFF; /* White background for clarity and contrast */
+  border: 1px solid #D1D1D1; /* Subtle gray border for separation */
+  border-radius: 10px; /* Rounded corners for a modern feel */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hide LeftColumn on mobile by default */
+@media (max-width: 768px) {
+  .LeftColumn {
+    display: none; /* Initially hidden on mobile */
+  }
+
+  /* Hamburger Menu (three lines icon) */
+  .hamburger-menu {
+    display: block;
+    cursor: pointer;
+    font-size: 30px;
+    color: #2C3E50; /* Dark color for visibility */
+    margin-left: 15px;
+  }
+}
+
+/* Hide hamburger menu on larger screens */
+@media (min-width: 769px) {
+  .hamburger-menu {
+    display: none; /* Hide hamburger menu on larger screens */
+  }
+}
+
+/* Show LeftColumn when active (on mobile) */
+.LeftColumn.active {
+  display: block;
+  position: fixed; /* Fixed position for a sidebar effect */
+  top: 0;
+  left: 0;
+  width: 70%; /* Occupies 70% of screen width */
+  height: 100vh;
+  background-color: #FFFFFF;
+  z-index: 1000; /* Make sure it's on top */
+  border-radius: 0; /* Remove border radius for full-screen effect */
+  border-right: 1px solid #D1D1D1; /* Border on the right */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+}
+
 /* Profile Section */
 .profileSection {
   text-align: center;

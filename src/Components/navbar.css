@@ -142,10 +142,9 @@
     align-items: flex-start;
   }
 
+  /* Hide navbar icons/links on mobile */
   .navbar-links {
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 10px;
+    display: flex;
   }
 
   .search-bar {
