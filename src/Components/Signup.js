@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { createUserWithEmailAndPassword } from "firebase/auth"; // Import Firebase auth function
-import { auth, db } from '../firebase'; // Assuming you have db (Firestore) initialized in your firebase config
-import { doc, setDoc } from 'firebase/firestore'; // Import Firestore function to save data
+import { createUserWithEmailAndPassword} from "firebase/auth"; // Import Firebase auth function
+import { auth, db} from '../firebase'; // Assuming you have db (Firestore) initialized in your firebase config
+import { doc, setDoc, getDocs, query, where, collection } from 'firebase/firestore'; // Import Firestore functions
 import './Signup.css'; // Assuming you save the styles in this file
 
 export default function SignupPage() {
@@ -20,7 +20,18 @@ export default function SignupPage() {
       return;
     }
 
+
+
     try {
+
+      const usernameQuery = query(collection(db, 'users'), where('username', '==', username));
+      const querySnapshot = await getDocs(usernameQuery)
+
+      if(!querySnapshot.empty)
+      {
+        setErrorMessage('Userame is already taken. Please Choose a different Username')
+        return;
+      }
       // Create user with email and password in Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
