@@ -34,6 +34,7 @@ const UserProfilePage = () => {
     if (currentUser) {
       const fetchUserData = async () => {
         try {
+          // Fetch profile user data
           const userDoc = await getDoc(doc(db, 'users', userId));
           if (userDoc.exists()) {
             const profileUserData = userDoc.data();
@@ -41,27 +42,30 @@ const UserProfilePage = () => {
   
             // Check if the current user is following the profile user
             const userFollowers = profileUserData.followers || [];
-            setIsFollowing(userFollowers.includes(currentUser.uid));
+            const isFollowingProfileUser = userFollowers.includes(currentUser.uid);
+            setIsFollowing(isFollowingProfileUser);
   
-            // Check if both users follow each other (mutual)
+            // Fetch current user data for mutual follow check
             const currentUserDoc = await getDoc(doc(db, 'users', currentUser.uid));
-            const currentUserData = currentUserDoc.data();
-            const currentUserFollowing = currentUserData.following || [];
+            if (currentUserDoc.exists()) {
+              const currentUserData = currentUserDoc.data();
+              const currentUserFollowing = currentUserData.following || [];
   
-            // Check for mutual followers (both following each other)
-            const isMutualFollower =
-              userFollowers.includes(currentUser.uid) && 
-              currentUserFollowing.includes(userId);
-              
-            setIsMutual(isMutualFollower);
+              // Check for mutual followers (both following each other)
+              const isMutualFollower = isFollowingProfileUser && currentUserFollowing.includes(userId);
+              setIsMutual(isMutualFollower);
+            } else {
+              console.error('Current user data not found');
+            }
           } else {
-            console.error('User not found');
+            console.error('Profile user not found');
           }
         } catch (error) {
-          console.error('Error fetching user:', error);
+          console.error('Error fetching user data:', error);
         }
       };
   
+      // Fetch posts related to the profile user
       const fetchPosts = () => {
         const postsQuery = query(
           collection(db, 'posts'),
@@ -74,6 +78,7 @@ const UserProfilePage = () => {
             ...doc.data(),
           }));
   
+          // Sort posts by date (most recent first)
           const sortedPosts = userPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
           setPosts(sortedPosts);
           setLoading(false);
@@ -82,12 +87,16 @@ const UserProfilePage = () => {
         return unsubscribe;
       };
   
+      // Execute both fetching functions
       fetchUserData();
       const unsubscribePosts = fetchPosts();
   
+      // Cleanup function to unsubscribe from posts listener
       return () => unsubscribePosts();
     }
   }, [userId, currentUser]);
+  
+  
   // Handle following a user
   const followUser = async () => {
     if (!currentUser || !user) return;
@@ -118,6 +127,12 @@ const UserProfilePage = () => {
       console.error('Error following user:', error);
     }
   };
+  const refreshUserData = async () => {
+    const userDoc = await getDoc(doc(db, 'users', userId));
+    if (userDoc.exists()) {
+      setUser(userDoc.data());
+    }
+  };
 
   // Handle unfollowing a user
   const unfollowUser = async () => {
@@ -138,9 +153,11 @@ const UserProfilePage = () => {
 
       // Update local state
       setIsFollowing(false);
+      refreshUserData();
+
       setUser((prevUser) => ({
         ...prevUser,
-        followers: prevUser.followers.filter((followerId) => followerId !== currentUser.uid), // Remove follower locally
+        followers: prevUser.followers.filter((followerId) => followerId !== currentUser.uid), // Update followers in state
       }));
 
       // Check if mutual following is no longer valid

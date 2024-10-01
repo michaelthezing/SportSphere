@@ -10,9 +10,8 @@ import FollowingPage from './Components/FollowingPage';
 import FollowersPage from './Components/FollowersPage';
 import Message from './Components/Messaage';
 
-//Add Adjustable sizes according to phone
-//no 2 accoutns same name
 // fix message butotn on non mutuals
+
 
 
 function App() {

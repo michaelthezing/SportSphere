@@ -25,8 +25,15 @@ export default function SignupPage() {
     try {
 
       const usernameQuery = query(collection(db, 'users'), where('username', '==', username));
+      const emailQuery = query(collection(db, 'users'),where('email', '==', email))
       const querySnapshot = await getDocs(usernameQuery)
+      const queryEmail = await getDocs(emailQuery)
 
+      if(!queryEmail.empty)
+      {
+        setErrorMessage('The Email is already in use. Please use a different Email or log in')
+        return;
+      }
       if(!querySnapshot.empty)
       {
         setErrorMessage('Userame is already taken. Please Choose a different Username')
