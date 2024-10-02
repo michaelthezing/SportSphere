@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { doc, updateDoc, deleteDoc, arrayUnion, addDoc, collection, getDoc, arrayRemove, setDoc} from 'firebase/firestore'; // Import Firestore methods
+import { doc, updateDoc, deleteDoc, arrayUnion, addDoc, collection, getDoc, arrayRemove, setDoc, query,getDocs} from 'firebase/firestore'; // Import Firestore methods
 import { db, auth } from '../firebase'; // Import Firebase config and auth
 import './Post.css';
 import { Link,useNavigate } from 'react-router-dom';
@@ -10,10 +10,10 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
   const [dislike, setDislike] = useState(post.dislike || 0);
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
-  const [comments, setComments] = useState(post.comments || []);
   const [commentInput, setCommentInput] = useState('');
   const [showComments, setShowComments] = useState(false);
-  
+  const [comments, setComments] = useState([]);  // Ensure comments are stored in state
+
 
   
 
@@ -77,45 +77,61 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
     }
   };
 
-  // Add a new comment and update Firestore
-  const addComment = async () => {
-    if (commentInput.trim() !== '') {
-      try {
-        // Fetch the current user's username from the 'users' collection in Firestore
-        const userRef = doc(db, 'users', currentUser.uid); // This ensures you are accessing the correct collection 'users'
-        const userDoc = await getDoc(userRef);
-        
-        let displayName;
-        
-        if (userDoc.exists()) {
-          displayName = userDoc.data().username; // Assuming 'username' field is stored in the users collection
-        } else {
-          // Fallback if there's no username set, use email
-          displayName = currentUser.email;
-        }
-  
-        const newComment = {
-          text: commentInput,
-          username: displayName, // Use the fetched username or email
-          like: 0,
-          dislike: 0,
-          userId: currentUser.uid,
-        };
-  
-        const updatedComments = [...comments, newComment];
-        setComments(updatedComments);
-        setCommentInput(''); // Clear the comment input field
-  
-        // Update Firestore with the new comment
-        await updateDoc(postRef, {
-          comments: arrayUnion(newComment),
-        });
-  
-      } catch (error) {
-        console.error('Error adding comment:', error);
-      }
+
+
+// Inside your component
+const fetchComments = async () => {
+  try {
+    const commentsRef = collection(db, 'posts', post.id, 'comments');  // Correct path to the comments subcollection
+    const q = query(commentsRef);  // You can use queries if needed (e.g., sort by date)
+    const querySnapshot = await getDocs(q);
+
+    const commentsList = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    setComments(commentsList);  // Set state with fetched comments
+
+  } catch (error) {
+    console.error('Error fetching comments:', error);
+  }
+};
+
+// Call fetchComments when component loads
+useEffect(() => {
+  fetchComments();
+}, [post.id]);  // Ensure it runs when post.id changes
+
+
+const addComment = async () => {
+  if (commentInput.trim() !== '') {
+    try {
+      const userRef = doc(db, 'users', currentUser.uid);
+      const userDoc = await getDoc(userRef);
+      let displayName = userDoc.exists() ? userDoc.data().username : currentUser.email;
+
+      const newComment = {
+        text: commentInput,
+        username: displayName,
+        like: 0,
+        dislike: 0,
+        userId: currentUser.uid,
+        createdAt: new Date(),
+      };
+
+      const commentsRef = collection(db, 'posts', post.id, 'comments');
+      await addDoc(commentsRef, newComment);
+
+      // Re-fetch comments after adding a new one
+      fetchComments();
+      setCommentInput('');  // Clear input after posting
+
+    } catch (error) {
+      console.error('Error adding comment:', error);
     }
-  };
+  }
+};
 
 
   const handleKeyDown = (event) => {
@@ -186,17 +202,21 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
     }
   };
 
-  const deleteComment = async (commentIndex) => {
-    const updatedComments = comments.filter((_, index) => index !== commentIndex);
-    setComments(updatedComments);
-
+  const deleteComment = async (commentId) => {
     try {
-      await updateDoc(postRef, { comments: updatedComments });
+      // Reference to the specific comment in the subcollection
+      const commentRef = doc(db, 'posts', post.id, 'comments', commentId);
+  
+      // Delete the comment from Firestore
+      await deleteDoc(commentRef);
+  
+      // Re-fetch the comments after deleting one to update the UI
+      fetchComments();
     } catch (error) {
       console.error('Error deleting comment:', error);
     }
   };
-
+  
   
   
   const handleProfileClick = () => {
@@ -253,29 +273,28 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
             <span className="postCommentText" onClick={() => setShowComments(!showComments)}>
               {comments.length} comments
             </span>
-          
           </div>
         </div>
   
         {showComments && (
           <div className="commentsSection">
             <div className="commentsList">
-              {comments.map((comment, index) => (
-                <div key={index} className="commentItem">
+              {comments.map((comment) => (
+                <div key={comment.id} className="commentItem">
                   <div className="commentTop">
-                  <span className="postUsername" onClick={handleProfileClick}>
-              {comment.username || 'Anonymous User'}
-            </span>
+                    <span className="postUsername" onClick={handleProfileClick}>
+                      {comment.username || 'Anonymous User'}
+                    </span>
                     {currentUser?.uid === comment.userId && (
-                      <i className="fas fa-trash-alt deleteCommentIcon" onClick={() => deleteComment(index)}></i>
+                      <i className="fas fa-trash-alt deleteCommentIcon" onClick={() => deleteComment(comment.id)}></i>
                     )}
                   </div>
                   <span className="commentText">{comment.text}</span>
                   <div className="commentActions">
-                    <span className="likeText" onClick={() => likeComment(index)}>
+                    <span className="likeText" onClick={() => likeComment(comment.id)}>
                       <i className="fas fa-thumbs-up"></i> {comment.like}
                     </span>
-                    <span className="dislikeText" onClick={() => dislikeComment(index)}>
+                    <span className="dislikeText" onClick={() => dislikeComment(comment.id)}>
                       <i className="fas fa-thumbs-down"></i> {comment.dislike}
                     </span>
                   </div>
@@ -289,7 +308,7 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
                 className="commentInput"
                 value={commentInput}
                 onChange={(e) => setCommentInput(e.target.value)}
-                onKeyDown={handleKeyDown} // Enter key triggers add comment
+                onKeyDown={handleKeyDown}  // Enter key triggers add comment
               />
               <i className="fas fa-paper-plane commentSendIcon" onClick={addComment}></i>
             </div>
@@ -298,4 +317,4 @@ export default function Post({ post, onDelete }) { // onDelete is a callback to 
       </div>
     </div>
   );
-}  
+}

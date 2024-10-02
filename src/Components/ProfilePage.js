@@ -176,7 +176,7 @@ const fetchFollowing = async () => {
       try {
         await addDoc(collection(db, 'posts'), {
           userid: currentUser.uid,
-          username: user.name || 'Anonymous User',
+          username: user.username || 'Anonymous User',
           content: postContent,
           date: new Date().toISOString(), // Correctly store the date in ISO format
           like: 0,
