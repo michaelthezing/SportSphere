@@ -3,6 +3,7 @@
   display: flex;
   height: 92vh; /* Use the full viewport height */
   overflow: hidden; /* Remove scroll on the MessagesPage */
+  background-color: #1E1F25; /* Dark background for sleek look */
 }
 
 .messages-page-body {
@@ -13,17 +14,17 @@
 .users-list {
   width: 25%; /* Increased width for better balance */
   margin-right: 10px;
-  border-right: 1px solid #D1D1D1; /* Subtle gray border */
+  border-right: 1px solid #4A4D55; /* Subtle metallic border */
   padding: 1rem;
-  color: #3C3C3C; /* Dark gray text */
+  color: #F1F1F2; /* Light gray text */
   overflow-y: auto; /* Enable vertical scrolling */
-  height: 100%; /* Ensure the user list has a set height for scrolling */
+  height: 100%; /* Set height for scrolling */
 }
 
 .users-list h3 {
   margin-bottom: 1.5rem;
-  color: #1D4E89; /* Primary dark blue */
-  font-size: 18px;
+  color: #00B4D8; /* Vibrant blue for titles */
+  font-size: 20px;
   font-weight: 600;
 }
 
@@ -36,28 +37,28 @@
 .users-list ul li {
   display: flex;
   align-items: center;
-  padding: 1rem; /* Increased padding for a larger touch area */
+  padding: 1rem;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 10px; /* Rounder edges for modern feel */
   transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .users-list ul li:hover {
-  background-color: #E9ECEF; /* Lighter hover effect */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  transform: translateY(-2px);
+  background-color: #3B3E45; /* Darker hover effect */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+  transform: translateY(-3px);
 }
 
 .user-icon {
-  color: #1D4E89; /* Primary dark blue */
-  font-size: 30px; /* Slightly increased icon size */
+  color: #00B4D8; /* Primary blue */
+  font-size: 32px; /* Larger icon size */
   margin-right: 15px;
 }
 
 .username {
   font-size: 18px;
   font-weight: 500;
-  color: #3C3C3C; /* Dark gray for username */
+  color: #F1F1F2; /* Light gray for username */
 }
 
 /* Chat Section Styling */
@@ -66,15 +67,15 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  color: #3C3C3C; /* Dark gray text */
-  height: 100%; /* Set height for chat box to enable scrolling */
+  color: #F1F1F2; /* Light gray text */
+  height: 100%; /* Full height for chat box */
 }
 
 .chat-box h3 {
   padding: 1rem;
-  border-bottom: 1px solid #D1D1D1; /* Subtle gray border */
-  color: #1D4E89; /* Primary dark blue */
-  font-size: 30px;
+  border-bottom: 1px solid #4A4D55; /* Metallic border */
+  color: #00B4D8; /* Vibrant blue */
+  font-size: 28px;
   font-weight: 600;
 }
 
@@ -82,37 +83,37 @@
 .messages-list {
   flex-grow: 1;
   padding: 1rem;
-  overflow-y: auto; /* Enable vertical scrolling for messages */
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  max-height: calc(100% - 100px); /* Set maximum height for the message list */
+  max-height: calc(100% - 100px);
 }
 
 /* Message Styling */
 .message {
-  max-width: 70%; /* Increased width for speech bubbles */
-  padding: 20px 25px; /* Larger padding for bigger speech bubbles */
-  margin-bottom: 10px; /* Larger margin for better spacing */
-  border-radius: 20px; /* Rounder corners for speech bubble effect */
-  font-size: 16px; /* Increased font size for better readability */
+  max-width: 75%; /* Larger width for messages */
+  padding: 20px;
+  margin-bottom: 12px;
+  border-radius: 20px;
+  font-size: 16px;
   font-weight: bold;
-  line-height: 1.5; /* Better line spacing */
+  line-height: 1.6; /* Enhanced line spacing */
   word-wrap: break-word;
 }
 
 .message.sent {
-  align-self: flex-end; /* Align sender messages to the right */
-  background-color: #1D4E89; /* Primary dark blue for sent messages */
+  align-self: flex-end;
+  background-color: #00B4D8; /* Vibrant blue for sent messages */
   color: white;
   border-bottom-right-radius: 0; /* Tail effect */
   text-align: right;
 }
 
 .message.received {
-  align-self: flex-start; /* Align receiver messages to the left */
-  background-color: #E9ECEF; /* Light gray for received messages */
-  color: #3C3C3C; /* Dark gray for text */
-  border-bottom-left-radius: 0; /* Tail effect */
+  align-self: flex-start;
+  background-color: #3B3E45; /* Dark gray for received messages */
+  color: #F1F1F2;
+  border-bottom-left-radius: 0;
   text-align: left;
 }
 
@@ -120,118 +121,113 @@
 .message-input {
   display: flex;
   align-items: center;
-  background-color: #F5F6F7;
-  border: 2px solid #D1D1D1;
-  border-radius: 10px;
-  padding: 5px;
-  width: 100%; /* Full width */
-  height: 50px; /* Fixed height */
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1); /* Add shadow */
-  margin: 0; /* Remove bottom margin */
+  background-color: #282C34;
+  border: 2px solid #4A4D55; /* Metallic border */
+  border-radius: 12px;
+  padding: 8px;
+  width: 95%;
+  height: 55px; /* Fixed height */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2); /* Shadow for depth */
 }
 
 .message-input:hover {
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); /* Slight hover effect */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Slight hover effect */
 }
 
 /* Focused State for Message Input */
 .message-input:focus-within {
-  border-color: #1D4E89; /* Blue border when input is focused */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Enhanced shadow when focused */
+  border-color: #00B4D8; /* Blue border when focused */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
 /* Message Input Field */
 .message-input input {
   flex-grow: 1;
-  padding: 12px;
+  padding: 14px;
   border: none;
-  border-radius: 25px;
-  background-color: transparent; /* Keep background transparent */
-  color: #3C3C3C; /* Dark gray text color for readability */
-  outline: none;
+  border-radius: 30px;
+  background-color: transparent;
+  color: #F1F1F2; /* Light gray text */
   font-size: 16px;
+  outline: none;
 }
 
 .message-input input::placeholder {
-  color: rgba(60, 60, 60, 0.8); /* Dark gray for placeholder */
-  font-size: 16px; /* Consistent with text size */
+  color: rgba(241, 241, 242, 0.6);
 }
 
 .message-input input:focus::placeholder {
-  color: transparent; /* Hide placeholder when input is focused */
+  color: transparent;
 }
 
 /* Message Send Button */
 .message-input button {
   margin-left: 1rem;
-  background-color: #1D4E89; /* Primary dark blue */
+  background-color: #00B4D8;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
-  border-radius: 25px;
+  border-radius: 30px;
   cursor: pointer;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .message-input button:hover {
-  background-color: #28628F; /* Slightly lighter blue on hover */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+  background-color: #015565; /* Neon green on hover */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2); /* Deeper shadow */
 }
 
 /* Responsive Design for Mobile */
 @media (max-width: 900px) {
   .messages-page {
     flex-direction: column;
-    height: auto; /* Allow height to adjust on mobile */
-    overflow: auto; /* Allow scrolling on mobile */
+    height: auto;
+    overflow: auto;
   }
+
   .message-input {
-    height: 50px; /* Ensure the input is large enough and always visible */
-    width: 100%; /* Full width */
+    height: 50px;
+    width: 100%;
   }
+
   .users-list {
     width: 100%;
     margin-right: 0;
-    border-right: none; /* Remove border on mobile */
-    padding: 0.5rem;
-    border-bottom: 1px solid #D1D1D1; /* Add bottom border for separation */
-    height: 150px; /* Set height for user list to enable scrolling */
-    overflow-y: auto; /* Enable scrolling for user list */
+    border-right: none;
+    padding: 0.75rem;
+    border-bottom: 1px solid #4A4D55; /* Metallic border for separation */
+    height: 200px; /* Fixed height for user list */
   }
 
   .chat-box {
-    width: 100%; /* Full width on mobile */
-    padding: 0.5rem;
+    width: 100%;
   }
 
   .chat-box h3 {
-    font-size: 24px; /* Smaller font size on mobile */
+    font-size: 24px;
     padding: 0.75rem;
   }
 
   .messages-list {
-    padding: 0.5rem; /* Reduce padding on mobile */
-    max-height: calc(100vh - 300px); /* Set height for message list to allow scrolling */
-    overflow-y: auto; /* Enable vertical scrolling for messages */
+    padding: 0.75rem;
+    max-height: calc(100vh - 250px); /* Set height for scrolling */
   }
 
   .message {
-    max-width: 90%; /* Use more width on mobile */
-    font-size: 14px; /* Smaller font size for readability */
-    padding: 15px 20px;
+    max-width: 90%;
+    font-size: 14px;
+    padding: 16px;
   }
 
   .message-input {
-    width: 100%; /* Full width for message input */
-    height: 45px; /* Slightly smaller input box */
-    margin-bottom: 5px; /* Less margin on mobile */
+    height: 50px;
   }
 
   .message-input input {
-    font-size: 14px; /* Slightly smaller font for input */
+    font-size: 14px;
   }
 
   .message-input button {
-    padding: 0.5rem 1rem; /* Smaller button on mobile */
+    padding: 0.5rem 1.2rem;
   }
 }

@@ -3,16 +3,16 @@
   display: flex;
   justify-content: center;
   padding: 20px;
-  background-color: #F5F6F7; /* Light gray background for the page */
+  background-color: #1E1F25; /* Dark slate background for sleek look */
   flex-wrap: wrap; /* Allows columns to wrap on smaller screens */
 }
 
 /* Left, Middle, and Right Columns */
 .LeftColumn, .MiddleColumn, .RightColumn {
   padding: 20px;
-  background-color: transparent; /* Transparent background to blend with the container */
+  background-color: transparent; /* Transparent background for seamless design */
   margin: 0 10px;
-  box-shadow: none; /* No shadow for a clean, flat design */
+  box-shadow: none; /* Clean and flat design */
 }
 
 /* Left Column Styling */
@@ -23,9 +23,10 @@
   overflow-y: auto;
   position: sticky;
   top: 100px;
-  background-color: #FFFFFF; /* White background for clarity and contrast */
-  border: 1px solid #D1D1D1; /* Subtle gray border for separation */
-  border-radius: 10px; /* Rounded corners for a modern feel */
+  background-color: #2A2D34; /* Dark slate for a modern, high-end feel */
+  border: 1px solid #4A4D55; /* Subtle metallic border */
+  border-radius: 20px; /* Smooth rounded corners for a premium look */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Soft shadow for depth */
 }
 
 /* Middle Column Styling */
@@ -34,9 +35,10 @@
   max-width: 1300px;
   height: calc(100vh - 100px);
   overflow-y: auto;
-  background-color: #FFFFFF; /* White background for clarity and focus */
-  border: 1px solid #D1D1D1; /* Subtle gray border */
-  border-radius: 10px; /* Rounded corners */
+  background-color: #2A2D34; /* Same dark background for consistency */
+  border: 1px solid #4A4D55; /* Subtle metallic border */
+  border-radius: 20px; /* Smooth rounded corners */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Soft shadow for depth */
 }
 
 /* Custom Scrollbar for Left and Middle Columns */
@@ -45,12 +47,12 @@
 }
 
 .LeftColumn::-webkit-scrollbar-thumb, .MiddleColumn::-webkit-scrollbar-thumb {
-  background-color: #1D4E89; /* Primary dark blue scrollbar thumb */
-  border-radius: 10px; /* Rounded scrollbar thumb */
+  background-color: #00B4D8; /* Electric blue scrollbar thumb */
+  border-radius: 10px; /* Rounded scrollbar thumb for a modern look */
 }
 
 .LeftColumn::-webkit-scrollbar-track, .MiddleColumn::-webkit-scrollbar-track {
-  background-color: #F5F6F7; /* Light gray background for the scrollbar track */
+  background-color: #3B3E45; /* Dark gray background for scrollbar track */
 }
 
 /* Media Query for Tablets and Smaller Laptops */
@@ -60,11 +62,11 @@
     max-width: 100%;
     margin: 10px 0; /* Stack columns vertically */
     height: auto; /* Allow flexible height */
-    position: static; /* Remove sticky for smaller devices */
+    position: static; /* Remove sticky on smaller devices */
   }
 
   .LeftColumn, .MiddleColumn {
-    height: auto; /* Let columns grow naturally */
+    height: auto; /* Allow columns to grow naturally */
   }
 }
 
@@ -83,7 +85,7 @@
   }
 
   .LeftColumn, .MiddleColumn {
-    height: auto; /* Allow natural height */
+    height: auto; /* Let columns grow naturally */
   }
 
   /* Adjust scrollbars for mobile */

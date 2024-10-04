@@ -1,17 +1,17 @@
+/* Profile Page Layout */
 .profile-page-layout {
   display: grid;
   grid-template-columns: 1fr 4fr 1fr; /* Left, Middle, Right columns */
   gap: 30px;
   margin: 0 auto;
-  background-color: #F5F6F7;
-  min-height: 100vh; /* Ensure the layout spans the full viewport height */
+  background-color: #1E1F25; /* Sleek dark background */
+  min-height: 100vh; /* Full viewport height */
 }
-
 
 /* Uneditable Username */
 .uneditable-username {
-  color: #3C3C3C; /* Dark gray */
-  font-size: 14px;
+  color: #F1F1F2; /* Light gray text */
+  font-size: 16px; /* Slightly larger font */
   margin-top: 15px;
 }
 
@@ -20,78 +20,76 @@
   position: fixed;
   bottom: 30px;
   right: 30px;
-  background-color: #1D4E89; /* Primary dark blue */
+  background-color: #00B4D8; /* Vibrant blue for prominence */
   color: white;
   border: none;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 24px;
+  width: 55px;
+  height: 55px;
+  font-size: 26px;
   cursor: pointer;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4); /* Slightly deeper shadow */
   transition: box-shadow 0.3s ease;
 }
 
 .make-post-button:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Stronger shadow on hover */
 }
 
 /* Follow/Unfollow Button Styling */
 .follow-button, .unfollow-button {
-  background-color: #1D4E89; /* Primary dark blue */
+  background-color: #00B4D8; /* Consistent blue theme */
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 25px;
-  font-size: 14px;
+  padding: 12px 25px; /* Slightly larger padding */
+  border-radius: 30px;
+  font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  margin-top: 10px; /* Adjusted for alignment */
+  margin-top: 12px;
 }
 
 .follow-button:hover {
-  background-color: #28628F; /* Lighter blue on hover */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background-color: #015565; /* Neon green on hover */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
 .unfollow-button {
   background-color: #E0245E; /* Red for unfollow */
+  margin-right: 10px
 }
 
 .unfollow-button:hover {
-  background-color: #F0326B; /* Brighter red on hover */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background-color: #871c3c; /* Lighter red on hover */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
 /* Stats Section - Centered Buttons */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 25px;
   align-items: center;
-  justify-content: flex-start; /* Aligns buttons to the left */
-  margin-top: 20px;
-  width: 100%; /* Ensure it takes up the full width of the middle column */
+  justify-content: flex-start;
+  margin-top: 25px;
+  width: 100%;
 }
 
 /* Followers and Following Buttons */
 .follow-button, .following-button {
-  background-color: #1D4E89;
+  background-color: #00B4D8;
   color: white;
   border: none;
-  border-radius: 25px;
-  margin-left: 5px;
-  padding: 10px 20px;
+  border-radius: 30px;
+  padding: 12px 25px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  display: inline-block;
-  text-align: center;
-  line-height: 1;
-  font-size: 14px;
-  margin-top: 10px; /* Ensures both buttons align properly */
+  font-size: 16px;
+  margin-top: 12px;
+  transition: background-color 0.3s ease; /* Smooth transition effect */
 }
 
 .follow-button:hover, .following-button:hover {
-  background-color: #0A5278; /* Darker shade of blue on hover */
+  background-color: #015565; /* Consistent hover effect */
+
 }
 
 /* Post Modal */
@@ -101,17 +99,17 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .post-modal-content {
-  background-color: #FFFFFF; /* White modal background */
-  padding: 20px;
-  border-radius: 10px;
-  width: 400px;
+  background-color: #282C34; /* Dark modal background */
+  padding: 25px;
+  border-radius: 12px;
+  width: 450px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -119,38 +117,38 @@
 
 .post-input {
   width: 100%;
-  height: 100px;
-  padding: 10px;
+  height: 120px; /* Larger input area */
+  padding: 12px;
   font-size: 18px;
-  border-radius: 12px;
-  border: 1px solid #D1D1D1;
-  outline: none;
-  background-color: #F5F6F7;
-  color: #3C3C3C; /* Dark gray for text */
+  border-radius: 14px;
+  border: 1px solid #4A4D55;
+  background-color: #3B3E45; /* Dark input background */
+  color: #F1F1F2;
 }
 
+/* Submit and Cancel Buttons */
 .submit-post-button, .cancel-post-button {
-  background-color: #1D4E89; /* Primary dark blue */
+  background-color: #00B4D8; /* Consistent blue for submit */
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 25px;
-  margin-top: 10px;
+  padding: 12px 25px;
+  border-radius: 30px;
+  margin-top: 15px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-.submit-post-button
-{
-  margin-left: 8px;
-}
 
-.cancel-post-button {
-  background-color: #E0245E; /* Red for cancel button */
+.submit-post-button {
   margin-left: 10px;
 }
 
+.cancel-post-button {
+  background-color: #E0245E;
+  margin-left: 15px;
+}
+
 .submit-post-button:hover, .cancel-post-button:hover {
-  background-color: #28628F; /* Lighter blue on hover */
+  background-color: #015565; /* Neon green on hover */
 }
 
 /* Profile Header */
@@ -160,31 +158,30 @@
 
 /* Profile Information */
 .profile-info {
-  color: #3C3C3C; /* Dark gray */
-  padding-left: 10px;
-  margin-top: 20px;
+  color: #F1F1F2;
+  padding-left: 12px;
+  margin-top: 25px;
 }
 
 .profile-info h2 {
-  font-size: 32px; /* Increased size for name */
+  font-size: 34px; /* Increased size for name */
   margin: 0;
-  color: #1D4E89; /* Primary dark blue */
+  color: #00B4D8;
 }
 
 .username, .bio, .joined {
-  color: #657786; /* Subtle gray for secondary text */
+  color: #9AA0A6; /* Softer gray for secondary text */
 }
 
 .bio {
-  font-size: 18px; /* Increased size for bio */
-  color: #657786; /* Subtle gray for secondary text */
-  margin-top: 10px;
+  font-size: 18px;
+  margin-top: 12px;
 }
 
 /* Profile Posts */
 .profile-posts {
   margin-top: 30px;
-  color: #3C3C3C; /* Dark gray for post text */
+  color: #F1F1F2;
 }
 
 .post p {
@@ -192,40 +189,38 @@
 }
 
 .post small {
-  color: #657786; /* Subtle gray for post details */
+  color: #9AA0A6;
 }
-
-
 
 /* Bio Input */
 .bio-input {
   display: flex;
   align-items: center;
   background-color: transparent;
-  border: 2px solid #1D4E89; /* Primary dark blue border */
-  border-radius: 25px;
-  padding: 7px;
-  margin-top: 8px;
-  width: 250px;
+  border: 2px solid #00B4D8; /* Vibrant blue */
+  border-radius: 30px;
+  padding: 8px;
+  margin-top: 10px;
+  width: 260px;
   transition: width 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 0 1px rgba(22, 130, 176, 0.6); /* Subtle shadow */
-  color: white; /* White text */
+  box-shadow: 0 0 6px rgba(22, 130, 176, 0.6); /* Soft glow */
+  color: white;
 }
 
 .bio-input:focus {
-  width: 300px; /* Slightly expand when focused */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Larger shadow when focused */
+  width: 320px; /* Expands when focused */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
 }
 
 .bio-input:hover {
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .bio-input input {
   border: none;
   outline: none;
   flex-grow: 1;
-  font-size: 11px;
+  font-size: 14px;
   background-color: transparent;
   color: #FFFFFF;
 }
@@ -239,112 +234,103 @@
 }
 
 /* Save and Cancel Buttons */
-/* Save and Cancel Buttons */
 .save-button, .cancel-button {
-  background-color: #1D4E89; /* Primary dark blue */
+  background-color: #00B4D8;
   color: white;
   border: none;
-  border-radius: 25px;
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-size: 14px;
   cursor: pointer;
-  margin-top: 10px; /* Adjusted margin for better spacing */
-
-  padding: 8px 15px; /* Balanced padding for a more proportional look */
-  font-size: 12px; /* Slightly larger font for readability */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Hover effects */
 .save-button:hover, .cancel-button:hover {
-  transform: translateY(-2px); /* Lift effect on hover */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
 }
 
-/* Save Button */
 .save-button {
-  background-color: #1D4E89; /* Primary dark blue */
-  margin-right: 5px;
+  background-color: #00B4D8;
 }
 
 .save-button:hover {
-  background-color: #28628F; /* Slightly lighter blue on hover */
+  background-color: #015565; 
 }
 
-/* Cancel Button */
 .cancel-button {
-  background-color: #E0245E; /* Red for cancel button */
+  background-color: #E0245E;
 }
 
 .cancel-button:hover {
-  background-color: #F0326B; /* Brighter red on hover */
+  background-color: #F0326B;
 }
 
-
 /* Name and Edit Buttons */
-/* Name Button and Edit Button */
 .name-button, .edit-button {
-  background-color: #1D4E89;
+  background-color: #00B4D8;
   color: white;
   border: none;
-  border-radius: 3px;
+  border-radius: 5px;
+  margin-right: 1px;
+  font-size: 10px;
+  padding: 6px;
   cursor: pointer;
-  padding: 4px;
-  margin-left: 10px;
+  transition: background-color 0.3s ease;
 }
 
 .name-button:hover, .edit-button:hover {
-  background-color: #0A5278; /* Darker shade on hover */
+  background-color: #015565; /* Consistent hover */
 }
 
-/* Name Section */
 /* Name Section */
 .name-section, .name-edit {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 /* Bio Edit and Name Edit Inputs */
 .bio-edit input, .name-edit input {
-  background-color: #F5F6F7; /* Light gray background */
-  color: #333333; /* Dark gray text color */
-  border: 1px solid #D1D1D1;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 14px;
-
+  background-color: #3B3E45;
+  color: #F1F1F2;
+  border: 1px solid #4A4D55;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 16px;
 }
 
 .bio-edit input::placeholder, .name-edit input::placeholder {
-  color: #7A7A7A; /* Subtle gray for placeholder text */
+  color: #9AA0A6;
 }
 
 .bio-edit input:focus, .name-edit input:focus {
   outline: none;
-  border-color: #1D4E89; /* Dark blue border on focus */
-  background-color: #FFFFFF; /* White background on focus */
-  color: #333333; /* Text remains dark and visible */
+  border-color: #00B4D8;
+  background-color: #FFFFFF;
+  color: #333333;
 }
 
 /* Mobile Styles */
 @media (max-width: 768px) {
   /* Adjust grid layout for mobile */
   .profile-page-layout {
-    grid-template-columns: 1fr; /* Single column layout */
-    padding: 10px; /* Add some padding for mobile */
+    grid-template-columns: 1fr;
+    padding: 10px;
   }
 
   /* Profile header adjustments */
   .profile-header {
-    text-align: center; /* Center align for smaller screens */
+    text-align: center;
   }
 
   /* Profile info for mobile */
   .profile-info h2 {
-    font-size: 24px; /* Smaller font size for mobile */
+    font-size: 28px;
   }
 
   .username, .bio, .joined {
-    font-size: 12px; /* Adjusted for smaller screens */
+    font-size: 14px;
   }
 
   .bio {
@@ -353,60 +339,55 @@
 
   /* Adjust stats layout */
   .stats {
-    justify-content: center; /* Center align stats on mobile */
-    gap: 10px; /* Reduce gap between buttons */
+    justify-content: center;
+    gap: 12px;
   }
 
-  /* Make the post modal and buttons smaller */
+  /* Make post button smaller */
   .make-post-button {
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
+    width: 45px;
+    height: 45px;
+    font-size: 22px;
   }
 
   .post-modal-content {
-    width: 90%; /* Make the modal content more responsive */
+    width: 90%;
   }
 
   .post-input {
-    height: 80px; /* Smaller height for post input */
+    height: 90px;
   }
 
-  /* Follow/Unfollow buttons for mobile */
+  /* Follow/Unfollow buttons */
   .follow-button, .unfollow-button {
-    font-size: 12px;
-    padding: 8px 15px; /* Smaller padding */
+    font-size: 14px;
+    padding: 10px 18px;
   }
 
-  /* Modal button adjustments for mobile */
+  /* Modal button adjustments */
   .submit-post-button, .cancel-post-button {
-    padding: 8px 15px;
-    font-size: 12px;
+    padding: 10px 18px;
+    font-size: 14px;
   }
 
   /* Name and edit button adjustments */
   .name-button, .edit-button {
-    padding: 5px 10px;
-    font-size: 10px;
+    padding: 6px 12px;
+    font-size: 12px;
   }
 
-  /* Adjust grid column for mobile */
-  .profile-posts {
-    padding: 10px;
-  }
-
-  /* Bio input size on mobile */
+  /* Bio input size */
   .bio-input {
-    width: 90%; /* Full width on mobile */
+    width: 95%;
   }
 
   .bio-input:focus {
-    width: 100%; /* Expand to full width */
+    width: 100%;
   }
 
-  /* Adjust follow button section for mobile */
+  /* Follow button adjustments */
   .follow-button, .following-button {
-    padding: 8px 15px;
-    font-size: 12px;
+    padding: 10px 18px;
+    font-size: 14px;
   }
 }

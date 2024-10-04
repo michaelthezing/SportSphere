@@ -6,9 +6,10 @@
   overflow-y: auto;
   position: sticky;
   top: 100px;
-  background-color: #FFFFFF; /* White background for clarity and contrast */
-  border: 1px solid #D1D1D1; /* Subtle gray border for separation */
-  border-radius: 10px; /* Rounded corners for a modern feel */
+  background-color: #2A2D34; /* Sleek dark background for modern look */
+  border: 1px solid #4A4D55; /* Subtle metallic border for separation */
+  border-radius: 20px; /* Smooth, rounded corners for premium feel */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Depth through shadow */
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
@@ -23,7 +24,7 @@
     display: block;
     cursor: pointer;
     font-size: 30px;
-    color: #2C3E50; /* Dark color for visibility */
+    color: #F1F1F2; /* Light color for visibility on dark background */
     margin-left: 15px;
   }
 }
@@ -38,45 +39,45 @@
 /* Show LeftColumn when active (on mobile) */
 .LeftColumn.active {
   display: block;
-  position: fixed; /* Fixed position for a sidebar effect */
+  position: fixed; /* Fixed position for sidebar effect */
   top: 0;
   left: 0;
   width: 70%; /* Occupies 70% of screen width */
   height: 100vh;
-  background-color: #FFFFFF;
-  z-index: 1000; /* Make sure it's on top */
+  background-color: #2A2D34; /* Dark background for consistency */
+  z-index: 1000; /* Ensure it's on top */
   border-radius: 0; /* Remove border radius for full-screen effect */
-  border-right: 1px solid #D1D1D1; /* Border on the right */
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+  border-right: 1px solid #4A4D55; /* Metallic border on right */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25); /* Deeper shadow for emphasis */
 }
 
 /* Profile Section */
 .profileSection {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 30px; /* Increased margin for cleaner separation */
 }
 
 .profile-username {
-  color: #2C3E50; /* Stronger, darker color for username */
-  font-size: 24px; /* Increased size for prominence */
+  color: #00B4D8; /* Vibrant blue for strong username contrast */
+  font-size: 26px; /* Increased size for prominence */
   font-weight: 700; /* Bold for emphasis */
-  margin: 12px 0;
+  margin: 14px 0;
   transition: color 0.3s ease;
 }
 
 .profile-username:hover {
-  color: #1682B0; /* Accent color on hover */
+  color: #80ED99; /* Neon green accent on hover */
 }
 
 .profile-name {
-  color: #7F8C8D; /* Softer grey for subtle, modern look */
-  font-size: 18px; /* Slightly larger for readability */
-  margin-bottom: 15px; /* Space below for breathing room */
+  color: #9AA0A6; /* Softer grey for subtle look */
+  font-size: 20px; /* Slightly larger for better readability */
+  margin-bottom: 18px; /* Spaced out for a modern layout */
 }
 
 /* Menu Section */
 .menuSection {
-  margin-top: 35px;
+  margin-top: 40px; /* Added space for better separation */
 }
 
 .menuList {
@@ -85,103 +86,103 @@
 }
 
 .menuItem {
-  margin: 18px 0; /* Spaced out for a cleaner layout */
+  margin: 22px 0; /* Spaced out for clean layout */
 }
 
 .menuItem a {
   text-decoration: none;
-  font-size: 20px; /* Slightly larger for better readability */
-  color: #2C3E50; /* Darker text for stronger contrast */
+  font-size: 22px; /* Larger for better readability */
+  color: #F1F1F2; /* Light text for modern contrast on dark background */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 15px; /* Added padding for a button-like feel */
-  border-radius: 10px; /* Rounded corners for smoother feel */
-  background-color: #F7F8FA; /* Light background for modern look */
+  padding: 12px 20px; /* Padding for a button-like feel */
+  border-radius: 14px; /* Smooth, rounded corners for modern feel */
+  background-color: #3B3E45; /* Soft dark gray for subtle contrast */
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .menuItem a:hover {
-  transform: translateY(-3px); /* Subtle upward motion on hover */
-  background-color: #EBEEF0; /* Slightly darker background on hover */
-  color: #0073b1; /* LinkedIn blue for hover effect */
+  transform: translateY(-4px); /* Subtle upward motion on hover */
+  background-color: #4E535C; /* Slightly lighter background on hover */
+  color: #00B4D8; /* Vibrant blue for hover effect */
 }
 
 .subMenuList {
   list-style-type: none;
-  padding-left: 25px; /* Indented for better visual hierarchy */
+  padding-left: 30px; /* Indented for visual hierarchy */
 }
 
 .subMenuTitle {
-  color: #1682B0; /* Primary blue accent for submenu titles */
+  color: #00B4D8; /* Primary blue accent for submenu titles */
   font-size: 20px;
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .subMenuItem {
-  margin-bottom: 12px; /* Added margin between items for spacing */
+  margin-bottom: 14px; /* Added margin for clean spacing */
 }
 
 .subMenuItem a {
   font-size: 18px;
-  color: #34495E; /* Darker shade for better readability */
+  color: #E0E0E0; /* Soft white for readability */
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .subMenuItem a:hover {
-  color: #1ba0db; /* Lighter blue hover effect */
+  color: #80ED99; /* Neon green hover effect */
 }
 
 .menuSeparator {
   height: 1px;
   background-color: rgba(136, 153, 166, 0.3); /* Softer grey separator */
-  margin: 25px 0; /* More space above and below for separation */
+  margin: 30px 0; /* Increased spacing for visual balance */
 }
 
 /* Players Section */
 .playersSection {
-  margin-top: 25px;
+  margin-top: 30px;
 }
 
 .playersList {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .sectionTitle {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
-  color: #2C3E50; /* Stronger color for section title */
-  margin-bottom: 12px;
+  color: #F1F1F2; /* Stronger light color for section titles */
+  margin-bottom: 14px;
 }
 
 .playerItem {
   display: flex;
   align-items: center;
-  margin-bottom: 4px;
-  padding: 10px;
-  border-radius: 8px;
+  margin-bottom: 6px;
+  padding: 12px;
+  border-radius: 10px;
   transition: background-color 0.3s ease;
 }
 
 .playerItem:hover {
-  background-color: #F2F4F7; /* Light hover effect for player items */
+  background-color: #3B3E45; /* Slight hover effect for player items */
 }
 
 .playerItem a {
-  font-size: 18px;
-  color: #2C3E50; /* Dark text for player names */
+  font-size: 20px; /* Slightly larger for better readability */
+  color: #F1F1F2; /* Light text for player names */
   text-decoration: none;
-  padding-left: 12px;
+  padding-left: 14px;
   transition: color 0.3s ease;
 }
 
 .playerItem a:hover {
-  color: #0073b1; /* Blue hover effect for player names */
+  color: #00B4D8; /* Blue hover effect for player names */
 }
 
 .playerIcon {
-  font-size: 22px; /* Increased size for more prominence */
-  color: #1682B0; /* Primary blue color for consistency */
+  font-size: 24px; /* Increased size for better prominence */
+  color: #00B4D8; /* Primary blue color for consistency */
 }

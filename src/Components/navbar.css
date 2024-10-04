@@ -1,18 +1,19 @@
 /* NavBar Container */
 .navbar {
-  border-bottom: 2px solid #D1D1D1; /* Subtle gray border */
+  border-bottom: 2px solid #4A4D55; /* Subtle metallic gray border for modern feel */
   padding: 20px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1D4E89; /* Primary dark blue for the navbar background */
+  background-color: #2A2D34; /* Sleek dark background */
 }
 
 /* Logo Styling */
 .navbar-logo a {
-  color: #FFFFFF; /* White for logo text */
-  font-size: 24px;
+  color: #F1F1F2; /* Light text for logo */
+  font-size: 26px; /* Slightly larger for prominence */
   text-decoration: none;
+  font-weight: 700; /* Bold for emphasis */
 }
 
 /* Transparent Search Bar */
@@ -20,46 +21,46 @@
   display: flex;
   align-items: center;
   background-color: transparent;
-  border: 2px solid #D1D1D1; /* Subtle gray border */
-  border-radius: 25px;
-  padding: 10px;
-  width: 400px;
+  border: 2px solid #4A4D55; /* Metallic border for subtle contrast */
+  border-radius: 30px; /* Smoother, rounded corners for modern look */
+  padding: 12px;
+  width: 450px;
   transition: width 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 0 5px rgba(22, 130, 176, 0.6); /* Slight blue shadow */
-  position: relative; /* Ensure suggestions list appears below it */
+  box-shadow: 0 0 8px rgba(22, 130, 176, 0.5); /* Subtle blue shadow */
+  position: relative; /* Ensures suggestions list appears below it */
 }
 
 /* Search Bar Focus Effect */
 .search-bar.focused {
-  width: 500px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Slightly larger shadow on focus */
+  width: 550px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3); /* Larger shadow on focus */
 }
 
 .search-bar:hover {
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Slight shadow on hover */
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2); /* Gentle shadow on hover */
 }
 
 .search-bar i {
-  color: #ffffff; /* Dark gray for search icon */
-  margin-right: 10px;
+  color: #F1F1F2; /* Light icon color */
+  margin-right: 12px;
 }
 
 .search-bar input {
   border: none;
   outline: none;
   flex-grow: 1;
-  font-size: 15px;
+  font-size: 16px;
   background-color: transparent;
-  color: #FFFFFF; /* White text for the input field */
+  color: #F1F1F2; /* White text for input */
 }
 
 .search-bar input::placeholder {
-  color: rgba(255, 255, 255, 0.8); /* Light white placeholder */
-  font-size: 15px;
+  color: rgba(241, 241, 242, 0.7); /* Soft white placeholder */
+  font-size: 16px;
 }
 
 .search-bar input:focus::placeholder {
-  color: rgba(255, 255, 255, 0.5); /* Dimmed placeholder on focus */
+  color: rgba(241, 241, 242, 0.5); /* Dimmed placeholder on focus */
 }
 
 /* Styling for the suggestions dropdown */
@@ -69,24 +70,24 @@
   padding: 0;
   color: #FFFFFF; /* White text for suggestions */
   position: absolute;
-  top: 45px; /* Positioned directly below the search bar */
-  width: 97%; /* Match the width of the search bar */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  top: 50px; /* Positioned directly below the search bar */
+  width: 100%; /* Matches the width of the search bar */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   z-index: 10;
-  border-radius: 5px;
-  background-color: #1D4E89; /* Accent blue for suggestion background */
-  max-height: 200px;
+  border-radius: 8px;
+  background-color: #2A2D34; /* Dark background for dropdown */
+  max-height: 250px; /* Limit height for dropdown */
   overflow-y: auto;
 }
 
 .suggestions-list li {
-  padding: 10px;
+  padding: 12px 15px;
   cursor: pointer;
-  color: #FFFFFF; /* Ensure text color is white for readability */
+  color: #F1F1F2; /* White text for readability */
 }
 
-.suggestions-list:hover {
-  background-color: rgb(8, 64, 94); /* Darker shade of blue on hover */
+.suggestions-list li:hover {
+  background-color: #1D4E89; /* Blue hover effect for suggestions */
 }
 
 /* Navbar Links */
@@ -95,26 +96,26 @@
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 20px;
+  gap: 25px;
 }
 
 .navbar-links li {
   display: inline-block;
-  margin: 0 20px 0 0;
-  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  margin: 0 25px 0 0;
+  transition: all 0.3s ease;
 }
 
 .navbar-links li a {
-  color: #FFFFFF; /* White text for navbar links */
+  color: #F1F1F2; /* Light text for navbar links */
   text-align: center;
   text-decoration: none;
-  padding: 10px;
+  padding: 12px;
   font-size: 20px;
 }
 
 .navbar-links li:hover {
   transform: translateY(-4px);
-  color: #F89D35; /* Accent orange on hover */
+  color: #F89D35; /* Vibrant orange on hover */
 }
 
 .navbar-links li:active {
@@ -124,11 +125,11 @@
 /* Responsive Adjustments */
 @media only screen and (max-width: 1200px) {
   .navbar-links li {
-    margin: 0 2px 0 0;
+    margin: 0 5px 0 0;
   }
 
   .search-bar {
-    width: 300px;
+    width: 320px;
   }
 
   .search-bar.focused {
@@ -142,9 +143,11 @@
     align-items: flex-start;
   }
 
-  /* Hide navbar icons/links on mobile */
+  /* Navbar links adjustments for mobile */
   .navbar-links {
-    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 0;
   }
 
   .search-bar {
