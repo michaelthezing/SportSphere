@@ -39,7 +39,10 @@
   color: #00B4D8; /* Vibrant electric blue for username */
   margin-right: 16px;
   transition: color 0.3s ease;
+  
 }
+
+
 
 .postUsername:hover {
   color: #015565; 
@@ -107,9 +110,11 @@
 .commentText {
   font-size: 17px;
   color: #EAEAEA; /* Light gray for comment text for readability on dark background */
-  margin-top: 10px;
+  margin-bottom: px; /* Space between the comment text and like/dislike actions */
 }
-
+.commentActions {
+  margin-bottom: 16px; /* Space between like/dislike actions and the next comment */
+}
 /* Input Wrapper */
 .commentInputWrapper {
   display: flex;
@@ -154,7 +159,7 @@
 
 /* Delete Icon with Modern Red */
 .deleteIcon {
-  color: #E94560; /* Vivid red for delete icons */
+  color: #9AA0A6; /* Vivid red for delete icons */
   font-size: 18px;
   cursor: pointer;
   transition: color 0.3s ease;

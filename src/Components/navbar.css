@@ -1,20 +1,56 @@
 /* NavBar Container */
+
 .navbar {
-  border-bottom: 2px solid #4A4D55; /* Subtle metallic gray border for modern feel */
+  border-bottom: 2px solid #4A4D55;
   padding: 20px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2A2D34; /* Sleek dark background */
+  background-color: #2A2D34;
+
 }
 
-/* Logo Styling */
+/* Logo Container */
 .navbar-logo a {
-  color: #F1F1F2; /* Light text for logo */
-  font-size: 26px; /* Slightly larger for prominence */
   text-decoration: none;
-  font-weight: 700; /* Bold for emphasis */
+  display: flex;
+  align-items: center;
 }
+
+/* Circle for Logo */
+.logo-circle {
+  width: 50px;
+  height: 50px;
+  background-color: #F1F1F2; /* Light background for circle */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Soft shadow */
+}
+
+.logo-circle:hover {
+  background-color: #1D4E89; /* Orange background on hover */
+  transform: rotate(360deg); /* 360-degree rotation on hover */
+}
+
+/* Text inside the circle */
+.logo-text {
+  font-size: 30px;
+  font-weight: bold;
+  color: #2A2D34; /* Dark text color */
+  transition: color 0.3s ease;
+}
+
+.logo-circle:hover .logo-text {
+  color: #FFFFFF; /* White text on hover */
+}
+
+/* Search bar and other styles... */
+/* (The rest of your CSS remains unchanged) */
 
 /* Transparent Search Bar */
 .search-bar {
@@ -145,7 +181,7 @@
 
   /* Navbar links adjustments for mobile */
   .navbar-links {
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
     padding: 10px 0;
   }

@@ -14,11 +14,10 @@ export default function NavBar({ setFilterQuery }) {
   // Function to handle searching users
   const handleSearch = async (event) => {
     if (event.key === 'Enter' && searchQuery.trim()) {
-      // Navigate to home page with filter query set
-      setFilterQuery(searchQuery);  // Set the filter query
-      navigate('/home');            // Navigate to the home page
-      setSearchQuery('');           // Clear search query after
-      setSuggestions([]);           // Clear suggestions after search
+      setFilterQuery(searchQuery);
+      navigate('/home');
+      setSearchQuery('');
+      setSuggestions([]);
     }
   };
 
@@ -31,15 +30,14 @@ export default function NavBar({ setFilterQuery }) {
         const q = query(
           usersRef,
           where('username', '>=', queryText),
-          where('username', '<=', queryText + '\uf8ff') // Search for usernames starting with queryText
+          where('username', '<=', queryText + '\uf8ff')
         );
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
-          users.push({ id: doc.id, ...doc.data() }); // Collect matching users
+          users.push({ id: doc.id, ...doc.data() });
         });
 
-        // Add "View [Name] Posts" suggestion at the top of the list
-        setSuggestions([`View ${queryText} Posts`, ...users]);
+        setSuggestions([`View "${queryText}" Posts`, ...users]);
       } else {
         setSuggestions([]);
       }
@@ -48,37 +46,36 @@ export default function NavBar({ setFilterQuery }) {
     }
   };
 
-  // Debounce the search input to prevent too many Firestore requests
   const debouncedFetchSuggestions = debounce((queryText) => fetchSuggestions(queryText), 300);
 
-  // Handle input change and update suggestions
   const handleInputChange = (event) => {
     const queryText = event.target.value;
     setSearchQuery(queryText);
-    debouncedFetchSuggestions(queryText); // Fetch suggestions with debounce
+    debouncedFetchSuggestions(queryText);
   };
 
-  // Handle suggestion click to either navigate to user or filter posts
   const handleSuggestionClick = (suggestion) => {
     if (typeof suggestion === 'string' && suggestion.includes('View')) {
-      // Handle the post filtering suggestion
       const searchTerm = suggestion.replace('View ', '').replace(' Posts', '');
-      setFilterQuery(searchTerm);      // Set the filter query
-      navigate('/home');              // Ensure navigation to home page for filtering
+      setFilterQuery(searchTerm);
+      navigate('/home');
     } else if (suggestion.id) {
-      // Handle user profile navigation
       navigate(`/user/${suggestion.id}`);
     }
 
     setSearchQuery('');
-    setSuggestions([]); // Clear suggestions
+    setSuggestions([]);
   };
 
   return (
     <header>
       <nav className="navbar">
         <div className="navbar-logo">
-          <a href="/">SportSphere</a>
+          <a href="/">
+            <div className="logo-circle">
+              <span className="logo-text">SS</span>
+            </div>
+          </a>
         </div>
         <div className={`search-bar ${isFocused ? 'focused' : ''}`}>
           <i className="fas fa-search"></i>
@@ -86,10 +83,10 @@ export default function NavBar({ setFilterQuery }) {
             type="text"
             placeholder="Search hot takes"
             value={searchQuery}
-            onChange={handleInputChange} // Update search query and fetch suggestions
-            onKeyDown={handleSearch} // Handle "Enter" key search and navigate to home
+            onChange={handleInputChange}
+            onKeyDown={handleSearch}
             onFocus={() => setIsFocused(true)}
-            onBlur={() => setTimeout(() => setIsFocused(false), 100)} // Delay closing the suggestions
+            onBlur={() => setTimeout(() => setIsFocused(false), 100)}
           />
           {isFocused && suggestions.length > 0 && (
             <ul className="suggestions-list">

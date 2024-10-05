@@ -3,7 +3,7 @@ import './ProfilePage.css';
 import LeftColumn from './LeftColumn';
 import Post from './Post';
 import { db, auth } from '../firebase';
-import { doc, getDoc, query, where, collection, onSnapshot, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { doc, getDoc, query, where, collection, onSnapshot, updateDoc, arrayUnion, arrayRemove, runTransaction } from 'firebase/firestore';
 import { useParams, useNavigate } from 'react-router-dom';
 import NavBar from './navbar';
 
@@ -31,14 +31,6 @@ const UserProfilePage = () => {
     }
   };
 
-  // Function to refresh the user data after following/unfollowing
-  const refreshUserData = async () => {
-    const userDoc = await getDoc(doc(db, 'users', userId));
-    if (userDoc.exists()) {
-      setUser(userDoc.data());
-    }
-  };
-
   useEffect(() => {
     const unsubscribeAuth = auth.onAuthStateChanged(user => {
       if (user) {
@@ -54,57 +46,50 @@ const UserProfilePage = () => {
 
   useEffect(() => {
     if (currentUser) {
-      const fetchUserData = async () => {
-        try {
-          const userDoc = await getDoc(doc(db, 'users', userId));
-          if (userDoc.exists()) {
-            const profileUserData = userDoc.data();
-            setUser(profileUserData);
-  
-            const userFollowers = profileUserData.followers || [];
-            const isFollowingProfileUser = userFollowers.includes(currentUser.uid);
-            setIsFollowing(isFollowingProfileUser);
-  
-            const currentUserDoc = await getDoc(doc(db, 'users', currentUser.uid));
-            if (currentUserDoc.exists()) {
-              const currentUserData = currentUserDoc.data();
-              const currentUserFollowing = currentUserData.following || [];
-  
-              const isMutualFollower = isFollowingProfileUser && currentUserFollowing.includes(userId);
-              setIsMutual(isMutualFollower);
-            }
-          } else {
-            console.error('Profile user not found');
-          }
-        } catch (error) {
-          console.error('Error fetching user data:', error);
+      const userDocRef = doc(db, 'users', userId);
+
+      // Listen to real-time updates on the profile user's data
+      const unsubscribe = onSnapshot(userDocRef, (docSnapshot) => {
+        if (docSnapshot.exists()) {
+          const profileUserData = docSnapshot.data();
+          setUser(profileUserData);
+
+          const isFollowingProfileUser = profileUserData.followers?.includes(currentUser.uid);
+          setIsFollowing(isFollowingProfileUser);
+
+          // Check if it's a mutual follow
+          setIsMutual(profileUserData.following?.includes(currentUser.uid));
+        } else {
+          console.error('Profile user not found');
         }
-      };
-  
+      });
+
       const fetchPosts = () => {
         const postsQuery = query(
           collection(db, 'posts'),
           where('userid', '==', userId)
         );
-  
-        const unsubscribe = onSnapshot(postsQuery, (snapshot) => {
+
+        const unsubscribePosts = onSnapshot(postsQuery, (snapshot) => {
           const userPosts = snapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
           }));
-  
+
           const sortedPosts = userPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
           setPosts(sortedPosts);
           setLoading(false);
         });
-  
-        return unsubscribe;
+
+        return unsubscribePosts;
       };
-  
-      fetchUserData();
+
       const unsubscribePosts = fetchPosts();
-  
-      return () => unsubscribePosts();
+
+      return () => {
+        unsubscribe();
+        unsubscribePosts();
+      };
     }
   }, [userId, currentUser]);
 
@@ -112,24 +97,41 @@ const UserProfilePage = () => {
     if (!currentUser || !user) return;
 
     try {
-      const currentUserRef = doc(db, 'users', currentUser.uid);
-      const profileUserRef = doc(db, 'users', userId);
+      // Use a transaction to ensure both users are updated atomically
+      await runTransaction(db, async (transaction) => {
+        const currentUserRef = doc(db, 'users', currentUser.uid);
+        const profileUserRef = doc(db, 'users', userId);
 
-      await updateDoc(profileUserRef, {
-        followers: arrayUnion(currentUser.uid),
+        // Fetch user documents in the transaction
+        const currentUserDoc = await transaction.get(currentUserRef);
+        const profileUserDoc = await transaction.get(profileUserRef);
+
+        if (!currentUserDoc.exists() || !profileUserDoc.exists()) {
+          throw new Error('One of the users does not exist.');
+        }
+
+        // Update followers and following arrays
+        transaction.update(profileUserRef, {
+          followers: arrayUnion(currentUser.uid),
+        });
+
+        transaction.update(currentUserRef, {
+          following: arrayUnion(userId),
+        });
       });
 
-      await updateDoc(currentUserRef, {
-        following: arrayUnion(userId),
-      });
-
+      // Optimistic update on local state
       setIsFollowing(true);
       setUser((prevUser) => ({
         ...prevUser,
         followers: [...(prevUser.followers || []), currentUser.uid],
       }));
 
-      setIsMutual(true);
+      // Check for mutual following status
+      setIsMutual((prevIsMutual) => {
+        const currentUserFollowing = currentUser?.following || [];
+        return prevIsMutual || currentUserFollowing.includes(userId);
+      });
     } catch (error) {
       console.error('Error following user:', error);
     }
@@ -139,25 +141,37 @@ const UserProfilePage = () => {
     if (!currentUser || !user) return;
 
     try {
-      const currentUserRef = doc(db, 'users', currentUser.uid);
-      const profileUserRef = doc(db, 'users', userId);
+      // Use a transaction to ensure both users are updated atomically
+      await runTransaction(db, async (transaction) => {
+        const currentUserRef = doc(db, 'users', currentUser.uid);
+        const profileUserRef = doc(db, 'users', userId);
 
-      await updateDoc(profileUserRef, {
-        followers: arrayRemove(currentUser.uid),
+        // Fetch user documents in the transaction
+        const currentUserDoc = await transaction.get(currentUserRef);
+        const profileUserDoc = await transaction.get(profileUserRef);
+
+        if (!currentUserDoc.exists() || !profileUserDoc.exists()) {
+          throw new Error('One of the users does not exist.');
+        }
+
+        // Update followers and following arrays
+        transaction.update(profileUserRef, {
+          followers: arrayRemove(currentUser.uid),
+        });
+
+        transaction.update(currentUserRef, {
+          following: arrayRemove(userId),
+        });
       });
 
-      await updateDoc(currentUserRef, {
-        following: arrayRemove(userId),
-      });
-
+      // Optimistic update on local state
       setIsFollowing(false);
-      refreshUserData();
-
       setUser((prevUser) => ({
         ...prevUser,
         followers: prevUser.followers.filter((followerId) => followerId !== currentUser.uid),
       }));
 
+      // Set mutual follow to false
       setIsMutual(false);
     } catch (error) {
       console.error('Error unfollowing user:', error);
@@ -199,9 +213,6 @@ const UserProfilePage = () => {
                   <button onClick={unfollowUser} className="unfollow-button">Unfollow</button>
                 ) : (
                   <button onClick={followUser} className="follow-button">Follow</button>
-                )}
-                {isMutual && (
-                  <button onClick={messageUser} className="following-button">Message</button>
                 )}
               </div>
             </div>

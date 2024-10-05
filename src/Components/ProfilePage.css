@@ -10,7 +10,7 @@
 
 /* Uneditable Username */
 .uneditable-username {
-  color: #F1F1F2; /* Light gray text */
+  color: #9AA0A6; /* Light gray text */
   font-size: 16px; /* Slightly larger font */
   margin-top: 15px;
 }
@@ -41,6 +41,7 @@
   background-color: #00B4D8; /* Consistent blue theme */
   color: white;
   border: none;
+  margin-right: 5px;
   padding: 12px 25px; /* Slightly larger padding */
   border-radius: 30px;
   font-size: 16px;
@@ -52,6 +53,7 @@
 .follow-button:hover {
   background-color: #015565; /* Neon green on hover */
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+
 }
 
 .unfollow-button {
@@ -159,23 +161,25 @@
 /* Profile Information */
 .profile-info {
   color: #F1F1F2;
-  padding-left: 12px;
-  margin-top: 25px;
+  padding-left: 10px;
+  margin-top: 20px;
 }
 
 .profile-info h2 {
-  font-size: 34px; /* Increased size for name */
+  font-size: 30px; /* Increased size for name */
   margin: 0;
   color: #00B4D8;
+  margin-top: -5px;
 }
 
 .username, .bio, .joined {
   color: #9AA0A6; /* Softer gray for secondary text */
+  
 }
 
 .bio {
   font-size: 18px;
-  margin-top: 12px;
+  margin-top: 8px;
 }
 
 /* Profile Posts */
@@ -239,7 +243,8 @@
   color: white;
   border: none;
   border-radius: 30px;
-  padding: 10px 20px;
+  margin-top:7px;
+  padding: 8px 15px;
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
@@ -252,6 +257,9 @@
 
 .save-button {
   background-color: #00B4D8;
+  margin-right: 5px;
+  font-size: 12px;
+
 }
 
 .save-button:hover {
@@ -260,6 +268,7 @@
 
 .cancel-button {
   background-color: #E0245E;
+  font-size: 12px;
 }
 
 .cancel-button:hover {
@@ -272,8 +281,8 @@
   color: white;
   border: none;
   border-radius: 5px;
-  margin-right: 1px;
-  font-size: 10px;
+  margin-right: -1px;
+  font-size: 8px;
   padding: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -282,6 +291,11 @@
 .name-button:hover, .edit-button:hover {
   background-color: #015565; /* Consistent hover */
 }
+.name-button{
+  margin-left: 5px;
+ 
+}
+
 
 /* Name Section */
 .name-section, .name-edit {

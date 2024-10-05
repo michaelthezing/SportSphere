@@ -289,7 +289,7 @@ const addComment = async () => {
                       <i className="fas fa-trash-alt deleteCommentIcon" onClick={() => deleteComment(comment.id)}></i>
                     )}
                   </div>
-                  <span className="commentText">{comment.text}</span>
+                  <div className="commentText">{comment.text}</div>
                   <div className="commentActions">
                     <span className="likeText" onClick={() => likeComment(comment.id)}>
                       <i className="fas fa-thumbs-up"></i> {comment.like}
