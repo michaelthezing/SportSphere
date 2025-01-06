@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import './LeftColumn.css';
 import { auth, db } from '../firebase';
-import { doc, getDoc, setDoc, collection, addDoc} from 'firebase/firestore';
+import { doc, getDoc, setDoc, collection, addDoc } from 'firebase/firestore';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBasketballBall, faFootballBall, faBaseballBall, faHockeyPuck, faChevronDown, faChevronRight, faUser } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBasketballBall,
+  faFootballBall,
+  faBaseballBall,
+  faHockeyPuck,
+  faChevronDown,
+  faChevronRight,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 
 export default function LeftColumn({ setFilterQuery }) {
   const [username, setUsername] = useState('');
@@ -15,43 +23,44 @@ export default function LeftColumn({ setFilterQuery }) {
   const [expandMenu, setExpandMenu] = useState(false);
   const currentUser = auth.currentUser;
 
-  // Handle thread click (create thread if not exist, fetch if exists)
-  const handleNameClick = async (name) => {
+  // Creates or fetches a thread for a given name (team or player)
+  const handleNameClick = async (threadName) => {
     try {
-      const threadRef = doc(db, 'threads', name); // Reference to the thread document
+      const threadRef = doc(db, 'threads', threadName);
       const threadSnap = await getDoc(threadRef);
-  
+
       if (threadSnap.exists()) {
-        const threadData = threadSnap.data();
-        setFilterQuery(threadData); // Update the filter query in the MiddleColumn with the thread data
+        // If thread exists, just update the MiddleColumn filter
+        setFilterQuery(threadSnap.data());
       } else {
-        // If the thread doesn't exist, create it with a default structure
+        // Create a new thread doc
         await setDoc(threadRef, {
-          name: name,
-          description: `Discussion about ${name}`, // Default description
+          name: threadName,
+          description: `Discussion about ${threadName}`,
           createdAt: new Date(),
         });
-        console.log(`Thread ${name} created successfully.`);
-  
-        // Optionally initialize the posts subcollection for the new thread
-        const postsCollectionRef = collection(db, `threads/${name}/posts`);
+        console.log(`Thread '${threadName}' created successfully.`);
+
+        // Initialize the posts subcollection for the new thread with a welcome message
+        const postsCollectionRef = collection(db, `threads/${threadName}/posts`);
         await addDoc(postsCollectionRef, {
-          content: 'Welcome to the discussion about ' + name,
-          username: 'System', // Placeholder username or system message
+          content: `Welcome to the discussion about ${threadName}`,
+          username: 'System', // Could be replaced with admin or official handle
           date: new Date().toISOString(),
           like: 0,
           dislike: 0,
-          thread: name,
+          thread: threadName,
         });
-  
-        setFilterQuery({ name: name, description: `Discussion about ${name}` });
+
+        // Update MiddleColumn
+        setFilterQuery({ name: threadName, description: `Discussion about ${threadName}` });
       }
     } catch (error) {
       console.error('Error fetching or creating thread:', error);
     }
   };
-  
 
+  // Fetch user profile
   useEffect(() => {
     if (auth.currentUser) {
       const fetchUserProfile = async () => {
@@ -81,7 +90,7 @@ export default function LeftColumn({ setFilterQuery }) {
     'Los Angeles Lakers', 'Memphis Grizzlies', 'Miami Heat', 'Milwaukee Bucks',
     'Minnesota Timberwolves', 'New Orleans Pelicans', 'New York Knicks', 'Oklahoma City Thunder',
     'Orlando Magic', 'Philadelphia 76ers', 'Phoenix Suns', 'Portland Trail Blazers',
-    'Sacramento Kings', 'San Antonio Spurs', 'Toronto Raptors', 'Utah Jazz', 'Washington Wizards'
+    'Sacramento Kings', 'San Antonio Spurs', 'Toronto Raptors', 'Utah Jazz', 'Washington Wizards',
   ];
 
   // NFL Teams
@@ -93,7 +102,7 @@ export default function LeftColumn({ setFilterQuery }) {
     'Miami Dolphins', 'Minnesota Vikings', 'New England Patriots', 'New Orleans Saints',
     'New York Giants', 'New York Jets', 'Philadelphia Eagles', 'Pittsburgh Steelers',
     'San Francisco 49ers', 'Seattle Seahawks', 'Tampa Bay Buccaneers', 'Tennessee Titans',
-    'Washington Commanders'
+    'Washington Commanders',
   ];
 
   // MLB Teams
@@ -104,7 +113,7 @@ export default function LeftColumn({ setFilterQuery }) {
     'Los Angeles Dodgers', 'Miami Marlins', 'Milwaukee Brewers', 'Minnesota Twins',
     'New York Mets', 'New York Yankees', 'Oakland Athletics', 'Philadelphia Phillies',
     'Pittsburgh Pirates', 'San Diego Padres', 'San Francisco Giants', 'Seattle Mariners',
-    'St. Louis Cardinals', 'Tampa Bay Rays', 'Texas Rangers', 'Toronto Blue Jays', 'Washington Nationals'
+    'St. Louis Cardinals', 'Tampa Bay Rays', 'Texas Rangers', 'Toronto Blue Jays', 'Washington Nationals',
   ];
 
   // NHL Teams
@@ -116,25 +125,25 @@ export default function LeftColumn({ setFilterQuery }) {
     'New York Islanders', 'New York Rangers', 'Ottawa Senators', 'Philadelphia Flyers',
     'Pittsburgh Penguins', 'San Jose Sharks', 'Seattle Kraken', 'St. Louis Blues',
     'Tampa Bay Lightning', 'Toronto Maple Leafs', 'Vancouver Canucks', 'Vegas Golden Knights',
-    'Washington Capitals', 'Winnipeg Jets'
+    'Washington Capitals', 'Winnipeg Jets',
   ];
 
   // Notable Players
   const nbaPlayers = [
     'LeBron James', 'Stephen Curry', 'Kevin Durant', 'Giannis Antetokounmpo',
-    'Luka Dončić', 'James Harden', 'Kawhi Leonard', 'Joel Embiid'
+    'Luka Dončić', 'James Harden', 'Kawhi Leonard', 'Joel Embiid',
   ];
   const nflPlayers = [
     'Tom Brady', 'Patrick Mahomes', 'Aaron Rodgers', 'Lamar Jackson',
-    'Derrick Henry', 'Tyreek Hill', 'Travis Kelce', 'Aaron Donald'
+    'Derrick Henry', 'Tyreek Hill', 'Travis Kelce', 'Aaron Donald',
   ];
   const mlbPlayers = [
     'Mike Trout', 'Mookie Betts', 'Aaron Judge', 'Bryce Harper',
-    'Shohei Ohtani', 'Freddie Freeman', 'Fernando Tatis Jr.', 'Jacob deGrom'
+    'Shohei Ohtani', 'Freddie Freeman', 'Fernando Tatis Jr.', 'Jacob deGrom',
   ];
   const nhlPlayers = [
     'Sidney Crosby', 'Alex Ovechkin', 'Connor McDavid', 'Patrick Kane',
-    'Nathan MacKinnon', 'Auston Matthews', 'Leon Draisaitl', 'Carey Price'
+    'Nathan MacKinnon', 'Auston Matthews', 'Leon Draisaitl', 'Carey Price',
   ];
 
   return (
@@ -157,7 +166,10 @@ export default function LeftColumn({ setFilterQuery }) {
             <li className="menuItem" onClick={() => setExpandNBA(!expandNBA)}>
               <a href="#">
                 <FontAwesomeIcon icon={faBasketballBall} /> NBA
-                <FontAwesomeIcon icon={expandNBA ? faChevronDown : faChevronRight} className="chevron-icon" />
+                <FontAwesomeIcon
+                  icon={expandNBA ? faChevronDown : faChevronRight}
+                  className="chevron-icon"
+                />
               </a>
             </li>
             {expandNBA && (
@@ -165,7 +177,9 @@ export default function LeftColumn({ setFilterQuery }) {
                 <li className="subMenuTitle">Teams</li>
                 {nbaTeams.map((team, index) => (
                   <li key={index} className="subMenuItem">
-                    <a href="#" onClick={() => handleNameClick(team)}>{team}</a>
+                    <a href="#" onClick={() => handleNameClick(team)}>
+                      {team}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -175,7 +189,10 @@ export default function LeftColumn({ setFilterQuery }) {
             <li className="menuItem" onClick={() => setExpandNFL(!expandNFL)}>
               <a href="#">
                 <FontAwesomeIcon icon={faFootballBall} /> NFL
-                <FontAwesomeIcon icon={expandNFL ? faChevronDown : faChevronRight} className="chevron-icon" />
+                <FontAwesomeIcon
+                  icon={expandNFL ? faChevronDown : faChevronRight}
+                  className="chevron-icon"
+                />
               </a>
             </li>
             {expandNFL && (
@@ -183,7 +200,9 @@ export default function LeftColumn({ setFilterQuery }) {
                 <li className="subMenuTitle">Teams</li>
                 {nflTeams.map((team, index) => (
                   <li key={index} className="subMenuItem">
-                    <a href="#" onClick={() => handleNameClick(team)}>{team}</a>
+                    <a href="#" onClick={() => handleNameClick(team)}>
+                      {team}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -193,7 +212,10 @@ export default function LeftColumn({ setFilterQuery }) {
             <li className="menuItem" onClick={() => setExpandMLB(!expandMLB)}>
               <a href="#">
                 <FontAwesomeIcon icon={faBaseballBall} /> MLB
-                <FontAwesomeIcon icon={expandMLB ? faChevronDown : faChevronRight} className="chevron-icon" />
+                <FontAwesomeIcon
+                  icon={expandMLB ? faChevronDown : faChevronRight}
+                  className="chevron-icon"
+                />
               </a>
             </li>
             {expandMLB && (
@@ -201,7 +223,9 @@ export default function LeftColumn({ setFilterQuery }) {
                 <li className="subMenuTitle">Teams</li>
                 {mlbTeams.map((team, index) => (
                   <li key={index} className="subMenuItem">
-                    <a href="#" onClick={() => handleNameClick(team)}>{team}</a>
+                    <a href="#" onClick={() => handleNameClick(team)}>
+                      {team}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -211,7 +235,10 @@ export default function LeftColumn({ setFilterQuery }) {
             <li className="menuItem" onClick={() => setExpandNHL(!expandNHL)}>
               <a href="#">
                 <FontAwesomeIcon icon={faHockeyPuck} /> NHL
-                <FontAwesomeIcon icon={expandNHL ? faChevronDown : faChevronRight} className="chevron-icon" />
+                <FontAwesomeIcon
+                  icon={expandNHL ? faChevronDown : faChevronRight}
+                  className="chevron-icon"
+                />
               </a>
             </li>
             {expandNHL && (
@@ -219,7 +246,9 @@ export default function LeftColumn({ setFilterQuery }) {
                 <li className="subMenuTitle">Teams</li>
                 {nhlTeams.map((team, index) => (
                   <li key={index} className="subMenuItem">
-                    <a href="#" onClick={() => handleNameClick(team)}>{team}</a>
+                    <a href="#" onClick={() => handleNameClick(team)}>
+                      {team}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -234,7 +263,9 @@ export default function LeftColumn({ setFilterQuery }) {
               {nbaPlayers.map((player, index) => (
                 <div key={index} className="playerItem">
                   <FontAwesomeIcon icon={faUser} className="playerIcon" />
-                  <a href="#" onClick={() => handleNameClick(player)}>{player}</a>
+                  <a href="#" onClick={() => handleNameClick(player)}>
+                    {player}
+                  </a>
                 </div>
               ))}
             </div>
@@ -246,7 +277,9 @@ export default function LeftColumn({ setFilterQuery }) {
               {nflPlayers.map((player, index) => (
                 <div key={index} className="playerItem">
                   <FontAwesomeIcon icon={faUser} className="playerIcon" />
-                  <a href="#" onClick={() => handleNameClick(player)}>{player}</a>
+                  <a href="#" onClick={() => handleNameClick(player)}>
+                    {player}
+                  </a>
                 </div>
               ))}
             </div>
@@ -258,7 +291,9 @@ export default function LeftColumn({ setFilterQuery }) {
               {mlbPlayers.map((player, index) => (
                 <div key={index} className="playerItem">
                   <FontAwesomeIcon icon={faUser} className="playerIcon" />
-                  <a href="#" onClick={() => handleNameClick(player)}>{player}</a>
+                  <a href="#" onClick={() => handleNameClick(player)}>
+                    {player}
+                  </a>
                 </div>
               ))}
             </div>
@@ -270,7 +305,9 @@ export default function LeftColumn({ setFilterQuery }) {
               {nhlPlayers.map((player, index) => (
                 <div key={index} className="playerItem">
                   <FontAwesomeIcon icon={faUser} className="playerIcon" />
-                  <a href="#" onClick={() => handleNameClick(player)}>{player}</a>
+                  <a href="#" onClick={() => handleNameClick(player)}>
+                    {player}
+                  </a>
                 </div>
               ))}
             </div>

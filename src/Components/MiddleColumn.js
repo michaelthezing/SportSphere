@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import './MiddleColumn.css';
 import Post from './Post';
-import { db, auth } from '../firebase'; // Firebase Firestore and Auth
-import { collection, addDoc, query, onSnapshot, doc, getDoc, orderBy, where } from 'firebase/firestore';
+import { db, auth } from '../firebase';
+import {
+  collection,
+  addDoc,
+  query,
+  onSnapshot,
+  doc,
+  getDoc,
+  orderBy,
+  where,
+} from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 
 export default function MiddleColumn({ filterQuery }) {
@@ -14,9 +23,13 @@ export default function MiddleColumn({ filterQuery }) {
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
   const [tab, setTab] = useState('all');
-  const [currentThread, setCurrentThread] = useState('main'); // State to track the active thread
+
+  // Track which thread is currently selected.
+  // Default is 'main' to show everything unless a user clicks on a team/player
+  const [currentThread, setCurrentThread] = useState('main');
 
   useEffect(() => {
+    // Auth state listener
     const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setCurrentUser(user);
@@ -27,7 +40,6 @@ export default function MiddleColumn({ filterQuery }) {
         setUsername('');
       }
     });
-
     return () => unsubscribeAuth();
   }, []);
 
@@ -37,38 +49,30 @@ export default function MiddleColumn({ filterQuery }) {
       if (userDoc.exists()) {
         setUsername(userDoc.data().username);
       } else {
-        console.error("No such document!");
+        console.error('No user document found!');
       }
     } catch (error) {
-      console.error("Error fetching username: ", error);
+      console.error('Error fetching username: ', error);
     }
   };
 
+  // Fetch all posts (ordered by most recent)
   useEffect(() => {
-    const fetchPosts = () => {
-      const postsQuery = query(
-        collection(db, 'posts'),
-        orderBy('date', 'desc')
-      );
+    const postsQuery = query(collection(db, 'posts'), orderBy('date', 'desc'));
 
-      const unsubscribe = onSnapshot(postsQuery, (snapshot) => {
-        const allPosts = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+    const unsubscribe = onSnapshot(postsQuery, (snapshot) => {
+      const allPosts = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setPosts(allPosts);
+      setLoading(false);
+    });
 
-        setPosts(allPosts);
-        setLoading(false);
-      });
-
-      return unsubscribe;
-    };
-
-    const unsubscribePosts = fetchPosts();
-
-    return () => unsubscribePosts();
+    return () => unsubscribe();
   }, []);
 
+  // Fetch posts from followed users
   const fetchFollowingPosts = async (uid) => {
     try {
       const userDoc = await getDoc(doc(db, 'users', uid));
@@ -87,7 +91,6 @@ export default function MiddleColumn({ filterQuery }) {
               id: doc.id,
               ...doc.data(),
             }));
-
             setFollowingPosts(followingPosts);
           });
 
@@ -101,7 +104,15 @@ export default function MiddleColumn({ filterQuery }) {
     }
   };
 
-  const handlePostSubmit = async (thread = 'main') => {
+  // Whenever filterQuery changes, if it has a 'name', update currentThread
+  useEffect(() => {
+    if (filterQuery && filterQuery.name) {
+      setCurrentThread(filterQuery.name);
+    }
+  }, [filterQuery]);
+
+  // Submit new post to the currentThread
+  const handlePostSubmit = async (thread = currentThread) => {
     if (inputValue.trim() !== '' && currentUser && username) {
       try {
         await addDoc(collection(db, 'posts'), {
@@ -129,32 +140,37 @@ export default function MiddleColumn({ filterQuery }) {
     }
   };
 
+  // Filter which posts to show
   const renderPosts = () => {
     let filteredPosts = posts;
 
-    if (filterQuery || currentThread !== 'main') {
-      const searchTerms = filterQuery ? filterQuery.toLowerCase().split(' ') : [];
-      filteredPosts = filteredPosts.filter((post) => {
-        const postContent = post.content.toLowerCase();
-        const isInThread = post.thread === currentThread;
-        const matchesQuery = searchTerms.length === 0|| searchTerms.some((term) => postContent.includes(term));
-        return isInThread && matchesQuery;
-      });
+    // If we're in a specific thread (not 'main'), show only those posts
+    if (currentThread !== 'main') {
+      filteredPosts = filteredPosts.filter((post) => post.thread === currentThread);
     }
 
+    // If user clicked on a name and we want to do text-based search,
+    // you could also incorporate that here. Right now, we only rely on thread matching.
+
+    // If 'following' tab is selected, show only followingPosts. (Optional logic)
     if (tab === 'all') {
       return filteredPosts.map((post) => <Post key={post.id} post={post} />);
     } else if (tab === 'following') {
-      return followingPosts.length > 0
-        ? followingPosts.map((post) => <Post key={post.id} post={post} />)
-        : <p>No posts from followed users</p>;
+      // Filter following posts by the same thread
+      return followingPosts
+        .filter((post) => currentThread === 'main' || post.thread === currentThread)
+        .map((post) => <Post key={post.id} post={post} />);
     }
   };
 
+  // Switch tabs between "All" and "Following"
   const handleTabSwitch = (selectedTab) => {
     setTab(selectedTab);
+
+    // If switching back to "All," you might want to reset thread to 'main'
+    // That way, users see all posts again
     if (selectedTab === 'all') {
-      setCurrentThread('main'); // Reset thread when switching to "All"
+      setCurrentThread('main');
     }
   };
 
@@ -190,12 +206,13 @@ export default function MiddleColumn({ filterQuery }) {
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
         />
-        <i className="fas fa-paper-plane sendIcon" onClick={handlePostSubmit}></i>
+        <i
+          className="fas fa-paper-plane sendIcon"
+          onClick={() => handlePostSubmit(currentThread)}
+        />
       </div>
 
-      <div className="postList">
-        {renderPosts()}
-      </div>
+      <div className="postList">{renderPosts()}</div>
     </div>
   );
 }
